@@ -1,0 +1,41 @@
+/* ============================================================
+   tokens.css — B Bright Tech Hub design tokens
+   Single source of truth for color, spacing, radii, shadows.
+   Every component should reference these vars, never hardcode hex.
+   ============================================================ */
+
+:root {
+  /* ---- Color palette ---- */
+  --clr-bg:       #f4f9f8; /* page background */
+  --clr-teal:     #1a5c54; /* primary (deep teal) */
+  --clr-teal-md:  #378f84; /* mid teal */
+  --clr-teal-lt:  #e6f4f2; /* teal tint */
+  --clr-gold:     #c9913a; /* gold accent */
+  --clr-gold-lt:  #fdf3e3; /* gold tint */
+  --clr-slate:    #4a6370; /* body text */
+  --clr-mist:     #aac2c5; /* borders */
+  --clr-dark:     #0d2926; /* near-black */
+  --clr-white:    #ffffff;
+
+  /* dark-section background (hero, how-it-works, testimonials, footer) */
+  --clr-space:    #040d12;
+  --clr-footer-bg: #020a08;
+
+  /* accent used on dark backgrounds (brighter teal) */
+  --clr-teal-bright: #5ecec4;
+
+  /* ---- Layout ---- */
+  --nav-height: 72px;
+  --ease: 0.26s ease;
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 1px 12px rgba(26, 92, 84, 0.10);
+  --shadow-md: 0 4px 28px rgba(26, 92, 84, 0.16);
+  --shadow-lg: 0 8px 40px rgba(26, 92, 84, 0.22);
+
+  /* ---- Radii ---- */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-pill: 100px;
+}

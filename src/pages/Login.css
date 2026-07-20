@@ -1,0 +1,59 @@
+.login-page {
+  min-height: 100vh;
+  background: #040d12;
+  display: flex;
+  align-items: stretch;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ---- Home icon ---- */
+
+.home-icon {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 100;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(8px);
+  font-size: 0.95rem;
+  transition: color var(--ease), background var(--ease), border-color var(--ease), transform var(--ease);
+}
+
+.home-icon:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(94,206,196,0.4);
+  transform: scale(1.06);
+}
+
+/* ---- Two-panel layout ---- */
+
+.login-wrap {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 900px) {
+  .login-wrap {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .home-icon { top: 1rem; left: 1rem; }
+}

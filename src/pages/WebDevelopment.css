@@ -1,0 +1,124 @@
+/* ============================================================
+   WebDevelopment.css — page-specific styling layer
+   Loaded on top of ServicePage.css. Signature: a browser-window
+   hero frame and code-editor style file tabs, echoing the tools
+   students actually use in this course.
+   ============================================================ */
+
+/* ---- Hero: browser window instead of design artboard ---- */
+
+.webdev-browser {
+  width: 100%;
+  max-width: 340px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--clr-white);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.webdev-browser__titlebar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 12px;
+  background: var(--clr-dark);
+}
+
+.webdev-browser__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.webdev-browser__dot--red { background: #e5645a; }
+.webdev-browser__dot--amber { background: #e6b450; }
+.webdev-browser__dot--green { background: var(--clr-teal-bright); }
+
+.webdev-browser__address {
+  margin-left: 8px;
+  flex: 1;
+  font-family: Consolas, Menlo, 'Liberation Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.28rem 0.6rem;
+  border-radius: 5px;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+.webdev-browser__body {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.webdev-browser__body img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---- Tabs: code-editor file tabs instead of segmented pill ---- */
+
+.webdev-page .services-tabs {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  gap: 0;
+  border-bottom: 1px solid rgba(170, 194, 197, 0.4);
+  margin-bottom: 2.75rem;
+  justify-content: flex-start;
+}
+
+.webdev-page .services-tab {
+  flex: none;
+  font-family: Consolas, Menlo, 'Liberation Mono', monospace;
+  font-size: 0.8rem;
+  border-radius: 8px 8px 0 0;
+  background: var(--clr-teal-lt);
+  color: var(--clr-slate);
+  padding: 0.65rem 1.15rem;
+  margin-right: 3px;
+  border: 1px solid rgba(170, 194, 197, 0.4);
+  border-bottom: none;
+  position: relative;
+  top: 1px;
+}
+
+.webdev-page .services-tab:hover {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--clr-teal);
+}
+
+.webdev-page #tab-overview:checked ~ .services-tabs label[for="tab-overview"],
+.webdev-page #tab-outcomes:checked ~ .services-tabs label[for="tab-outcomes"],
+.webdev-page #tab-faqs:checked ~ .services-tabs label[for="tab-faqs"] {
+  background: var(--clr-white);
+  color: var(--clr-teal);
+  border-color: rgba(170, 194, 197, 0.4);
+  box-shadow: none;
+}
+
+/* ---- Outcome tags styled like terminal chips ---- */
+
+.webdev-page .services-outcome-tag {
+  font-family: Consolas, Menlo, 'Liberation Mono', monospace;
+  background: var(--clr-dark);
+  color: var(--clr-teal-bright);
+  border-radius: 4px;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 560px) {
+  .webdev-page .services-tab {
+    padding: 0.55rem 0.7rem;
+    font-size: 0.72rem;
+  }
+  .webdev-page .services-tab span {
+    display: none;
+  }
+}

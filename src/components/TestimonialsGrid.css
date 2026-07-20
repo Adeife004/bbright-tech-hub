@@ -1,0 +1,123 @@
+.testi-grid-section {
+  padding: 80px 5%;
+  background: #f8fafa;
+}
+
+.testi-grid {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---- Card ---- */
+
+.testi-card {
+  flex: 1;
+  min-width: 280px;
+  max-width: 380px;
+  background: #fff;
+  border: 1px solid #d7e5e5;
+  border-radius: 24px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: testiCardIn 0.5s ease both;
+}
+
+@keyframes testiCardIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.testi-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+/* ---- Quote icon ---- */
+
+.testi-card__quote-icon {
+  font-size: 2.8rem;
+  color: #3eb8ab;
+  margin-bottom: 18px;
+  line-height: 1;
+}
+
+/* ---- Quote text ---- */
+
+.testi-card__text {
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: #4b5563;
+  flex-grow: 1;
+  margin-bottom: 28px;
+}
+
+/* ---- User row ---- */
+
+.testi-card__user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(170,194,197,0.3);
+}
+
+.testi-card__avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #3eb8ab;
+  flex-shrink: 0;
+}
+
+.testi-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.testi-card__name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0d1b2a;
+}
+
+.testi-card__role {
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+/* ---- Star rating ---- */
+
+.testi-card__rating {
+  display: flex;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.testi-card__rating i {
+  font-size: 0.82rem;
+}
+
+.star--filled { color: #3eb8ab; }
+.star--empty  { color: rgba(170,194,197,0.45); }
+
+/* ---- Responsive ---- */
+
+@media (max-width: 992px) {
+  .testi-grid { flex-direction: column; align-items: center; }
+  .testi-card { max-width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .testi-grid-section { padding: 60px 5%; }
+  .testi-card { padding: 25px; }
+}

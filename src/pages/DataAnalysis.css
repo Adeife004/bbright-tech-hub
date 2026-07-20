@@ -1,0 +1,161 @@
+/* ============================================================
+   DataAnalysis.css — page-specific styling layer
+   Loaded on top of ServicePage.css. Signature: a dashboard-style
+   hero (graph grid, KPI badge, sparkline) with a gold accent,
+   echoing charts/insights rather than design or code tools.
+   ============================================================ */
+
+/* ---- Hero: dashboard card instead of artboard/browser ---- */
+
+.data-dashboard {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  padding: 20px;
+}
+
+.data-dashboard__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(94, 206, 196, 0.14) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(90deg, rgba(94, 206, 196, 0.14) 0 1px, transparent 1px 26px);
+  border-radius: 14px;
+}
+
+.data-dashboard__shape {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  background: var(--clr-teal-lt);
+}
+
+.data-dashboard__shape img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.data-dashboard__badge-top {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--clr-space);
+  background: var(--clr-teal-bright);
+  padding: 0.28rem 0.6rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.data-dashboard__badge-top svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.data-dashboard__badge-stat {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--clr-space);
+  background: var(--clr-gold);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(201, 145, 58, 0.4);
+  z-index: 2;
+}
+
+.data-dashboard__sparkline {
+  position: absolute;
+  bottom: -14px;
+  left: 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  background: var(--clr-white);
+  padding: 7px 9px;
+  border-radius: 7px;
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+}
+
+.data-dashboard__sparkline span {
+  display: block;
+  width: 4px;
+  background: var(--clr-teal-md);
+  border-radius: 2px;
+}
+
+/* ---- Tabs: gold filter chips instead of pill/editor tabs ---- */
+
+.data-page .services-tabs {
+  background: transparent;
+  padding: 0;
+  gap: 0.5rem;
+  border-bottom: none;
+  margin-bottom: 2.75rem;
+  flex-wrap: wrap;
+}
+
+.data-page .services-tab {
+  flex: none;
+  border: 1.5px solid rgba(201, 145, 58, 0.35);
+  border-radius: var(--r-pill);
+  background: var(--clr-white);
+  color: var(--clr-slate);
+  padding: 0.55rem 1.1rem;
+  font-size: 0.82rem;
+}
+
+.data-page .services-tab:hover {
+  border-color: var(--clr-gold);
+  background: var(--clr-gold-lt);
+  color: var(--clr-dark);
+}
+
+.data-page #tab-overview:checked ~ .services-tabs label[for="tab-overview"],
+.data-page #tab-outcomes:checked ~ .services-tabs label[for="tab-outcomes"],
+.data-page #tab-faqs:checked ~ .services-tabs label[for="tab-faqs"] {
+  background: var(--clr-gold);
+  border-color: var(--clr-gold);
+  color: var(--clr-space);
+  box-shadow: none;
+}
+
+/* ---- Outcome tags recolored gold ---- */
+
+.data-page .services-outcome-tag {
+  background: var(--clr-gold-lt);
+  color: var(--clr-gold);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 860px) {
+  .data-dashboard__sparkline { left: 50%; transform: translateX(-50%); bottom: -16px; }
+}
+
+@media (max-width: 560px) {
+  .data-page .services-tab {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.76rem;
+  }
+}

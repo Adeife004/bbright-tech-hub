@@ -1,0 +1,90 @@
+.apply-progress { margin-bottom: 2rem; }
+
+.apply-progress__steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.apply-progress__row {
+  display: contents;
+}
+
+.apply-progress__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.apply-progress__circle {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  backdrop-filter: blur(8px);
+  transition: background var(--ease), border-color var(--ease), color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+.apply-progress__label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.4);
+  white-space: nowrap;
+  transition: color var(--ease);
+}
+
+.apply-progress__line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255,255,255,0.12);
+  margin-top: 18px;
+  position: relative;
+  overflow: hidden;
+  align-self: flex-start;
+}
+
+.apply-progress__line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #5ecec4, #f0c068);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.apply-progress__line.filled::after { transform: scaleX(1); }
+
+/* Active step */
+.apply-progress__step.active .apply-progress__circle {
+  background: linear-gradient(135deg, #378f84, #1a5c54);
+  border-color: #5ecec4;
+  color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 0 0 5px rgba(94,206,196,0.15);
+}
+
+.apply-progress__step.active .apply-progress__label { color: #fff; }
+
+/* Done step */
+.apply-progress__step.done .apply-progress__circle {
+  background: var(--clr-teal-md);
+  border-color: var(--clr-teal-md);
+  color: #fff;
+}
+
+.apply-progress__step.done .apply-progress__label { color: rgba(255,255,255,0.7); }
+
+@media (max-width: 600px) {
+  .apply-progress__label { display: none; }
+  .apply-progress__circle { width: 32px; height: 32px; font-size: 0.75rem; }
+  .apply-progress__line { margin-top: 15px; }
+}

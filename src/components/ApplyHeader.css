@@ -1,0 +1,67 @@
+.apply-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: applyFadeInUp 0.7s ease both;
+}
+
+.apply-header__wordmark {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1.4rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  min-height: 1.5rem;
+}
+
+.apply-wordmark-type {
+  background: linear-gradient(135deg, #ffffff 0%, #5ecec4 60%, #f0c068 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.apply-wordmark-cursor {
+  color: #5ecec4;
+  font-weight: 300;
+  font-size: 1.35rem;
+  line-height: 1;
+  margin-left: 2px;
+  animation: applyCursorBlink 0.85s step-end infinite;
+}
+
+@keyframes applyCursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.apply-header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.8rem;
+  line-height: 1.1;
+}
+
+.apply-text-accent {
+  background: linear-gradient(135deg, #5ecec4 0%, #f0c068 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.apply-header p {
+  font-size: 1.02rem;
+  color: rgba(255,255,255,0.55);
+  max-width: 440px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@keyframes applyFadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

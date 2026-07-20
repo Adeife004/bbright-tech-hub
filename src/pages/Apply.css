@@ -1,0 +1,63 @@
+.apply-page {
+  min-height: 100vh;
+  background: #050b0a;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ---- Home icon ---- */
+
+.apply-home-icon {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 100;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  font-size: 0.95rem;
+  transition:
+    color var(--ease),
+    background var(--ease),
+    border-color var(--ease),
+    transform var(--ease);
+}
+
+.apply-home-icon:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(94,206,196,0.4);
+  transform: scale(1.06);
+}
+
+/* ---- Main content wrapper ---- */
+
+.apply-wrap {
+  position: relative;
+  z-index: 10;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 6.5rem 1.5rem 5rem;
+}
+
+/* ---- Shared fade-in keyframe (used by header, path selector, forms) ---- */
+
+@keyframes applyFadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 600px) {
+  .apply-wrap { padding: 5.5rem 1rem 3rem; }
+  .apply-home-icon { top: 1rem; left: 1rem; }
+}

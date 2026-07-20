@@ -1,0 +1,94 @@
+.filter-bar {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 50;
+  background: rgba(244,249,248,0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(170,194,197,0.35);
+  padding: 1.1rem 2rem;
+}
+
+.filter-bar__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-chip {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--clr-slate);
+  background: #fff;
+  border: 1.5px solid rgba(170,194,197,0.5);
+  border-radius: var(--r-pill);
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--ease), border-color var(--ease), color var(--ease);
+}
+
+.filter-chip:hover {
+  border-color: var(--clr-teal-md);
+  color: var(--clr-teal);
+}
+
+.filter-chip.active {
+  background: var(--clr-teal-md);
+  border-color: var(--clr-teal-md);
+  color: #fff;
+}
+
+.filter-select {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--clr-dark);
+  background: #fff;
+  border: 1.5px solid rgba(170,194,197,0.5);
+  border-radius: var(--r-md);
+  padding: 0.45rem 2rem 0.45rem 0.9rem;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a6370' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  transition: border-color var(--ease);
+}
+
+.filter-select:hover,
+.filter-select:focus {
+  border-color: var(--clr-teal-md);
+  outline: none;
+}
+
+.filter-results {
+  max-width: 1200px;
+  margin: 0.6rem auto 0;
+  font-size: 0.8rem;
+  color: var(--clr-mist);
+  font-weight: 500;
+}
+
+@media (max-width: 860px) {
+  .filter-bar { position: static; }
+}
+
+@media (max-width: 640px) {
+  .filter-bar { padding: 1rem 1.25rem; }
+  .filter-bar__inner { flex-direction: column; align-items: stretch; }
+  .filter-group { justify-content: flex-start; }
+}

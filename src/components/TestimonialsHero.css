@@ -1,0 +1,89 @@
+.testi-hero {
+  position: relative;
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(var(--nav-height) + 4rem) 2rem 4rem;
+  overflow: hidden;
+  background: #040d12;
+}
+
+.testi-hero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* reuse orb styles from Hero.css — orb classes are global */
+
+/* grid overlay */
+.testi-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(55,143,132,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(55,143,132,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+.testi-hero__content {
+  position: relative;
+  z-index: 10;
+  max-width: 720px;
+  width: 100%;
+}
+
+/* override section-eyebrow for dark bg */
+.testi-hero .section-eyebrow  { color: #5ecec4; }
+.testi-hero .eyebrow-line     { background: linear-gradient(90deg, #5ecec4, transparent); }
+.testi-hero .eyebrow-line:last-child { background: linear-gradient(270deg, #5ecec4, transparent); }
+
+.testi-hero__heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.4rem;
+}
+
+.testi-hero__static {
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+}
+
+.testi-hero__brand {
+  background: linear-gradient(135deg, #5ecec4 0%, #378f84 40%, #c9913a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-dot {
+  background: linear-gradient(135deg, #c9913a, #e8b86d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.testi-hero__sub {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.5);
+  max-width: 580px;
+  margin: 1.4rem auto 0;
+}
+
+@media (max-width: 640px) {
+  .testi-hero { padding: calc(var(--nav-height) + 2.5rem) 1.25rem 3rem; min-height: 45vh; }
+}

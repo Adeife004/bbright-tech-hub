@@ -1,0 +1,116 @@
+.cta-banner {
+  position: relative;
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #0d2926 0%, #1a5c54 50%, #0f3320 100%);
+  overflow: hidden;
+  text-align: center;
+}
+
+.cta-banner__orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+.cta-banner__orb--1 {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(94,206,196,0.2) 0%, transparent 70%);
+  top: -120px; left: -100px;
+  animation: orbFloat 9s ease-in-out infinite alternate;
+}
+
+.cta-banner__orb--2 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(201,145,58,0.18) 0%, transparent 70%);
+  bottom: -100px; right: -80px;
+  animation: orbFloat 7s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes orbFloat {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.08); }
+}
+
+.cta-banner__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cta-banner__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-gold);
+  background: rgba(201,145,58,0.1);
+  border: 1px solid rgba(201,145,58,0.25);
+  border-radius: var(--r-pill);
+  padding: 0.3rem 1rem;
+}
+
+.cta-banner h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin: 0.2rem 0;
+}
+
+.cta-highlight {
+  background: linear-gradient(135deg, #5ecec4 0%, var(--clr-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-banner p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+.cta-banner__btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.6rem;
+}
+
+.cta-btn-apply {
+  padding: 0.82rem 2rem;
+  font-size: 0.95rem;
+}
+
+.cta-banner__ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+
+.cta-banner__ghost i { font-size: 0.75rem; transition: transform var(--ease); }
+.cta-banner__ghost:hover { color: #fff; }
+.cta-banner__ghost:hover i { transform: translateX(4px); }
+
+@media (max-width: 640px) {
+  .cta-banner { padding: 4.5rem 1.25rem; }
+}

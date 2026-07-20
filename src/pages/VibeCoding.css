@@ -1,0 +1,130 @@
+/* ============================================================
+   VibeCoding.css — page-specific styling layer
+   Loaded on top of ServicePage.css. Signature: a gradient
+   "AI console" hero (teal-to-gold glow border, mock prompt bar)
+   and gradient-filled active tabs, distinct from the flat gold
+   of Data Analysis or the dark editor of Web Development.
+   ============================================================ */
+
+/* ---- Hero: gradient console instead of artboard/browser/dashboard/device ---- */
+
+.vibe-console {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--clr-teal-bright), var(--clr-gold));
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.vibe-console__inner {
+  background: var(--clr-space);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.vibe-console__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--clr-space);
+  background: linear-gradient(135deg, var(--clr-teal-bright), var(--clr-gold));
+  padding: 0.26rem 0.6rem;
+  border-radius: var(--r-pill);
+  margin-bottom: 10px;
+}
+
+.vibe-console__badge svg {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+}
+
+.vibe-console__screen {
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--clr-teal-lt);
+}
+
+.vibe-console__screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vibe-console__prompt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-pill);
+  padding: 0.5rem 0.85rem;
+}
+
+.vibe-console__prompt svg {
+  width: 14px;
+  height: 14px;
+  color: var(--clr-teal-bright);
+  flex-shrink: 0;
+}
+
+.vibe-console__prompt span {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: Consolas, Menlo, monospace;
+}
+
+/* ---- Tabs: gradient-filled pill instead of solid/editor/chip tabs ---- */
+
+.vibe-page .services-tabs {
+  background: var(--clr-teal-lt);
+  border-radius: var(--r-pill);
+  padding: 4px;
+  gap: 2px;
+  margin-bottom: 2.75rem;
+}
+
+.vibe-page .services-tab {
+  flex: 1;
+  border-radius: var(--r-pill);
+  color: var(--clr-teal);
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.vibe-page .services-tab:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.vibe-page #tab-overview:checked ~ .services-tabs label[for="tab-overview"],
+.vibe-page #tab-outcomes:checked ~ .services-tabs label[for="tab-outcomes"],
+.vibe-page #tab-faqs:checked ~ .services-tabs label[for="tab-faqs"] {
+  background: linear-gradient(135deg, var(--clr-teal-md), var(--clr-gold));
+  color: var(--clr-white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---- Outcome tags with a soft gradient tint ---- */
+
+.vibe-page .services-outcome-tag {
+  background: linear-gradient(135deg, var(--clr-teal-lt), var(--clr-gold-lt));
+  color: var(--clr-teal);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 560px) {
+  .vibe-page .services-tab span {
+    display: none;
+  }
+}

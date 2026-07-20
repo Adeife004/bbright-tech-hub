@@ -1,0 +1,12 @@
+.contact-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem);
+  background: var(--clr-bg);
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .contact-main { padding: 2rem 1.25rem; }
+}

@@ -1,0 +1,56 @@
+.about-foundation-wrap {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9fbf9;
+  padding: 4rem 2rem;
+}
+
+.about-foundation-wrap h1 {
+  text-align: center;
+  font-family: 'Exo 2', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--clr-dark);
+  margin-bottom: 2rem;
+}
+
+.about-foundation {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 0 3rem;
+  align-items: stretch;
+}
+
+.about-mission,
+.about-vision {
+  background-color: #fff;
+  box-shadow: 0 10px 32px rgba(55, 143, 132, 0.18);
+  border-top: 5px solid var(--clr-teal-md);
+  border-radius: 24px 24px 16px 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  line-height: 1.7;
+  font-size: 15px;
+  color: var(--clr-slate);
+  height: 100%;
+}
+
+.about-mission h3,
+.about-vision h3 {
+  font-size: 1.8rem;
+  color: var(--clr-teal-md);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 992px) {
+  .about-foundation { padding: 0 1rem; }
+}
+
+@media (max-width: 768px) {
+  .about-foundation { grid-template-columns: 1fr; padding: 0; }
+  .about-mission, .about-vision { padding: 1.5rem 1rem; font-size: 14px; }
+  .about-mission h3, .about-vision h3 { font-size: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .about-mission h3, .about-vision h3 { font-size: 1.3rem; }
+}

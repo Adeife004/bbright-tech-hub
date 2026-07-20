@@ -1,0 +1,38 @@
+.terminal-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.terminal-bg__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image:
+    linear-gradient(rgba(55,143,132,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(55,143,132,0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.terminal-bg__col {
+  position: absolute;
+  top: -100%;
+  width: 220px;
+  font-family: 'Courier New', monospace;
+  color: rgba(94,206,196,0.14);
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre;
+  animation: codeScroll linear infinite;
+  mask-image: radial-gradient(ellipse 75% 75% at 50% 40%, black 20%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 40%, black 20%, transparent 90%);
+}
+
+@keyframes codeScroll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(60%); }
+}

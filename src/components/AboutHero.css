@@ -1,0 +1,57 @@
+.about-hero {
+  background: url('/asset/aboutbg.png') no-repeat center center / cover;
+  min-height: 60vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--nav-height);
+}
+
+.about-hero__text {
+  background-color: rgba(11, 15, 26, 0.6);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px 40px;
+  line-height: 1.6;
+}
+
+.about-hero__text h1 {
+  background: -webkit-linear-gradient(var(--clr-teal), var(--clr-teal-md));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 3.5rem;
+  font-family: 'Exo 2', sans-serif;
+  margin-bottom: 1rem;
+}
+
+.about-hero__text p {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 992px) {
+  .about-hero { min-height: 70vh; }
+  .about-hero__text h1 { font-size: 2.8rem; }
+  .about-hero__text { padding: 20px; }
+}
+
+@media (max-width: 768px) {
+  .about-hero { min-height: 60vh; }
+  .about-hero__text h1 { font-size: 2.2rem; }
+  .about-hero__text p { font-size: 0.95rem; }
+  .about-hero__text { padding: 16px; }
+}
+
+@media (max-width: 480px) {
+  .about-hero__text h1 { font-size: 1.8rem; }
+}
