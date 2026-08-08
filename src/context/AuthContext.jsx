@@ -1,14 +1,8 @@
-import { createContext, useState, useCallback } from "react";
+/* oxlint-disable only-export-components */
+import { createContext, useContext, useState, useCallback } from "react";
 
 export const AuthContext = createContext(null);
 
-/**
- * Demo credentials (replace with real API calls):
- *   Staff:   any email containing "staff" or "admin"
- *   Student: everything else
- *
- * Password is not validated in demo mode — just needs to be non-empty.
- */
 function resolveRole(email) {
   const e = email.toLowerCase();
   if (e.includes("staff") || e.includes("admin")) return "staff";
@@ -59,4 +53,11 @@ export function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
+}
+
+/** Hook — use anywhere inside AuthProvider */
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error("useAuth must be used inside AuthProvider");
+  return ctx;
 }

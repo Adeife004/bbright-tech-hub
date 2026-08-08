@@ -1,0 +1,164 @@
+/* ============================================================
+   Robotics.css — page-specific styling layer
+   Loaded on top of ServicePage.css. Signature: a hardware
+   control panel hero (corner screws, status LEDs, power toggle)
+   and rocker-style tabs, echoing the electronics/hardware side
+   of this course rather than pure software tools.
+   ============================================================ */
+
+/* ---- Hero: control panel instead of artboard/browser/dashboard/device/console ---- */
+
+.robotics-panel {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  padding: 16px;
+  background: var(--clr-dark);
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.robotics-panel__bolt {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #777, #222);
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.6);
+}
+
+.robotics-panel__bolt--tl { top: 8px; left: 8px; }
+.robotics-panel__bolt--tr { top: 8px; right: 8px; }
+.robotics-panel__bolt--bl { bottom: 8px; left: 8px; }
+.robotics-panel__bolt--br { bottom: 8px; right: 8px; }
+
+.robotics-panel__leds {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+.robotics-panel__led {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.robotics-panel__led--red { background: #e5645a; box-shadow: 0 0 6px rgba(229, 100, 90, 0.7); }
+.robotics-panel__led--amber { background: #e6b450; box-shadow: 0 0 6px rgba(230, 180, 80, 0.6); }
+.robotics-panel__led--green { background: var(--clr-teal-bright); box-shadow: 0 0 6px rgba(94, 206, 196, 0.8); }
+
+.robotics-panel__label {
+  margin-left: 6px;
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+}
+
+.robotics-panel__screen {
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--clr-teal-lt);
+}
+
+.robotics-panel__screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.robotics-panel__switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 0.5rem 0.7rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--r-pill);
+}
+
+.robotics-panel__switch-label {
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.robotics-panel__switch-track {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  background: var(--clr-teal-md);
+  border-radius: var(--r-pill);
+  flex-shrink: 0;
+}
+
+.robotics-panel__switch-knob {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* ---- Tabs: rocker/control-panel buttons instead of pill/editor/chip/dock tabs ---- */
+
+.robotics-page .services-tabs {
+  background: var(--clr-dark);
+  border-radius: 10px;
+  padding: 6px;
+  gap: 6px;
+  margin-bottom: 2.75rem;
+}
+
+.robotics-page .services-tab {
+  flex: 1;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.55);
+  padding: 0.65rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.robotics-page .services-tab:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.robotics-page #tab-overview:checked ~ .services-tabs label[for="tab-overview"],
+.robotics-page #tab-outcomes:checked ~ .services-tabs label[for="tab-outcomes"],
+.robotics-page #tab-faqs:checked ~ .services-tabs label[for="tab-faqs"] {
+  background: var(--clr-teal-md);
+  color: var(--clr-white);
+  box-shadow: 0 0 0 2px rgba(94, 206, 196, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* ---- Outcome tags styled like IC/component labels ---- */
+
+.robotics-page .services-outcome-tag {
+  font-family: Consolas, Menlo, monospace;
+  background: var(--clr-dark);
+  color: var(--clr-teal-bright);
+  border-radius: 4px;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 560px) {
+  .robotics-page .services-tab span {
+    display: none;
+  }
+}

@@ -1,0 +1,158 @@
+/* ============================================================
+   GameDevelopment.css — page-specific styling layer
+   Loaded on top of ServicePage.css. Signature: a retro game HUD
+   hero (health bar, score readout, level badge) and pixel-style
+   tabs with a hard offset shadow that visibly "presses in" when
+   active — a tactile, game-controller feel distinct from every
+   other tab style used on the site.
+   ============================================================ */
+
+/* ---- Hero: game HUD instead of artboard/browser/dashboard/device/console/panel/viewport ---- */
+
+.game-hud {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  padding: 14px;
+  background: var(--clr-dark);
+  border-radius: 12px;
+  border: 2px solid var(--clr-teal-md);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.game-hud__level-badge {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--clr-gold);
+  color: var(--clr-space);
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.24rem 0.55rem;
+  box-shadow: 2px 2px 0 var(--clr-space);
+  z-index: 2;
+}
+
+.game-hud__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+.game-hud__health {
+  display: flex;
+  gap: 3px;
+}
+
+.game-hud__health span {
+  width: 13px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 1px;
+}
+
+.game-hud__health span.filled {
+  background: var(--clr-teal-bright);
+}
+
+.game-hud__score {
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.64rem;
+  color: var(--clr-gold);
+  letter-spacing: 0.04em;
+}
+
+.game-hud__screen {
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--clr-teal-lt);
+}
+
+.game-hud__screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.game-hud__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.game-hud__footer strong {
+  color: var(--clr-teal-bright);
+  font-weight: 700;
+}
+
+/* ---- Tabs: pressable pixel buttons instead of pill/editor/chip/dock/glass tabs ---- */
+
+.game-page .services-tabs {
+  background: transparent;
+  gap: 0.6rem;
+  border-bottom: none;
+  margin-bottom: 2.75rem;
+  flex-wrap: wrap;
+}
+
+.game-page .services-tab {
+  flex: none;
+  border-radius: 0;
+  border: 2px solid var(--clr-dark);
+  background: var(--clr-white);
+  color: var(--clr-dark);
+  padding: 0.6rem 1rem;
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  box-shadow: 3px 3px 0 var(--clr-dark);
+  transition: transform var(--ease), box-shadow var(--ease), background var(--ease), color var(--ease);
+}
+
+.game-page .services-tab:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--clr-dark);
+}
+
+.game-page #tab-overview:checked ~ .services-tabs label[for="tab-overview"],
+.game-page #tab-outcomes:checked ~ .services-tabs label[for="tab-outcomes"],
+.game-page #tab-faqs:checked ~ .services-tabs label[for="tab-faqs"] {
+  background: var(--clr-teal-md);
+  color: var(--clr-white);
+  border-color: var(--clr-teal-md);
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--clr-dark);
+}
+
+/* ---- Outcome tags as pixel score chips ---- */
+
+.game-page .services-outcome-tag {
+  font-family: Consolas, Menlo, monospace;
+  background: var(--clr-dark);
+  color: var(--clr-gold);
+  border-radius: 0;
+  letter-spacing: 0.03em;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 560px) {
+  .game-page .services-tab {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+  }
+}

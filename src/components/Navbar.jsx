@@ -90,6 +90,7 @@ function Navbar() {
     <header className={headerClass}>
       {/* Fix 2: ref attached here so click-outside knows navbar boundaries */}
       <nav ref={navRef} className="navbar" aria-label="Main Navigation">
+        <span className="navbar__blob" aria-hidden="true"></span>
         <div className="navbar__logo">
           <Link to="/" aria-label="B Bright Tech Hub Home">
             <img src="/logo.png" alt="B Bright Tech Hub Logo" />
@@ -241,14 +242,14 @@ function Navbar() {
                       </Link>
                     </li>
                     <li>
-                      <a href="/weekend-classes" role="menuitem">
+                      <Link to="/weekend-classes" role="menuitem">
                         Weekend Classes
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="/holiday-classes" role="menuitem">
+                      <Link to="/holiday-classes" role="menuitem">
                         Holiday Classes
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -275,10 +276,7 @@ function Navbar() {
                       </a>
                     </li>
                     <li>
-                      <a
-                        href="/educational-consultation"
-                        role="menuitem"
-                      >
+                      <a href="/educational-consultation" role="menuitem">
                         Educational Consultation
                       </a>
                     </li>

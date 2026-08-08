@@ -1,0 +1,176 @@
+/* ============================================================
+   Animation2D.css — page-specific styling layer
+   Loaded on top of ServicePage.css. Signature: a flipbook hero
+   (stacked page edges, curling corner, frame timeline scrubber)
+   and film-strip tabs with sprocket-hole perforations — echoing
+   traditional animation tools rather than software UI.
+   ============================================================ */
+
+/* ---- Hero: flipbook instead of any prior frame style ---- */
+
+.anim-flipbook {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.anim-flipbook__page-behind-2 {
+  position: absolute;
+  inset: 10px -10px -10px 10px;
+  background: var(--clr-white);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  transform: rotate(3deg);
+  z-index: 0;
+}
+
+.anim-flipbook__page-behind-1 {
+  position: absolute;
+  inset: 5px -5px -5px 5px;
+  background: var(--clr-white);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  transform: rotate(1.5deg);
+  z-index: 1;
+}
+
+.anim-flipbook__page {
+  position: relative;
+  z-index: 2;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--clr-teal-lt);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.anim-flipbook__page img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.anim-flipbook__curl {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 26px;
+  height: 26px;
+  background: linear-gradient(135deg, transparent 50%, var(--clr-gold-lt) 50%);
+  border-bottom-right-radius: 10px;
+  z-index: 3;
+  box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.anim-flipbook__badge {
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--clr-space);
+  background: var(--clr-teal-bright);
+  padding: 0.24rem 0.6rem;
+  border-radius: var(--r-pill);
+  box-shadow: 0 6px 14px rgba(94, 206, 196, 0.35);
+  white-space: nowrap;
+  z-index: 4;
+}
+
+.anim-flipbook__timeline {
+  margin-top: 16px;
+  height: 6px;
+  background: var(--clr-teal-lt);
+  border-radius: var(--r-pill);
+  position: relative;
+  overflow: visible;
+}
+
+.anim-flipbook__timeline-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 45%;
+  background: linear-gradient(90deg, var(--clr-teal-md), var(--clr-teal-bright));
+  border-radius: var(--r-pill);
+}
+
+.anim-flipbook__timeline-playhead {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--clr-white);
+  border: 2px solid var(--clr-teal-md);
+  transform: translate(-50%, -50%);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---- Tabs: film strip with sprocket holes instead of any prior tab style ---- */
+
+.anim-page .services-tabs {
+  background: var(--clr-dark);
+  border-radius: 8px;
+  padding: 10px 8px 6px;
+  gap: 4px;
+  margin-bottom: 2.75rem;
+  position: relative;
+}
+
+.anim-page .services-tabs::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 8px;
+  right: 8px;
+  height: 3px;
+  background-image: repeating-radial-gradient(circle, rgba(255, 255, 255, 0.3) 0 1.5px, transparent 1.5px 10px);
+}
+
+.anim-page .services-tab {
+  flex: 1;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.55);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.anim-page .services-tab:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.anim-page #tab-overview:checked ~ .services-tabs label[for="tab-overview"],
+.anim-page #tab-outcomes:checked ~ .services-tabs label[for="tab-outcomes"],
+.anim-page #tab-faqs:checked ~ .services-tabs label[for="tab-faqs"] {
+  background: var(--clr-white);
+  color: var(--clr-dark);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Outcome tags as bordered frame labels ---- */
+
+.anim-page .services-outcome-tag {
+  background: var(--clr-white);
+  border: 1px solid rgba(170, 194, 197, 0.5);
+  color: var(--clr-teal);
+  font-family: Consolas, Menlo, monospace;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 560px) {
+  .anim-page .services-tab span {
+    display: none;
+  }
+}

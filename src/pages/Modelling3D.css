@@ -1,0 +1,168 @@
+/* ============================================================
+   Modelling3D.css — page-specific styling layer
+   Loaded on top of ServicePage.css. Signature: a turntable
+   viewport hero (orbit ring, axis gizmo, poly-count readout)
+   and a dark toolbar tab bar where the active tab shows a thin
+   selection outline rather than a solid fill — echoing how an
+   object is highlighted when selected in 3D software.
+   ============================================================ */
+
+/* ---- Hero: turntable viewport instead of any prior frame style ---- */
+
+.model-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  padding: 16px;
+}
+
+.model-viewport__ring {
+  position: absolute;
+  inset: -4px;
+  border: 1.5px dashed rgba(94, 206, 196, 0.4);
+  border-radius: 50%;
+  animation: model-orbit 18s linear infinite;
+}
+
+@keyframes model-orbit {
+  to { transform: rotate(360deg); }
+}
+
+.model-viewport__badge {
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--clr-space);
+  background: var(--clr-gold);
+  padding: 0.24rem 0.6rem;
+  border-radius: var(--r-pill);
+  box-shadow: 0 6px 14px rgba(201, 145, 58, 0.35);
+  white-space: nowrap;
+  z-index: 3;
+}
+
+.model-viewport__stage {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--clr-teal-lt);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.model-viewport__stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.model-viewport__gizmo {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+  background: rgba(4, 13, 18, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.model-viewport__gizmo span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: block;
+}
+
+.model-viewport__gizmo span.axis-x { background: #e5645a; }
+.model-viewport__gizmo span.axis-y { background: var(--clr-teal-bright); }
+.model-viewport__gizmo span.axis-z { background: var(--clr-gold); }
+
+.model-viewport__stats {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(4, 13, 18, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: var(--clr-teal-bright);
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.6rem;
+  padding: 0.22rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+
+/* ---- Tabs: dark toolbar with selection-outline active state ---- */
+
+.model-page .services-tabs {
+  background: var(--clr-dark);
+  border-radius: 10px;
+  padding: 5px;
+  gap: 4px;
+  margin-bottom: 2.75rem;
+}
+
+.model-page .services-tab {
+  flex: 1;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0.65rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.model-page .services-tab:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.model-page #tab-overview:checked ~ .services-tabs label[for="tab-overview"],
+.model-page #tab-outcomes:checked ~ .services-tabs label[for="tab-outcomes"],
+.model-page #tab-faqs:checked ~ .services-tabs label[for="tab-faqs"] {
+  background: rgba(94, 206, 196, 0.14);
+  color: var(--clr-teal-bright);
+  box-shadow: inset 0 0 0 1.5px var(--clr-teal-bright);
+}
+
+/* ---- Outcome tags as material-swatch chips ---- */
+
+.model-page .services-outcome-tag {
+  background: var(--clr-teal-lt);
+  color: var(--clr-teal);
+  border-radius: 4px;
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+.model-page .services-outcome-tag::before {
+  content: '';
+  position: absolute;
+  left: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--clr-gold);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 560px) {
+  .model-page .services-tab span {
+    display: none;
+  }
+}
