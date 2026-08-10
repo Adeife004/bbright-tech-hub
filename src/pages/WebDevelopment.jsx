@@ -1,389 +1,468 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "./ServicePage.css";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Navbar from "../components/Navbar.jsx";
+import CTABanner from "../components/CTABanner.jsx";
+import Footer from "../components/Footer.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
+import "../styles/ServicePage.css";
 import "./WebDevelopment.css";
 
-function WebDevelopment() {
-  const outcomes = [
-    {
-      tag: "Structure",
-      title: "Structure web pages",
-      text: "Build well organised, semantic pages using modern markup.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="16 18 22 12 16 6"></polyline>
-          <polyline points="8 6 2 12 8 18"></polyline>
-        </svg>
-      ),
-    },
-    {
-      tag: "Styling",
-      title: "Style with confidence",
-      text: "Create responsive, visually polished layouts from scratch.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="13.5" cy="6.5" r="2.5"></circle>
-          <circle cx="19" cy="17" r="2.5"></circle>
-          <circle cx="6" cy="12" r="2.5"></circle>
-          <line x1="14.5" y1="8.5" x2="8" y2="11"></line>
-          <line x1="15.5" y1="9" x2="18" y2="14.5"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Interactivity",
-      title: "Add interactivity",
-      text: "Use scripting to build dynamic, user friendly interfaces.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="4 17 10 11 4 5"></polyline>
-          <line x1="12" y1="19" x2="20" y2="19"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Components",
-      title: "Work with components",
-      text: "Build reusable interface pieces using a modern framework.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-          <line x1="3" y1="9" x2="21" y2="9"></line>
-          <line x1="9" y1="21" x2="9" y2="9"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "State & Data",
-      title: "Manage state and data",
-      text: "Handle application state and routing across pages.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-          <line x1="12" y1="22.08" x2="12" y2="12"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Portfolio",
-      title: "Collaborate on real projects",
-      text: "Apply your skills on guided, real world project work.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-        </svg>
-      ),
-    },
-  ];
+/* ── Data ───────────────────────────────────────────────────── */
 
-  const faqs = [
-    {
-      q: "Do I need prior coding experience to start?",
-      a: "No. The course starts from the fundamentals and builds up gradually, so it is suitable for beginners and for those refreshing existing skills.",
-    },
-    {
-      q: "What will I be able to build after the course?",
-      a: "You will be able to plan, design and build complete, responsive websites and web applications, and ship them with confidence.",
-    },
-    {
-      q: "How is the course structured?",
-      a: "Lessons are organised into stages, moving from page structure and styling through to interactivity and full project builds.",
-    },
-    {
-      q: "Will I work on real projects?",
-      a: "Yes. Each stage includes practical project work so you finish with a portfolio that reflects your actual skill level.",
-    },
-  ];
+const OVERVIEW_CARDS = [
+  {
+    icon: "fa-solid fa-code",
+    color: "teal",
+    title: "What You Will Learn",
+    desc: "From your first HTML tag to deploying a full-stack web app — HTML, CSS, JavaScript, React and Node.js taught in logical, progressive steps.",
+  },
+  {
+    icon: "fa-solid fa-toolbox",
+    color: "gold",
+    title: "Tools You Will Use",
+    desc: "VS Code, Git & GitHub, Chrome DevTools, React, Node.js, Express, MongoDB and Vercel. Every tool used by real developers today.",
+  },
+  {
+    icon: "fa-solid fa-users",
+    color: "teal",
+    title: "Who It Is For",
+    desc: "Complete beginners who want to break into tech, students who want to build their own products, and career switchers targeting developer roles.",
+  },
+  {
+    icon: "fa-solid fa-briefcase",
+    color: "gold",
+    title: "Career Paths",
+    desc: "Frontend Developer, Full-Stack Developer, UI Engineer, Freelance Web Developer, Technical Co-founder — all high-demand, well-paying roles.",
+  },
+];
 
+const CURRICULUM = [
+  {
+    week: "Wk 1–2",
+    title: "HTML Fundamentals",
+    desc: "Structure, semantics, forms, tables and accessibility. Build your first 3 static web pages.",
+  },
+  {
+    week: "Wk 3–4",
+    title: "CSS & Responsive Design",
+    desc: "Flexbox, Grid, animations, media queries and mobile-first design. Your pages look great on any screen.",
+  },
+  {
+    week: "Wk 5–6",
+    title: "JavaScript Basics",
+    desc: "Variables, functions, loops, arrays, objects and DOM manipulation. Make your pages interactive.",
+  },
+  {
+    week: "Wk 7–8",
+    title: "JavaScript Advanced",
+    desc: "Async JS, Promises, Fetch API, localStorage and working with real external APIs.",
+  },
+  {
+    week: "Wk 9–10",
+    title: "React Fundamentals",
+    desc: "Components, JSX, props, state, useEffect and React Router. Build your first single-page app.",
+  },
+  {
+    week: "Wk 11–12",
+    title: "React Advanced + State",
+    desc: "Context API, custom hooks, form handling, error boundaries and performance optimisation.",
+  },
+  {
+    week: "Wk 13–14",
+    title: "Node.js & Backend Basics",
+    desc: "Express servers, REST APIs, MongoDB, authentication with JWT and connecting frontend to backend.",
+  },
+  {
+    week: "Wk 15–16",
+    title: "Capstone Project + Deployment",
+    desc: "Build and deploy a complete full-stack application. Code review, peer feedback and portfolio documentation.",
+  },
+];
+
+const OUTCOMES = [
+  { icon: "fa-solid fa-globe", text: "Build and deploy 5 real web projects" },
+  {
+    icon: "fa-brands fa-react",
+    text: "Proficient in React — most in-demand frontend skill",
+  },
+  {
+    icon: "fa-solid fa-server",
+    text: "Build REST APIs with Node.js & Express",
+  },
+  {
+    icon: "fa-brands fa-git-alt",
+    text: "Git & GitHub workflow — industry standard",
+  },
+  {
+    icon: "fa-solid fa-mobile-screen",
+    text: "Fully responsive, mobile-first designs",
+  },
+  { icon: "fa-solid fa-database", text: "Connect apps to MongoDB databases" },
+  {
+    icon: "fa-solid fa-briefcase",
+    text: "Portfolio-ready — 5 deployed projects",
+  },
+  {
+    icon: "fa-solid fa-certificate",
+    text: "B Bright Tech Hub Web Development certificate",
+  },
+];
+
+const FAQS = [
+  {
+    q: "Do I need my own laptop?",
+    a: "Yes — you need a laptop with at least 8GB RAM and a modern browser. If you do not have one, speak to us before enrolling; we have a limited number of lab seats available.",
+  },
+  {
+    q: "Do I need any prior experience?",
+    a: "None at all. The course starts from absolute zero — your first HTML tag. By week 16 you will be building full-stack applications.",
+  },
+  {
+    q: "What programming language do we learn?",
+    a: "JavaScript — the only language that runs in the browser, on servers (Node.js), and in mobile apps (React Native). It is the most versatile language for web development.",
+  },
+  {
+    q: "Will my projects be live on the internet?",
+    a: "Yes. Every major project is deployed to a real domain using Vercel or Netlify. You leave with links you can share with anyone.",
+  },
+  {
+    q: "Is it full-time or part-time?",
+    a: "We offer both. The 16-week course runs as a part-time evening programme (Mon/Wed/Fri) or an 8-week full-time intensive (weekdays 9am–3pm).",
+  },
+];
+
+/* ── Hero visual: CSS browser + code window ── */
+
+const CODE_LINES = [
+  {
+    indent: 0,
+    tokens: [
+      { t: "tag", v: "<" },
+      { t: "tag", v: "div" },
+      { t: "attr", v: " className" },
+      { t: "eq", v: "=" },
+      { t: "str", v: '"hero"' },
+      { t: "tag", v: ">" },
+    ],
+  },
+  {
+    indent: 1,
+    tokens: [
+      { t: "tag", v: "<" },
+      { t: "tag", v: "h1" },
+      { t: "tag", v: ">" },
+      { t: "txt", v: "Hello, World" },
+      { t: "tag", v: "</" },
+      { t: "tag", v: "h1" },
+      { t: "tag", v: ">" },
+    ],
+  },
+  {
+    indent: 1,
+    tokens: [
+      { t: "tag", v: "<" },
+      { t: "tag", v: "p" },
+      { t: "tag", v: ">" },
+      { t: "txt", v: "Built with React" },
+      { t: "tag", v: "</" },
+      { t: "tag", v: "p" },
+      { t: "tag", v: ">" },
+    ],
+  },
+  {
+    indent: 1,
+    tokens: [
+      { t: "tag", v: "<" },
+      { t: "tag", v: "button" },
+      { t: "tag", v: ">" },
+      { t: "txt", v: "Get Started" },
+      { t: "tag", v: "</" },
+      { t: "tag", v: "button" },
+      { t: "tag", v: ">" },
+    ],
+  },
+  {
+    indent: 0,
+    tokens: [
+      { t: "tag", v: "</" },
+      { t: "tag", v: "div" },
+      { t: "tag", v: ">" },
+    ],
+  },
+];
+
+const TOKEN_COLOR = {
+  tag: "#5ecec4",
+  attr: "#c792ea",
+  eq: "#fff",
+  str: "#f0c068",
+  txt: "#c3e88d",
+  fn: "#82aaff",
+};
+
+function WDHero() {
   return (
-    <>
-      <Navbar />
+    <section className="service-hero wd-hero">
+      <div className="service-hero__grid-overlay" aria-hidden="true"></div>
+      <div className="wd-hero__orb wd-hero__orb--1" aria-hidden="true"></div>
+      <div className="wd-hero__orb wd-hero__orb--2" aria-hidden="true"></div>
 
-      <div className="services-wrapper webdev-page">
-        {/* hero */}
-        <section className="services-hero">
-          <div className="services-hero-inner">
-            <div className="services-hero-text">
-              <span className="services-eyebrow">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="16 18 22 12 16 6"></polyline>
-                  <polyline points="8 6 2 12 8 18"></polyline>
-                </svg>
-                Tech Skills Training
-              </span>
-              <h1 className="services-title">Web Development</h1>
-              <p className="services-subtitle">
-                Learn to build complete, modern websites and web applications
-                from the ground up. This course walks you through structure,
-                styling and logic, giving you the practical skill set employers
-                and clients look for.
-              </p>
-            </div>
+      <div
+        className="service-hero__text"
+        data-aos="fade-right"
+        data-aos-duration="700"
+      >
+        <span className="service-hero__eyebrow wd-eyebrow">
+          <i className="fa-solid fa-code" aria-hidden="true"></i>
+          Tech Skills Training
+        </span>
 
-            <div className="services-hero-card">
-              <div className="webdev-browser">
-                <div className="webdev-browser__titlebar">
-                  <span className="webdev-browser__dot webdev-browser__dot--red"></span>
-                  <span className="webdev-browser__dot webdev-browser__dot--amber"></span>
-                  <span className="webdev-browser__dot webdev-browser__dot--green"></span>
-                  <span className="webdev-browser__address">
-                    bbrighttechhub.dev
-                  </span>
-                </div>
-                <div className="webdev-browser__body">
-                  <img
-                    src="/web.png"
-                    alt="Preview of a web development project built during the course"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <h1 className="service-hero__title wd-hero__title">
+          Web
+          <br />
+          <span className="wd-title-accent">Development</span>
+        </h1>
 
-        {/* tabs + panel */}
-        <div className="services-content">
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-overview"
-            className="services-tab-input"
-            defaultChecked
-          />
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-outcomes"
-            className="services-tab-input"
-          />
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-faqs"
-            className="services-tab-input"
-          />
+        <p
+          className="service-hero__desc"
+          style={{ color: "rgba(255,255,255,0.55)" }}
+        >
+          Go from complete beginner to full-stack developer in 16 weeks. HTML,
+          CSS, JavaScript, React and Node.js — everything you need to build and
+          ship real web applications.
+        </p>
 
-          <nav className="services-tabs">
-            <label htmlFor="tab-overview" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              <span>Overview.jsx</span>
-            </label>
-            <label htmlFor="tab-outcomes" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-              </svg>
-              <span>Outcomes.jsx</span>
-            </label>
-            <label htmlFor="tab-faqs" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              <span>FAQs.jsx</span>
-            </label>
-          </nav>
+        <div className="service-hero__meta">
+          <span className="service-hero__meta-pill wd-pill">
+            <i className="fa-regular fa-clock" aria-hidden="true"></i> 16 Weeks
+          </span>
+          <span className="service-hero__meta-pill wd-pill">
+            <i className="fa-solid fa-signal" aria-hidden="true"></i> Beginner –
+            Intermediate
+          </span>
+          <span className="service-hero__meta-pill wd-pill wd-pill--hot">
+            <i className="fa-solid fa-fire" aria-hidden="true"></i> Most Popular
+          </span>
+        </div>
 
-          <div className="services-panel">
-            {/* overview */}
-            <section className="services-section services-overview-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">Overview</h2>
-              </div>
-              <p className="services-section-text">
-                This Web Development programme takes you from the basics of
-                structuring a page to building interactive, data driven
-                applications. You will work with the languages and tools used in
-                real projects, supported by hands on exercises at every stage.
-              </p>
-              <p className="services-section-text">
-                By the end of the programme you will be able to plan, build and
-                ship a working website or web application, and you will have a
-                portfolio of projects to show for it.
-              </p>
-            </section>
-
-            {/* learning outcomes */}
-            <section className="services-section services-outcomes-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                    <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">Learning Outcomes</h2>
-              </div>
-
-              <div className="services-outcomes-grid">
-                {outcomes.map((o) => (
-                  <div className="services-outcome-card" key={o.tag}>
-                    <span className="services-outcome-icon">{o.icon}</span>
-                    <div>
-                      <span className="services-outcome-tag">{o.tag}</span>
-                      <p className="services-outcome-title">{o.title}</p>
-                      <p className="services-outcome-text">{o.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* faqs */}
-            <section className="services-section services-faqs-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">
-                  Frequently Asked Questions
-                </h2>
-              </div>
-
-              <div className="services-faq-list">
-                {faqs.map((item, i) => (
-                  <details className="services-faq-item" key={i}>
-                    <summary className="services-faq-question">
-                      <span className="services-faq-question-left">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                        </svg>
-                        {item.q}
-                      </span>
-                      <svg
-                        className="services-faq-chevron"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </summary>
-                    <p className="services-faq-answer">{item.a}</p>
-                  </details>
-                ))}
-              </div>
-            </section>
-          </div>
+        <div className="service-hero__btns">
+          <Link to="/apply" className="wd-btn-apply">
+            Apply Now{" "}
+            <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </Link>
+          <Link to="/programmes" className="wd-btn-outline">
+            All Programmes
+          </Link>
         </div>
       </div>
 
+      {/* CSS browser + code editor visual */}
+      <div
+        className="service-hero__visual"
+        data-aos="fade-left"
+        data-aos-duration="700"
+        data-aos-delay="150"
+      >
+        <div className="wd-browser">
+          {/* Browser chrome */}
+          <div className="wd-browser__bar">
+            <span className="wd-browser__dot wd-browser__dot--red"></span>
+            <span className="wd-browser__dot wd-browser__dot--yellow"></span>
+            <span className="wd-browser__dot wd-browser__dot--green"></span>
+            <span className="wd-browser__url">
+              <i className="fa-solid fa-lock" aria-hidden="true"></i>
+              myproject.vercel.app
+            </span>
+          </div>
+
+          {/* Code area */}
+          <div className="wd-browser__body">
+            <div className="wd-code">
+              {CODE_LINES.map((line, i) => (
+                <div key={i} className="wd-code__line">
+                  <span className="wd-code__ln">{i + 1}</span>
+                  <span
+                    className="wd-code__content"
+                    style={{ paddingLeft: line.indent * 16 }}
+                  >
+                    {line.tokens.map((tok, j) => (
+                      <span key={j} style={{ color: TOKEN_COLOR[tok.t] }}>
+                        {tok.v}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              ))}
+              <div className="wd-code__cursor" aria-hidden="true"></div>
+            </div>
+
+            {/* Preview pane */}
+            <div className="wd-preview">
+              <div className="wd-preview__h1">Hello, World</div>
+              <div className="wd-preview__p">Built with React</div>
+              <button className="wd-preview__btn">Get Started</button>
+            </div>
+          </div>
+
+          {/* Floating tech tags */}
+          <div className="wd-tag wd-tag--html">HTML</div>
+          <div className="wd-tag wd-tag--css">CSS</div>
+          <div className="wd-tag wd-tag--js">JS</div>
+          <div className="wd-tag wd-tag--react">
+            <i className="fa-brands fa-react"></i> React
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FAQ item ── */
+function FAQItem({ faq }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`services-faq ${open ? "open" : ""}`}>
+      <button className="services-faq__q" onClick={() => setOpen((v) => !v)}>
+        {faq.q}
+        <span className="services-faq__icon">
+          <i className="fa-solid fa-plus"></i>
+        </span>
+      </button>
+      <div className="services-faq__a">{faq.a}</div>
+    </div>
+  );
+}
+
+/* ── Tabs ── */
+const TABS = [
+  { id: "overview", icon: "fa-solid fa-circle-info", label: "Overview" },
+  { id: "curriculum", icon: "fa-solid fa-list-check", label: "Curriculum" },
+  { id: "outcomes", icon: "fa-solid fa-trophy", label: "Outcomes" },
+  { id: "faqs", icon: "fa-solid fa-circle-question", label: "FAQs" },
+];
+
+function WDTabs() {
+  const [active, setActive] = useState("overview");
+
+  return (
+    <section className="services-tabs-section">
+      <div className="services-tabs wd-tabs" role="tablist">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            role="tab"
+            aria-selected={active === tab.id}
+            className={`services-tab ${active === tab.id ? "active" : ""}`}
+            onClick={() => setActive(tab.id)}
+          >
+            <i className={tab.icon} aria-hidden="true"></i>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Overview */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "overview" ? "active" : ""}`}
+      >
+        <div className="services-overview-grid">
+          {OVERVIEW_CARDS.map((card) => (
+            <div key={card.title} className="services-overview-card">
+              <div
+                className={`services-overview-card__icon wd-icon wd-icon--${card.color}`}
+              >
+                <i className={card.icon} aria-hidden="true"></i>
+              </div>
+              <h3>{card.title}</h3>
+              <p>{card.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="wd-info-banner">
+          <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
+          JavaScript is the most in-demand programming language globally for 11
+          years running — and it is the only language this course needs.
+        </div>
+      </div>
+
+      {/* Curriculum */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "curriculum" ? "active" : ""}`}
+      >
+        <div className="services-curriculum">
+          {CURRICULUM.map((week, i) => (
+            <div key={week.week} className="services-week">
+              <div className="services-week__num wd-week-num">{i + 1}</div>
+              <div className="services-week__body">
+                <h4>
+                  {week.week} — {week.title}
+                </h4>
+                <p>{week.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Outcomes */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "outcomes" ? "active" : ""}`}
+      >
+        <div className="services-outcomes-grid">
+          {OUTCOMES.map((o) => (
+            <div key={o.text} className="services-outcome-tag wd-outcome">
+              <i className={o.icon} aria-hidden="true"></i>
+              {o.text}
+            </div>
+          ))}
+        </div>
+        <div className="wd-outcomes-footer">
+          {[
+            ["5", "Deployed Projects"],
+            ["16", "Weeks"],
+            ["4", "Technologies"],
+          ].map(([num, label]) => (
+            <div key={label} className="wd-outcomes-footer__stat">
+              <span className="wd-outcomes-footer__num">{num}</span>
+              <span className="wd-outcomes-footer__label">{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FAQs */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "faqs" ? "active" : ""}`}
+      >
+        <div className="services-faqs">
+          {FAQS.map((faq) => (
+            <FAQItem key={faq.q} faq={faq} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WebDevelopment() {
+  useEffect(() => {
+    AOS.init({ once: true, offset: 60 });
+  }, []);
+  return (
+    <div className="service-page wd-page">
+      <Navbar />
+      <WDHero />
+      <WDTabs />
+      <CTABanner />
       <Footer />
-    </>
+      <ScrollToTop />
+    </div>
   );
 }
 

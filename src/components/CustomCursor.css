@@ -1,0 +1,137 @@
+/* ============================================================
+   CustomCursor.css
+   Two-element cursor: small dot + trailing ring.
+   Uses mix-blend-mode: exclusion so it's visible on both
+   dark and light backgrounds.
+   ============================================================ */
+
+/* ── Hide default cursor everywhere on desktop ── */
+@media (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+}
+
+/* ── Base: both elements fixed, pointer-events off ── */
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Visible state (added after first mouse move) */
+.cursor-dot.cursor-visible,
+.cursor-ring.cursor-visible {
+  opacity: 1;
+}
+
+/* ── Inner dot ── */
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: #5ecec4;
+  box-shadow: 0 0 6px rgba(94, 206, 196, 0.8);
+  transition:
+    opacity 0.3s ease,
+    width 0.25s ease,
+    height 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* ── Outer ring ── */
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(94, 206, 196, 0.55);
+  background: transparent;
+  mix-blend-mode: exclusion;
+  transition:
+    opacity 0.3s ease,
+    width 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    height 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 0.3s ease,
+    border-width 0.3s ease,
+    background 0.3s ease;
+}
+
+/* ============================================================
+   HOVER STATE — over links, buttons, interactive elements
+   ============================================================ */
+
+.cursor-dot.cursor--hover {
+  width: 6px;
+  height: 6px;
+  background: var(--clr-gold, #c9913a);
+  box-shadow: 0 0 10px rgba(201, 145, 58, 0.7);
+}
+
+.cursor-ring.cursor--hover {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(201, 145, 58, 0.5);
+  border-width: 1.5px;
+  background: rgba(201, 145, 58, 0.06);
+}
+
+/* ============================================================
+   CLICK STATE
+   ============================================================ */
+
+.cursor-dot.cursor--click {
+  width: 5px;
+  height: 5px;
+  background: #fff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+  transition:
+    width 0.1s ease,
+    height 0.1s ease,
+    background 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+.cursor-ring.cursor--click {
+  width: 26px;
+  height: 26px;
+  border-color: rgba(255, 255, 255, 0.8);
+  border-width: 2.5px;
+  transition:
+    width 0.12s ease,
+    height 0.12s ease,
+    border-color 0.12s ease;
+}
+
+/* ============================================================
+   MOBILE — hide entirely on touch devices
+   ============================================================ */
+
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION — respect user preference
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}

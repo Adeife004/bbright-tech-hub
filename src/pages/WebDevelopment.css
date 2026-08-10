@@ -1,124 +1,424 @@
 /* ============================================================
-   WebDevelopment.css — page-specific styling layer
-   Loaded on top of ServicePage.css. Signature: a browser-window
-   hero frame and code-editor style file tabs, echoing the tools
-   students actually use in this course.
+   WebDevelopment.css
+   Signature: dark hero with a split CSS browser mockup —
+   left side shows syntax-highlighted code, right side shows
+   the live preview. Floating HTML/CSS/JS/React badges.
    ============================================================ */
 
-/* ---- Hero: browser window instead of design artboard ---- */
+/* ── Hero background ── */
 
-.webdev-browser {
-  width: 100%;
-  max-width: 340px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--clr-white);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.wd-hero {
+  background: linear-gradient(135deg,
+    #040d12 0%, #061a18 45%, #040d12 100%);
+  min-height: 80vh;
 }
 
-.webdev-browser__titlebar {
+/* Orbs */
+.wd-hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.wd-hero__orb--1 {
+  width: 500px; height: 500px;
+  top: -100px; left: -80px;
+  background: radial-gradient(circle, rgba(26,92,84,0.5) 0%, transparent 70%);
+  animation: wdOrb 9s ease-in-out infinite alternate;
+}
+
+.wd-hero__orb--2 {
+  width: 360px; height: 360px;
+  bottom: -60px; right: -60px;
+  background: radial-gradient(circle, rgba(201,145,58,0.28) 0%, transparent 70%);
+  animation: wdOrb 12s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes wdOrb {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(22px,16px) scale(1.09); }
+}
+
+/* ── Eyebrow ── */
+
+.wd-eyebrow {
+  background: rgba(55,143,132,0.15);
+  border: 1px solid rgba(55,143,132,0.35);
+  color: #5ecec4;
+}
+
+/* ── Title ── */
+
+.wd-hero__title { color: #fff; }
+
+.wd-title-accent {
+  background: linear-gradient(135deg, #5ecec4 0%, #378f84 50%, #f0c068 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Meta pills ── */
+
+.wd-pill {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.7);
+}
+
+.wd-pill--hot {
+  background: rgba(201,145,58,0.12);
+  border-color: rgba(201,145,58,0.35);
+  color: #f0c068;
+}
+
+/* ── Buttons ── */
+
+.wd-btn-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.82rem 1.9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--clr-teal-md), var(--clr-teal));
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(55,143,132,0.45);
+  transition: transform var(--ease), box-shadow var(--ease), filter var(--ease);
+}
+
+.wd-btn-apply:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(55,143,132,0.6);
+  filter: brightness(1.08);
+}
+
+.wd-btn-apply i { font-size: 0.8rem; transition: transform var(--ease); }
+.wd-btn-apply:hover i { transform: translateX(4px); }
+
+.wd-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.82rem 1.7rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  transition: background var(--ease), border-color var(--ease), color var(--ease);
+}
+
+.wd-btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(94,206,196,0.5);
+  color: #fff;
+}
+
+/* ============================================================
+   CSS Browser mockup
+   ============================================================ */
+
+.wd-browser {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: #0d1117;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 24px 60px rgba(0,0,0,0.5);
+  overflow: visible;
+  animation: wdFloat 5s ease-in-out infinite alternate;
+}
+
+@keyframes wdFloat {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-12px); }
+}
+
+/* Browser chrome / title bar */
+.wd-browser__bar {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 10px 12px;
-  background: var(--clr-dark);
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  background: #161b22;
+  border-radius: 14px 14px 0 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 
-.webdev-browser__dot {
-  width: 9px;
-  height: 9px;
+.wd-browser__dot {
+  width: 11px; height: 11px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-.webdev-browser__dot--red { background: #e5645a; }
-.webdev-browser__dot--amber { background: #e6b450; }
-.webdev-browser__dot--green { background: var(--clr-teal-bright); }
+.wd-browser__dot--red    { background: #ff5f57; }
+.wd-browser__dot--yellow { background: #febc2e; }
+.wd-browser__dot--green  { background: #28c840; }
 
-.webdev-browser__address {
-  margin-left: 8px;
+.wd-browser__url {
   flex: 1;
-  font-family: Consolas, Menlo, 'Liberation Mono', monospace;
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.55);
-  background: rgba(255, 255, 255, 0.08);
-  padding: 0.28rem 0.6rem;
-  border-radius: 5px;
-  text-align: center;
-  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  padding: 0.3rem 0.75rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.45);
+  margin-left: 0.5rem;
 }
 
-.webdev-browser__body {
-  aspect-ratio: 1 / 1;
+.wd-browser__url i { font-size: 0.65rem; color: #28c840; }
+
+/* Browser body — split: code left, preview right */
+.wd-browser__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 200px;
+  border-radius: 0 0 14px 14px;
   overflow: hidden;
 }
 
-.webdev-browser__body img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+/* ── Code pane ── */
+.wd-code {
+  padding: 1rem 0.5rem;
+  background: #0d1117;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  line-height: 1.7;
 }
 
-/* ---- Tabs: code-editor file tabs instead of segmented pill ---- */
-
-.webdev-page .services-tabs {
-  background: transparent;
-  border-radius: 0;
-  padding: 0;
-  gap: 0;
-  border-bottom: 1px solid rgba(170, 194, 197, 0.4);
-  margin-bottom: 2.75rem;
-  justify-content: flex-start;
+.wd-code__line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
-.webdev-page .services-tab {
-  flex: none;
-  font-family: Consolas, Menlo, 'Liberation Mono', monospace;
-  font-size: 0.8rem;
-  border-radius: 8px 8px 0 0;
+.wd-code__ln {
+  min-width: 18px;
+  text-align: right;
+  color: rgba(255,255,255,0.2);
+  font-size: 0.65rem;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.wd-code__content { display: inline; }
+
+/* Blinking cursor */
+.wd-code__cursor {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  background: #5ecec4;
+  margin-left: 18px;
+  border-radius: 1px;
+  animation: codeCursor 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes codeCursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Preview pane ── */
+.wd-preview {
+  padding: 1.2rem 1rem;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.wd-preview__h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0d1117;
+  line-height: 1.2;
+}
+
+.wd-preview__p {
+  font-size: 0.72rem;
+  color: #555;
+}
+
+.wd-preview__btn {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--clr-teal-md);
+  border: none;
+  border-radius: 6px;
+  cursor: default;
+  margin-top: 0.2rem;
+}
+
+/* ── Floating tech badges ── */
+.wd-tag {
+  position: absolute;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.28rem 0.7rem;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.wd-tag--html  { top: -14px; left: 16px;    background: rgba(228,77,38,0.85);   color: #ffd0c5; border: 1px solid rgba(228,77,38,0.4);   animation: tagFloat 3.5s ease-in-out infinite alternate; }
+.wd-tag--css   { top: -14px; right: 60px;   background: rgba(38,77,228,0.85);   color: #c5d4ff; border: 1px solid rgba(38,77,228,0.4);   animation: tagFloat 4s   ease-in-out infinite alternate-reverse; }
+.wd-tag--js    { bottom: -14px; left: 20px; background: rgba(240,196,0,0.9);    color: #3d3000; border: 1px solid rgba(240,196,0,0.4);    animation: tagFloat 4.5s ease-in-out infinite alternate; }
+.wd-tag--react { bottom: -14px; right: 16px;background: rgba(97,218,251,0.15);  color: #61dafb; border: 1px solid rgba(97,218,251,0.3); animation: tagFloat 3.8s ease-in-out infinite alternate-reverse; display: flex; align-items: center; gap: 5px; }
+
+@keyframes tagFloat {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-7px); }
+}
+
+/* ============================================================
+   Tab styles
+   ============================================================ */
+
+.wd-tabs .services-tab.active {
+  background: linear-gradient(135deg, var(--clr-teal-md), var(--clr-teal));
+  border-color: var(--clr-teal-md);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(55,143,132,0.35);
+}
+
+.wd-tabs .services-tab:hover:not(.active) {
+  border-color: var(--clr-teal-md);
+  color: var(--clr-teal);
+}
+
+/* ── Overview card icons ── */
+.wd-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+
+.wd-icon--teal { background: var(--clr-teal-lt); color: var(--clr-teal); }
+.wd-icon--gold { background: var(--clr-gold-lt);  color: var(--clr-gold); }
+
+/* ── Info banner ── */
+.wd-info-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.9rem 1.2rem;
   background: var(--clr-teal-lt);
-  color: var(--clr-slate);
-  padding: 0.65rem 1.15rem;
-  margin-right: 3px;
-  border: 1px solid rgba(170, 194, 197, 0.4);
-  border-bottom: none;
-  position: relative;
-  top: 1px;
-}
-
-.webdev-page .services-tab:hover {
-  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(55,143,132,0.2);
+  border-radius: var(--r-md);
+  font-size: 0.85rem;
   color: var(--clr-teal);
+  margin-top: 0.5rem;
 }
 
-.webdev-page #tab-overview:checked ~ .services-tabs label[for="tab-overview"],
-.webdev-page #tab-outcomes:checked ~ .services-tabs label[for="tab-outcomes"],
-.webdev-page #tab-faqs:checked ~ .services-tabs label[for="tab-faqs"] {
+.wd-info-banner i { flex-shrink: 0; }
+
+/* ── Curriculum week numbers ── */
+.wd-week-num {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--clr-teal-lt);
+  border: 1.5px solid rgba(55,143,132,0.3);
+  color: var(--clr-teal);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ── Outcome tags ── */
+.wd-outcome {
   background: var(--clr-white);
+  border: 1px solid rgba(170,194,197,0.35);
+  border-radius: var(--r-md);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.wd-outcome:hover {
+  border-color: var(--clr-teal-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.wd-outcome i { color: var(--clr-teal-md); font-size: 0.9rem; flex-shrink: 0; }
+
+/* ── Outcomes footer stats ── */
+.wd-outcomes-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--clr-teal-lt);
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(55,143,132,0.2);
+  flex-wrap: wrap;
+}
+
+.wd-outcomes-footer__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.wd-outcomes-footer__num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
   color: var(--clr-teal);
-  border-color: rgba(170, 194, 197, 0.4);
-  box-shadow: none;
+  line-height: 1;
 }
 
-/* ---- Outcome tags styled like terminal chips ---- */
-
-.webdev-page .services-outcome-tag {
-  font-family: Consolas, Menlo, 'Liberation Mono', monospace;
-  background: var(--clr-dark);
-  color: var(--clr-teal-bright);
-  border-radius: 4px;
+.wd-outcomes-footer__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--clr-teal-md);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-/* ---- Responsive ---- */
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .wd-hero { min-height: auto; }
+  .wd-browser { max-width: 360px; }
+  .wd-browser__body { grid-template-columns: 1fr; }
+  .wd-preview { display: none; }
+  .wd-tag--css, .wd-tag--js { display: none; }
+}
 
-@media (max-width: 560px) {
-  .webdev-page .services-tab {
-    padding: 0.55rem 0.7rem;
-    font-size: 0.72rem;
-  }
-  .webdev-page .services-tab span {
-    display: none;
-  }
+@media (max-width: 640px) {
+  .wd-browser { max-width: 100%; }
+  .wd-tag { display: none; }
 }

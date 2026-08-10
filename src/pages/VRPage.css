@@ -1,0 +1,480 @@
+/* ============================================================
+   VRPage.css — VR & AR page-specific overrides
+   Sits on top of ServicePage.css.
+   Signature: dark immersive hero with a CSS-drawn VR headset,
+   floating tool badges, purple/teal accent palette.
+   ============================================================ */
+
+/* ── Hero background ── */
+
+.vr-hero {
+  background: linear-gradient(135deg,
+    #060d18 0%,
+    #0b1a2e 45%,
+    #080f1e 100%
+  );
+  min-height: 70vh;
+}
+
+/* Orbs */
+.vr-hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(70px);
+  z-index: 0;
+}
+
+.vr-hero__orb--1 {
+  width: 500px; height: 500px;
+  top: -120px; left: -80px;
+  background: radial-gradient(circle, rgba(109,40,217,0.35) 0%, transparent 70%);
+  animation: vrOrb 9s ease-in-out infinite alternate;
+}
+
+.vr-hero__orb--2 {
+  width: 400px; height: 400px;
+  bottom: -80px; right: -60px;
+  background: radial-gradient(circle, rgba(55,143,132,0.3) 0%, transparent 70%);
+  animation: vrOrb 11s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes vrOrb {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(24px,18px) scale(1.1); }
+}
+
+/* ── Eyebrow ── */
+
+.vr-eyebrow {
+  background: rgba(109,40,217,0.15);
+  border: 1px solid rgba(109,40,217,0.35);
+  color: #a78bfa;
+}
+
+/* ── Title ── */
+
+.vr-hero__title {
+  color: #fff;
+}
+
+.vr-title-accent {
+  background: linear-gradient(135deg, #a78bfa 0%, #5ecec4 60%, #c9913a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Desc ── */
+
+.vr-hero__desc { color: rgba(255,255,255,0.55); }
+
+/* ── Meta pills ── */
+
+.vr-pill {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.7);
+}
+
+.vr-pill--new {
+  background: rgba(109,40,217,0.15);
+  border-color: rgba(109,40,217,0.4);
+  color: #a78bfa;
+}
+
+/* ── Hero buttons ── */
+
+.vr-btn-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.82rem 1.9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed, #4c1d95);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(109,40,217,0.45);
+  transition: transform var(--ease), box-shadow var(--ease), filter var(--ease);
+}
+
+.vr-btn-apply:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(109,40,217,0.6);
+  filter: brightness(1.1);
+}
+
+.vr-btn-apply i { font-size: 0.8rem; transition: transform var(--ease); }
+.vr-btn-apply:hover i { transform: translateX(4px); }
+
+.vr-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.82rem 1.7rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  transition: background var(--ease), border-color var(--ease), color var(--ease);
+}
+
+.vr-btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(167,139,250,0.5);
+  color: #fff;
+}
+
+/* ============================================================
+   CSS VR Headset Illustration
+   ============================================================ */
+
+.vr-headset-wrap {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vr-headset-glow {
+  position: absolute;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(109,40,217,0.3) 0%, transparent 65%);
+  filter: blur(40px);
+  animation: vrGlowPulse 4s ease-in-out infinite;
+}
+
+@keyframes vrGlowPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50%       { transform: scale(1.15); opacity: 1; }
+}
+
+.vr-headset {
+  position: relative;
+  animation: vrFloat 5s ease-in-out infinite alternate;
+}
+
+@keyframes vrFloat {
+  from { transform: translateY(0) rotateX(2deg); }
+  to   { transform: translateY(-14px) rotateX(-2deg); }
+}
+
+/* Body */
+.vr-headset__body {
+  background: linear-gradient(145deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%);
+  border-radius: 28px 28px 22px 22px;
+  padding: 20px 24px 18px;
+  width: 220px;
+  box-shadow:
+    0 0 0 2px rgba(167,139,250,0.2),
+    0 20px 40px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  position: relative;
+}
+
+/* Visor area */
+.vr-headset__visor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #0f0a2e;
+  border-radius: 18px;
+  padding: 14px 12px;
+  border: 1.5px solid rgba(109,40,217,0.4);
+  box-shadow:
+    inset 0 0 20px rgba(109,40,217,0.3),
+    0 0 0 1px rgba(167,139,250,0.15);
+}
+
+/* Lenses */
+.vr-headset__lens {
+  width: 72px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 35% 35%,
+    rgba(94,206,196,0.7) 0%,
+    rgba(109,40,217,0.5) 45%,
+    #0a0520 100%
+  );
+  border: 2px solid rgba(167,139,250,0.5);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 12px rgba(94,206,196,0.4),
+    inset 0 0 16px rgba(109,40,217,0.5);
+}
+
+.vr-headset__lens-inner {
+  position: absolute;
+  top: 18%;
+  left: 18%;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  filter: blur(4px);
+}
+
+.vr-headset__bridge {
+  width: 14px;
+  height: 12px;
+  background: #1e1b4b;
+  border-top: 2px solid rgba(167,139,250,0.3);
+}
+
+/* Band */
+.vr-headset__band {
+  height: 10px;
+  background: linear-gradient(90deg, #312e81, #4c1d95, #312e81);
+  border-radius: 0 0 8px 8px;
+  margin-top: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Floating particles */
+.vr-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(167,139,250,0.7);
+  box-shadow: 0 0 8px rgba(167,139,250,0.5);
+}
+
+.vr-particle--1 {
+  width: 8px; height: 8px;
+  top: 20px; right: 30px;
+  animation: vParticle 3.2s ease-in-out infinite alternate;
+}
+
+.vr-particle--2 {
+  width: 5px; height: 5px;
+  bottom: 40px; left: 20px;
+  background: rgba(94,206,196,0.8);
+  box-shadow: 0 0 6px rgba(94,206,196,0.5);
+  animation: vParticle 4s ease-in-out infinite alternate-reverse;
+}
+
+.vr-particle--3 {
+  width: 6px; height: 6px;
+  top: 50px; left: 10px;
+  animation: vParticle 2.8s ease-in-out infinite alternate;
+}
+
+.vr-particle--4 {
+  width: 4px; height: 4px;
+  bottom: 20px; right: 15px;
+  background: rgba(201,145,58,0.8);
+  box-shadow: 0 0 6px rgba(201,145,58,0.4);
+  animation: vParticle 3.5s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes vParticle {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(8px,-10px) scale(1.4); }
+}
+
+/* Floating tool badges */
+.vr-badge-float {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.vr-badge-float--unity {
+  top: 20px; left: -10px;
+  background: rgba(109,40,217,0.85);
+  color: #e9d5ff;
+  border: 1px solid rgba(167,139,250,0.4);
+  animation: badgeFloat 4.5s ease-in-out infinite alternate;
+}
+
+.vr-badge-float--spark {
+  bottom: 40px; left: -30px;
+  background: rgba(55,143,132,0.85);
+  color: #5ecec4;
+  border: 1px solid rgba(94,206,196,0.35);
+  animation: badgeFloat 5.5s ease-in-out infinite alternate-reverse;
+}
+
+.vr-badge-float--webxr {
+  bottom: 80px; right: -20px;
+  background: rgba(201,145,58,0.85);
+  color: #fde68a;
+  border: 1px solid rgba(201,145,58,0.4);
+  animation: badgeFloat 5s ease-in-out infinite alternate;
+}
+
+@keyframes badgeFloat {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-8px); }
+}
+
+/* ============================================================
+   Tabs — futuristic pill style
+   ============================================================ */
+
+.vr-page.services-tabs-section { background: var(--clr-bg); }
+
+.vr-tabs .services-tab {
+  border-radius: var(--r-md);
+  background: var(--clr-white);
+}
+
+.vr-tabs .services-tab.active {
+  background: linear-gradient(135deg, #7c3aed, #4c1d95);
+  border-color: #7c3aed;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(109,40,217,0.35);
+}
+
+.vr-tabs .services-tab:hover:not(.active) {
+  border-color: rgba(109,40,217,0.4);
+  color: #7c3aed;
+}
+
+/* ── Icon colours for overview cards ── */
+
+.vr-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+
+.vr-icon--purple { background: rgba(109,40,217,0.12); color: #7c3aed; }
+.vr-icon--teal   { background: var(--clr-teal-lt);    color: var(--clr-teal); }
+.vr-icon--gold   { background: var(--clr-gold-lt);    color: var(--clr-gold); }
+
+/* ── Overview info banner ── */
+
+.vr-overview-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.9rem 1.2rem;
+  background: rgba(109,40,217,0.07);
+  border: 1px solid rgba(109,40,217,0.2);
+  border-radius: var(--r-md);
+  font-size: 0.85rem;
+  color: #6d28d9;
+  margin-top: 0.5rem;
+}
+
+.vr-overview-banner i { flex-shrink: 0; }
+
+/* ── Curriculum week numbers ── */
+
+.vr-week-num {
+  background: linear-gradient(135deg, rgba(109,40,217,0.15), rgba(109,40,217,0.08));
+  border: 1.5px solid rgba(109,40,217,0.3);
+  color: #7c3aed;
+  font-size: 0.72rem;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ── Outcome tags ── */
+
+.vr-outcome {
+  background: var(--clr-white);
+  border: 1px solid rgba(170,194,197,0.35);
+  border-radius: var(--r-md);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.vr-outcome:hover {
+  border-color: rgba(109,40,217,0.35);
+  box-shadow: var(--shadow-sm);
+}
+
+.vr-outcome i { color: #7c3aed; font-size: 0.9rem; flex-shrink: 0; }
+
+/* ── Outcomes footer stats ── */
+
+.vr-outcomes-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(109,40,217,0.06), rgba(55,143,132,0.06));
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(109,40,217,0.15);
+  flex-wrap: wrap;
+}
+
+.vr-outcomes-footer__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.vr-outcomes-footer__num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #7c3aed;
+  line-height: 1;
+}
+
+.vr-outcomes-footer__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--clr-mist);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.vr-outcomes-footer__divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(109,40,217,0.2);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 900px) {
+  .vr-headset-wrap { width: 260px; height: 260px; }
+  .vr-headset__body { width: 180px; }
+  .vr-headset__lens { width: 56px; height: 40px; }
+  .vr-badge-float { display: none; }
+}
+
+@media (max-width: 640px) {
+  .vr-hero { min-height: auto; }
+  .vr-headset-wrap { width: 200px; height: 200px; }
+  .vr-headset__body { width: 150px; }
+  .vr-outcomes-footer { gap: 1rem; }
+  .vr-outcomes-footer__divider { display: none; }
+}
