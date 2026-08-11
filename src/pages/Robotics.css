@@ -1,164 +1,461 @@
 /* ============================================================
-   Robotics.css — page-specific styling layer
-   Loaded on top of ServicePage.css. Signature: a hardware
-   control panel hero (corner screws, status LEDs, power toggle)
-   and rocker-style tabs, echoing the electronics/hardware side
-   of this course rather than pure software tools.
+   Robotics.css
+   Signature: dark electric-blue hero with an orange accent —
+   a CSS-drawn robot chassis with blinking LED eyes, a sensor
+   readout panel, and wheels. Hardware-flavoured, not screen-based.
    ============================================================ */
 
-/* ---- Hero: control panel instead of artboard/browser/dashboard/device/console ---- */
+/* ── Hero background ── */
 
-.robotics-panel {
-  position: relative;
-  width: 100%;
-  max-width: 320px;
-  padding: 16px;
-  background: var(--clr-dark);
-  border-radius: 14px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.rb-hero {
+  background: linear-gradient(135deg,
+    #05131c 0%, #071f2e 45%, #0a0f14 100%);
+  min-height: 78vh;
 }
 
-.robotics-panel__bolt {
+/* Orbs */
+.rb-hero__orb {
   position: absolute;
-  width: 8px;
-  height: 8px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #777, #222);
-  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  filter: blur(80px);
+  z-index: 0;
 }
 
-.robotics-panel__bolt--tl { top: 8px; left: 8px; }
-.robotics-panel__bolt--tr { top: 8px; right: 8px; }
-.robotics-panel__bolt--bl { bottom: 8px; left: 8px; }
-.robotics-panel__bolt--br { bottom: 8px; right: 8px; }
+.rb-hero__orb--1 {
+  width: 500px; height: 500px;
+  top: -100px; left: -80px;
+  background: radial-gradient(circle, rgba(56,189,248,0.4) 0%, transparent 70%);
+  animation: rbOrb 9s ease-in-out infinite alternate;
+}
 
-.robotics-panel__leds {
-  display: flex;
+.rb-hero__orb--2 {
+  width: 360px; height: 360px;
+  bottom: -60px; right: -60px;
+  background: radial-gradient(circle, rgba(251,146,60,0.3) 0%, transparent 70%);
+  animation: rbOrb 12s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes rbOrb {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(22px,16px) scale(1.09); }
+}
+
+/* ── Eyebrow ── */
+
+.rb-eyebrow {
+  background: rgba(56,189,248,0.15);
+  border: 1px solid rgba(56,189,248,0.38);
+  color: #7dd3fc;
+}
+
+/* ── Title ── */
+
+.rb-hero__title {
+  background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 55%, #fb923c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Meta pills ── */
+
+.rb-pill {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.7);
+}
+
+.rb-pill--hands {
+  background: rgba(251,146,60,0.14);
+  border-color: rgba(251,146,60,0.4);
+  color: #fdba74;
+}
+
+/* ── Buttons ── */
+
+.rb-btn-apply {
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 10px;
-  padding-left: 2px;
+  gap: 8px;
+  padding: 0.82rem 1.9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #051019;
+  background: linear-gradient(135deg, #7dd3fc, #38bdf8);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(56,189,248,0.4);
+  transition: transform var(--ease), box-shadow var(--ease), filter var(--ease);
 }
 
-.robotics-panel__led {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex-shrink: 0;
+.rb-btn-apply:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(56,189,248,0.55);
+  filter: brightness(1.05);
 }
 
-.robotics-panel__led--red { background: #e5645a; box-shadow: 0 0 6px rgba(229, 100, 90, 0.7); }
-.robotics-panel__led--amber { background: #e6b450; box-shadow: 0 0 6px rgba(230, 180, 80, 0.6); }
-.robotics-panel__led--green { background: var(--clr-teal-bright); box-shadow: 0 0 6px rgba(94, 206, 196, 0.8); }
+.rb-btn-apply i { font-size: 0.8rem; transition: transform var(--ease); }
+.rb-btn-apply:hover i { transform: translateX(4px); }
 
-.robotics-panel__label {
-  margin-left: 6px;
-  font-family: Consolas, Menlo, monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.4);
-  text-transform: uppercase;
-}
-
-.robotics-panel__screen {
-  border-radius: 10px;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  background: var(--clr-teal-lt);
-}
-
-.robotics-panel__screen img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.robotics-panel__switch {
-  display: flex;
+.rb-btn-outline {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 12px;
-  padding: 0.5rem 0.7rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--r-pill);
-}
-
-.robotics-panel__switch-label {
-  font-family: Consolas, Menlo, monospace;
-  font-size: 0.62rem;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.robotics-panel__switch-track {
-  position: relative;
-  width: 34px;
-  height: 18px;
-  background: var(--clr-teal-md);
-  border-radius: var(--r-pill);
-  flex-shrink: 0;
-}
-
-.robotics-panel__switch-knob {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-}
-
-/* ---- Tabs: rocker/control-panel buttons instead of pill/editor/chip/dock tabs ---- */
-
-.robotics-page .services-tabs {
-  background: var(--clr-dark);
-  border-radius: 10px;
-  padding: 6px;
-  gap: 6px;
-  margin-bottom: 2.75rem;
-}
-
-.robotics-page .services-tab {
-  flex: 1;
-  border-radius: 6px;
-  color: rgba(255, 255, 255, 0.55);
-  padding: 0.65rem 1rem;
-  font-size: 0.82rem;
+  padding: 0.82rem 1.7rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
   font-weight: 600;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  transition: background var(--ease), border-color var(--ease), color var(--ease);
 }
 
-.robotics-page .services-tab:hover {
-  color: rgba(255, 255, 255, 0.85);
+.rb-btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(125,211,252,0.5);
+  color: #fff;
 }
 
-.robotics-page #tab-overview:checked ~ .services-tabs label[for="tab-overview"],
-.robotics-page #tab-outcomes:checked ~ .services-tabs label[for="tab-outcomes"],
-.robotics-page #tab-faqs:checked ~ .services-tabs label[for="tab-faqs"] {
-  background: var(--clr-teal-md);
-  color: var(--clr-white);
-  box-shadow: 0 0 0 2px rgba(94, 206, 196, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+/* ============================================================
+   CSS robot chassis illustration
+   ============================================================ */
+
+.rb-bot-wrap {
+  position: relative;
+  width: 300px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ---- Outcome tags styled like IC/component labels ---- */
-
-.robotics-page .services-outcome-tag {
-  font-family: Consolas, Menlo, monospace;
-  background: var(--clr-dark);
-  color: var(--clr-teal-bright);
-  border-radius: 4px;
+.rb-bot-glow {
+  position: absolute;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56,189,248,0.28) 0%, transparent 65%);
+  filter: blur(40px);
+  animation: rbGlowPulse 4s ease-in-out infinite;
 }
 
-/* ---- Responsive ---- */
+@keyframes rbGlowPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.1); }
+}
 
-@media (max-width: 560px) {
-  .robotics-page .services-tab span {
-    display: none;
-  }
+.rb-bot {
+  position: relative;
+  z-index: 2;
+  animation: rbFloat 5s ease-in-out infinite alternate;
+}
+
+@keyframes rbFloat {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-12px); }
+}
+
+/* Antenna */
+.rb-bot__antenna {
+  width: 3px;
+  height: 26px;
+  background: linear-gradient(to top, #38bdf8, rgba(56,189,248,0.3));
+  margin: 0 auto;
+  position: relative;
+}
+
+.rb-bot__antenna-ball {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #fb923c;
+  box-shadow: 0 0 10px rgba(251,146,60,0.8);
+  animation: rbAntennaBlink 1.6s ease-in-out infinite;
+}
+
+@keyframes rbAntennaBlink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(251,146,60,0.8); }
+  50%       { opacity: 0.4; box-shadow: 0 0 4px rgba(251,146,60,0.3); }
+}
+
+/* Head */
+.rb-bot__head {
+  width: 130px;
+  height: 70px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, #17222c, #0c141a);
+  border: 2px solid rgba(56,189,248,0.35);
+  border-radius: 20px 20px 14px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  box-shadow:
+    0 0 0 1px rgba(56,189,248,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.rb-bot__eye {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #bae6fd, #38bdf8 55%, #0369a1 100%);
+  box-shadow: 0 0 14px rgba(56,189,248,0.7);
+  animation: rbBlink 4s ease-in-out infinite;
+}
+
+.rb-bot__eye--right { animation-delay: 0.15s; }
+
+@keyframes rbBlink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95%            { transform: scaleY(0.1); }
+}
+
+/* Body */
+.rb-bot__body {
+  width: 160px;
+  margin: 10px auto 0;
+  background: linear-gradient(145deg, #1a2732, #0e161d);
+  border: 2px solid rgba(56,189,248,0.25);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05);
+  position: relative;
+}
+
+.rb-bot__panel {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 30px;
+  background: rgba(56,189,248,0.06);
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 6px;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+}
+
+.rb-bot__bar {
+  flex: 1;
+  background: linear-gradient(to top, #38bdf8, #7dd3fc);
+  border-radius: 2px;
+  animation: rbBarPulse 1.8s ease-in-out infinite;
+}
+
+.rb-bot__bar:nth-child(1) { height: 40%; animation-delay: 0s; }
+.rb-bot__bar:nth-child(2) { height: 80%; animation-delay: 0.2s; }
+.rb-bot__bar:nth-child(3) { height: 55%; animation-delay: 0.4s; }
+.rb-bot__bar:nth-child(4) { height: 90%; animation-delay: 0.6s; }
+.rb-bot__bar:nth-child(5) { height: 35%; animation-delay: 0.8s; }
+
+@keyframes rbBarPulse {
+  0%, 100% { opacity: 0.5; transform: scaleY(0.7); }
+  50%       { opacity: 1;   transform: scaleY(1); }
+}
+
+.rb-bot__lights {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.rb-bot__light {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(251,146,60,0.3);
+  animation: rbLightSeq 1.5s ease-in-out infinite;
+}
+
+.rb-bot__light:nth-child(1) { animation-delay: 0s; }
+.rb-bot__light:nth-child(2) { animation-delay: 0.3s; }
+.rb-bot__light:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes rbLightSeq {
+  0%, 100% { background: rgba(251,146,60,0.25); box-shadow: none; }
+  50%       { background: #fb923c; box-shadow: 0 0 8px rgba(251,146,60,0.8); }
+}
+
+/* Arms */
+.rb-bot__arm {
+  position: absolute;
+  top: 108px;
+  width: 10px;
+  height: 46px;
+  background: linear-gradient(180deg, #38bdf8, #0c4a6e);
+  border-radius: 6px;
+}
+
+.rb-bot__arm--left  { left: -6px; transform: rotate(8deg); }
+.rb-bot__arm--right { right: -6px; transform: rotate(-8deg); }
+
+/* Wheels */
+.rb-bot__wheel {
+  position: absolute;
+  bottom: -8px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #1a2732, #05090c 70%);
+  border: 3px solid rgba(56,189,248,0.3);
+}
+
+.rb-bot__wheel--left  { left: 12px; }
+.rb-bot__wheel--right { right: 12px; }
+
+/* Floating tool badges */
+.rb-badge {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.rb-badge--arduino { top: 10px; left: 6px;    background: rgba(56,189,248,0.88); color: #06222e; border: 1px solid rgba(125,211,252,0.4); animation: rbBadgeFloat 4s ease-in-out infinite alternate; }
+.rb-badge--sensor  { top: 60px; right: -10px; background: rgba(251,146,60,0.88); color: #2a1404; border: 1px solid rgba(251,146,60,0.4); animation: rbBadgeFloat 4.6s ease-in-out infinite alternate-reverse; }
+.rb-badge--motor   { bottom: 20px; left: -10px; background: rgba(94,206,196,0.85); color: #06231f; border: 1px solid rgba(94,206,196,0.4); animation: rbBadgeFloat 5s ease-in-out infinite alternate; }
+
+@keyframes rbBadgeFloat {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-7px); }
+}
+
+/* ============================================================
+   Tab styles
+   ============================================================ */
+
+.rb-tabs .services-tab.active {
+  background: linear-gradient(135deg, #38bdf8, #0284c7);
+  border-color: #38bdf8;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(56,189,248,0.35);
+}
+
+.rb-tabs .services-tab:hover:not(.active) {
+  border-color: rgba(56,189,248,0.4);
+  color: #0284c7;
+}
+
+/* ── Overview card icons ── */
+.rb-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+
+.rb-icon--blue   { background: rgba(56,189,248,0.12); color: #0284c7; }
+.rb-icon--orange { background: rgba(251,146,60,0.12);  color: #ea7c1e; }
+
+/* ── Info banner ── */
+.rb-info-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.9rem 1.2rem;
+  background: rgba(56,189,248,0.07);
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: var(--r-md);
+  font-size: 0.85rem;
+  color: #0369a1;
+  margin-top: 0.5rem;
+}
+
+.rb-info-banner i { flex-shrink: 0; }
+
+/* ── Curriculum week numbers ── */
+.rb-week-num {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(56,189,248,0.12), rgba(251,146,60,0.1));
+  border: 1.5px solid rgba(56,189,248,0.3);
+  color: #0284c7;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ── Outcome tags ── */
+.rb-outcome {
+  background: var(--clr-white);
+  border: 1px solid rgba(170,194,197,0.35);
+  border-radius: var(--r-md);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.rb-outcome:hover {
+  border-color: rgba(56,189,248,0.35);
+  box-shadow: var(--shadow-sm);
+}
+
+.rb-outcome i { color: #0284c7; font-size: 0.9rem; flex-shrink: 0; }
+
+/* ── Outcomes footer stats ── */
+.rb-outcomes-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(56,189,248,0.06), rgba(251,146,60,0.06));
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(56,189,248,0.18);
+  flex-wrap: wrap;
+}
+
+.rb-outcomes-footer__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.rb-outcomes-footer__num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0284c7;
+  line-height: 1;
+}
+
+.rb-outcomes-footer__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #ea7c1e;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .rb-hero { min-height: auto; }
+  .rb-bot-wrap { width: 240px; height: 260px; }
+  .rb-bot__head { width: 110px; }
+  .rb-bot__body { width: 130px; }
+  .rb-badge--sensor { display: none; }
+}
+
+@media (max-width: 640px) {
+  .rb-bot-wrap { width: 200px; height: 220px; }
+  .rb-badge { display: none; }
 }

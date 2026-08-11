@@ -1,416 +1,377 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "./ServicePage.css";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Navbar from "../components/Navbar.jsx";
+import CTABanner from "../components/CTABanner.jsx";
+import Footer from "../components/Footer.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
+import "../styles/ServicePage.css";
 import "./Robotics.css";
 
-function Robotics() {
-  const outcomes = [
-    {
-      tag: "Assembly",
-      title: "Build and assemble robotic hardware using mechanical components",
-      text: "Learn to construct robot chassis, connect motors, sensors, and structural parts correctly.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="16 18 22 12 16 6"></polyline>
-          <polyline points="8 6 2 12 8 18"></polyline>
-        </svg>
-      ),
-    },
-    {
-      tag: "Electronics",
-      title: "Understand basic electronics and circuit wiring",
-      text: "Learn how to wire sensors, motors, and controllers safely and correctly.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="13.5" cy="6.5" r="2.5"></circle>
-          <circle cx="19" cy="17" r="2.5"></circle>
-          <circle cx="6" cy="12" r="2.5"></circle>
-          <line x1="14.5" y1="8.5" x2="8" y2="11"></line>
-          <line x1="15.5" y1="9" x2="18" y2="14.5"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Programming",
-      title: "Write code to control robot movement and behavior",
-      text: "Program robots to respond to sensor input and perform planned actions.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="4 17 10 11 4 5"></polyline>
-          <line x1="12" y1="19" x2="20" y2="19"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Sensors",
-      title:
-        "Work with sensors to enable robots to interact with their environment",
-      text: "Use sensors such as ultrasonic, light, and touch to guide robot decisions.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-          <line x1="3" y1="9" x2="21" y2="9"></line>
-          <line x1="9" y1="21" x2="9" y2="9"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Problem Solving",
-      title: "Debug and troubleshoot hardware and software issues",
-      text: "Diagnose wiring faults, sensor errors, and code bugs methodically.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-          <line x1="12" y1="22.08" x2="12" y2="12"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Competitions",
-      title: "Prepare robots for challenges and competitive tasks",
-      text: "Apply your skills under real constraints, testing robots against timed or obstacle-based tasks.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-        </svg>
-      ),
-    },
-  ];
+/* ── Data ───────────────────────────────────────────────────── */
 
-  const faqs = [
-    {
-      q: "Do I need prior electronics or coding experience?",
-      a: "No. The course starts from the fundamentals of both hardware and code, so it is suitable for complete beginners.",
-    },
-    {
-      q: "Do I need to bring my own robotics kit?",
-      a: "No. Robotics kits and components are provided for use during sessions, so you can focus on learning without needing to buy equipment first.",
-    },
-    {
-      q: "Will I build a working robot?",
-      a: "Yes. By the end of the course you will have assembled and programmed a functioning robot as part of your practical project work.",
-    },
-    {
-      q: "Is this course suitable preparation for competitions?",
-      a: "Yes. The skills and project work in this course are designed to prepare learners for inter-school and regional robotics competitions.",
-    },
-  ];
+const OVERVIEW_CARDS = [
+  {
+    icon: "fa-solid fa-robot",
+    color: "blue",
+    title: "What You Will Learn",
+    desc: "How to build and program real robots from scratch — circuits, microcontrollers, sensors and motors working together as one system.",
+  },
+  {
+    icon: "fa-solid fa-toolbox",
+    color: "orange",
+    title: "Tools You Will Use",
+    desc: "Arduino boards, breadboards, ultrasonic and infrared sensors, servo and DC motors, and the Arduino IDE for programming your builds.",
+  },
+  {
+    icon: "fa-solid fa-users",
+    color: "blue",
+    title: "Who It Is For",
+    desc: "Hands-on learners, students interested in engineering, hobbyists who want to build physical projects, and anyone who prefers building things they can touch.",
+  },
+  {
+    icon: "fa-solid fa-microchip",
+    color: "orange",
+    title: "Career Paths",
+    desc: "Robotics Engineer, Embedded Systems Developer, Mechatronics Technician, IoT Developer — hands-on engineering roles across manufacturing and tech.",
+  },
+];
 
+const CURRICULUM = [
+  {
+    week: "Wk 1–2",
+    title: "Electronics Fundamentals",
+    desc: "Circuits, breadboards, resistors, LEDs and switches. Understanding voltage, current and Ohm's Law by building, not memorising.",
+  },
+  {
+    week: "Wk 3–4",
+    title: "Intro to Arduino & Microcontrollers",
+    desc: "Setting up the Arduino IDE, writing your first sketches, and controlling digital and analog inputs and outputs.",
+  },
+  {
+    week: "Wk 5–6",
+    title: "Sensors — Reading the Real World",
+    desc: "Ultrasonic, infrared, light and temperature sensors. Turning physical signals into data your code can act on.",
+  },
+  {
+    week: "Wk 7–8",
+    title: "Motors & Movement",
+    desc: "DC motors, servos and motor drivers. Giving your robot the ability to move, turn and respond.",
+  },
+  {
+    week: "Wk 9–10",
+    title: "Capstone Robot Build",
+    desc: "Combine sensors, motors and code into a working autonomous robot. Test, debug and present it live on demo day.",
+  },
+];
+
+const OUTCOMES = [
+  {
+    icon: "fa-solid fa-bolt",
+    text: "Build working circuits from scratch on a breadboard",
+  },
+  {
+    icon: "fa-brands fa-cuttlefish",
+    text: "Program microcontrollers with Arduino",
+  },
+  {
+    icon: "fa-solid fa-satellite-dish",
+    text: "Read real-world data using sensors",
+  },
+  { icon: "fa-solid fa-gear", text: "Control motors and servos precisely" },
+  { icon: "fa-solid fa-robot", text: "Build a fully autonomous robot" },
+  { icon: "fa-solid fa-bug", text: "Debug hardware and code together" },
+  {
+    icon: "fa-solid fa-briefcase",
+    text: "Portfolio-ready — 1 complete robot project",
+  },
+  {
+    icon: "fa-solid fa-certificate",
+    text: "B Bright Tech Hub Robotics certificate",
+  },
+];
+
+const FAQS = [
+  {
+    q: "Do I need to buy my own robotics kit?",
+    a: "No — all Arduino boards, sensors, motors and components are provided in class for every session. Ask our team about take-home kit options if you'd like to keep practising at home.",
+  },
+  {
+    q: "Do I need coding experience first?",
+    a: "It helps but isn't required — we teach the programming side from scratch. If you've taken Digital Literacy or Vibe Coding first, the Arduino coding will feel very familiar.",
+  },
+  {
+    q: "Is there an age requirement?",
+    a: "This course is designed for ages 12 and up. Younger students with strong interest are welcome to speak with our team about the After School robotics track instead.",
+  },
+  {
+    q: "Is Robotics the same as VR & AR?",
+    a: "No — Robotics is about building physical hardware you can hold and move. VR & AR is about building immersive digital software experiences. They're a great combination if you're curious about both.",
+  },
+  {
+    q: "Will I break anything if I get it wrong?",
+    a: "Not with the components we use — everything is built for beginners to experiment safely. Getting a circuit wrong is part of learning, and our instructors are there to help you debug it.",
+  },
+];
+
+/* ── Hero visual: CSS robot chassis with blinking eyes & sensor panel ── */
+
+function RoboticsHero() {
   return (
-    <>
-      <Navbar />
+    <section className="service-hero rb-hero">
+      <div className="service-hero__grid-overlay" aria-hidden="true"></div>
+      <div className="rb-hero__orb rb-hero__orb--1" aria-hidden="true"></div>
+      <div className="rb-hero__orb rb-hero__orb--2" aria-hidden="true"></div>
 
-      <div className="services-wrapper robotics-page">
-        {/* hero */}
-        <section className="services-hero">
-          <div className="services-hero-inner">
-            <div className="services-hero-text">
-              <span className="services-eyebrow">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="16 18 22 12 16 6"></polyline>
-                  <polyline points="8 6 2 12 8 18"></polyline>
-                </svg>
-                Emerging Technologies
-              </span>
-              <h1 className="services-title">Robotics</h1>
-              <p className="services-subtitle">
-                Robotics gives learners hands-on experience building, wiring,
-                and programming robots — combining hardware assembly,
-                electronics fundamentals, and code to bring machines to life.
-              </p>
-            </div>
+      <div
+        className="service-hero__text"
+        data-aos="fade-right"
+        data-aos-duration="700"
+      >
+        <span className="service-hero__eyebrow rb-eyebrow">
+          <i className="fa-solid fa-robot" aria-hidden="true"></i>
+          Tech Skills Training
+        </span>
 
-            <div className="services-hero-card">
-              <div className="robotics-panel">
-                <span
-                  className="robotics-panel__bolt robotics-panel__bolt--tl"
-                  aria-hidden="true"
-                ></span>
-                <span
-                  className="robotics-panel__bolt robotics-panel__bolt--tr"
-                  aria-hidden="true"
-                ></span>
-                <span
-                  className="robotics-panel__bolt robotics-panel__bolt--bl"
-                  aria-hidden="true"
-                ></span>
-                <span
-                  className="robotics-panel__bolt robotics-panel__bolt--br"
-                  aria-hidden="true"
-                ></span>
+        <h1 className="service-hero__title rb-hero__title">Robotics</h1>
 
-                <div className="robotics-panel__leds">
-                  <span className="robotics-panel__led robotics-panel__led--red"></span>
-                  <span className="robotics-panel__led robotics-panel__led--amber"></span>
-                  <span className="robotics-panel__led robotics-panel__led--green"></span>
-                  <span className="robotics-panel__label">System Online</span>
-                </div>
+        <p
+          className="service-hero__desc"
+          style={{ color: "rgba(255,255,255,0.55)" }}
+        >
+          Wires, sensors, motors and code — brought together into something that
+          actually moves. Build real robots from the breadboard up over 10
+          hands-on weeks.
+        </p>
 
-                <div className="robotics-panel__screen">
-                  <img
-                    src="/web.png"
-                    alt="Preview of a robotics build project made during the course"
-                  />
-                </div>
+        <div className="service-hero__meta">
+          <span className="service-hero__meta-pill rb-pill">
+            <i className="fa-regular fa-clock" aria-hidden="true"></i> 10 Weeks
+          </span>
+          <span className="service-hero__meta-pill rb-pill">
+            <i className="fa-solid fa-signal" aria-hidden="true"></i> Beginner –
+            Intermediate
+          </span>
+          <span className="service-hero__meta-pill rb-pill rb-pill--hands">
+            <i className="fa-solid fa-hand-sparkles" aria-hidden="true"></i>{" "}
+            Hands-On
+          </span>
+        </div>
 
-                <div className="robotics-panel__switch">
-                  <span className="robotics-panel__switch-label">Power</span>
-                  <span className="robotics-panel__switch-track">
-                    <span className="robotics-panel__switch-knob"></span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* tabs + panel */}
-        <div className="services-content">
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-overview"
-            className="services-tab-input"
-            defaultChecked
-          />
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-outcomes"
-            className="services-tab-input"
-          />
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-faqs"
-            className="services-tab-input"
-          />
-
-          <nav className="services-tabs">
-            <label htmlFor="tab-overview" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              <span>Overview</span>
-            </label>
-            <label htmlFor="tab-outcomes" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-              </svg>
-              <span>Learning Outcomes</span>
-            </label>
-            <label htmlFor="tab-faqs" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              <span>FAQs</span>
-            </label>
-          </nav>
-
-          <div className="services-panel">
-            {/* overview */}
-            <section className="services-section services-overview-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">Overview</h2>
-              </div>
-              <p className="services-section-text">
-                This Robotics programme introduces learners to the fundamentals
-                of building and programming robots, combining mechanical
-                assembly, basic electronics, and hands-on coding. Students work
-                with real components — motors, sensors, and controllers — to
-                understand how hardware and software come together to create
-                functioning machines.
-              </p>
-              <p className="services-section-text">
-                Through guided builds and practical challenges, learners
-                progress from simple wiring and assembly to programming robots
-                that can sense their environment and respond to it, finishing
-                with the skills to design, build, and troubleshoot their own
-                robotics projects.
-              </p>
-            </section>
-
-            {/* learning outcomes */}
-            <section className="services-section services-outcomes-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                    <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">Learning Outcomes</h2>
-              </div>
-
-              <div className="services-outcomes-grid">
-                {outcomes.map((o) => (
-                  <div className="services-outcome-card" key={o.tag}>
-                    <span className="services-outcome-icon">{o.icon}</span>
-                    <div>
-                      <span className="services-outcome-tag">{o.tag}</span>
-                      <p className="services-outcome-title">{o.title}</p>
-                      <p className="services-outcome-text">{o.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* faqs */}
-            <section className="services-section services-faqs-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">
-                  Frequently Asked Questions
-                </h2>
-              </div>
-
-              <div className="services-faq-list">
-                {faqs.map((item, i) => (
-                  <details className="services-faq-item" key={i}>
-                    <summary className="services-faq-question">
-                      <span className="services-faq-question-left">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                        </svg>
-                        {item.q}
-                      </span>
-                      <svg
-                        className="services-faq-chevron"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </summary>
-                    <p className="services-faq-answer">{item.a}</p>
-                  </details>
-                ))}
-              </div>
-            </section>
-          </div>
+        <div className="service-hero__btns">
+          <Link to="/apply" className="rb-btn-apply">
+            Apply Now{" "}
+            <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </Link>
+          <Link to="/programmes" className="rb-btn-outline">
+            All Programmes
+          </Link>
         </div>
       </div>
 
+      {/* CSS robot chassis visual */}
+      <div
+        className="service-hero__visual"
+        data-aos="fade-left"
+        data-aos-duration="700"
+        data-aos-delay="150"
+      >
+        <div className="rb-bot-wrap">
+          <div className="rb-bot-glow" aria-hidden="true"></div>
+
+          <div className="rb-bot">
+            <div className="rb-bot__antenna">
+              <span className="rb-bot__antenna-ball"></span>
+            </div>
+
+            <div className="rb-bot__head">
+              <div className="rb-bot__eye rb-bot__eye--left"></div>
+              <div className="rb-bot__eye rb-bot__eye--right"></div>
+            </div>
+
+            <div className="rb-bot__body">
+              <div className="rb-bot__panel">
+                <span className="rb-bot__bar"></span>
+                <span className="rb-bot__bar"></span>
+                <span className="rb-bot__bar"></span>
+                <span className="rb-bot__bar"></span>
+                <span className="rb-bot__bar"></span>
+              </div>
+              <div className="rb-bot__lights">
+                <span className="rb-bot__light"></span>
+                <span className="rb-bot__light"></span>
+                <span className="rb-bot__light"></span>
+              </div>
+            </div>
+
+            <div className="rb-bot__arm rb-bot__arm--left"></div>
+            <div className="rb-bot__arm rb-bot__arm--right"></div>
+            <div className="rb-bot__wheel rb-bot__wheel--left"></div>
+            <div className="rb-bot__wheel rb-bot__wheel--right"></div>
+          </div>
+        </div>
+
+        {/* Floating tool badges */}
+        <div className="rb-badge rb-badge--arduino">
+          <i className="fa-solid fa-microchip" aria-hidden="true"></i> Arduino
+        </div>
+        <div className="rb-badge rb-badge--sensor">
+          <i className="fa-solid fa-satellite-dish" aria-hidden="true"></i>{" "}
+          Sensors
+        </div>
+        <div className="rb-badge rb-badge--motor">
+          <i className="fa-solid fa-gear" aria-hidden="true"></i> Motors
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FAQ item ── */
+function FAQItem({ faq }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`services-faq ${open ? "open" : ""}`}>
+      <button className="services-faq__q" onClick={() => setOpen((v) => !v)}>
+        {faq.q}
+        <span className="services-faq__icon">
+          <i className="fa-solid fa-plus"></i>
+        </span>
+      </button>
+      <div className="services-faq__a">{faq.a}</div>
+    </div>
+  );
+}
+
+/* ── Tabs ── */
+const TABS = [
+  { id: "overview", icon: "fa-solid fa-circle-info", label: "Overview" },
+  { id: "curriculum", icon: "fa-solid fa-list-check", label: "Curriculum" },
+  { id: "outcomes", icon: "fa-solid fa-trophy", label: "Outcomes" },
+  { id: "faqs", icon: "fa-solid fa-circle-question", label: "FAQs" },
+];
+
+function RoboticsTabs() {
+  const [active, setActive] = useState("overview");
+
+  return (
+    <section className="services-tabs-section">
+      <div className="services-tabs rb-tabs" role="tablist">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            role="tab"
+            aria-selected={active === tab.id}
+            className={`services-tab ${active === tab.id ? "active" : ""}`}
+            onClick={() => setActive(tab.id)}
+          >
+            <i className={tab.icon} aria-hidden="true"></i>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Overview */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "overview" ? "active" : ""}`}
+      >
+        <div className="services-overview-grid">
+          {OVERVIEW_CARDS.map((card) => (
+            <div key={card.title} className="services-overview-card">
+              <div
+                className={`services-overview-card__icon rb-icon rb-icon--${card.color}`}
+              >
+                <i className={card.icon} aria-hidden="true"></i>
+              </div>
+              <h3>{card.title}</h3>
+              <p>{card.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="rb-info-banner">
+          <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
+          No prior electronics knowledge needed — every circuit starts with a
+          single LED, and builds from there.
+        </div>
+      </div>
+
+      {/* Curriculum */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "curriculum" ? "active" : ""}`}
+      >
+        <div className="services-curriculum">
+          {CURRICULUM.map((week, i) => (
+            <div key={week.week} className="services-week">
+              <div className="services-week__num rb-week-num">{i + 1}</div>
+              <div className="services-week__body">
+                <h4>
+                  {week.week} — {week.title}
+                </h4>
+                <p>{week.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Outcomes */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "outcomes" ? "active" : ""}`}
+      >
+        <div className="services-outcomes-grid">
+          {OUTCOMES.map((o) => (
+            <div key={o.text} className="services-outcome-tag rb-outcome">
+              <i className={o.icon} aria-hidden="true"></i>
+              {o.text}
+            </div>
+          ))}
+        </div>
+        <div className="rb-outcomes-footer">
+          {[
+            ["1", "Robot Built"],
+            ["10", "Weeks"],
+            ["5+", "Components Mastered"],
+          ].map(([num, label]) => (
+            <div key={label} className="rb-outcomes-footer__stat">
+              <span className="rb-outcomes-footer__num">{num}</span>
+              <span className="rb-outcomes-footer__label">{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FAQs */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "faqs" ? "active" : ""}`}
+      >
+        <div className="services-faqs">
+          {FAQS.map((faq) => (
+            <FAQItem key={faq.q} faq={faq} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Robotics() {
+  useEffect(() => {
+    AOS.init({ once: true, offset: 60 });
+  }, []);
+  return (
+    <div className="service-page rb-page">
+      <Navbar />
+      <RoboticsHero />
+      <RoboticsTabs />
+      <CTABanner />
       <Footer />
-    </>
+      <ScrollToTop />
+    </div>
   );
 }
 

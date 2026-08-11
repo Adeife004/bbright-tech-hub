@@ -1,401 +1,399 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "./ServicePage.css";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Navbar from "../components/Navbar.jsx";
+import CTABanner from "../components/CTABanner.jsx";
+import Footer from "../components/Footer.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
+import "../styles/ServicePage.css";
 import "./GameDevelopment.css";
 
-function GameDevelopment() {
-  const outcomes = [
-    {
-      tag: "Game Design",
-      title: "Understand core game design principles",
-      text: "Learn how rules, mechanics, and player goals combine to create engaging gameplay.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="16 18 22 12 16 6"></polyline>
-          <polyline points="8 6 2 12 8 18"></polyline>
-        </svg>
-      ),
-    },
-    {
-      tag: "Programming",
-      title: "Write code to control game logic and behavior",
-      text: "Program character movement, scoring, collisions, and win or lose conditions.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="13.5" cy="6.5" r="2.5"></circle>
-          <circle cx="19" cy="17" r="2.5"></circle>
-          <circle cx="6" cy="12" r="2.5"></circle>
-          <line x1="14.5" y1="8.5" x2="8" y2="11"></line>
-          <line x1="15.5" y1="9" x2="18" y2="14.5"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Level Design",
-      title: "Design levels and game environments",
-      text: "Build levels that challenge and guide players through a complete game experience.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="4 17 10 11 4 5"></polyline>
-          <line x1="12" y1="19" x2="20" y2="19"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Characters",
-      title: "Create characters and game assets",
-      text: "Design and implement sprites, characters, and visual elements for your game.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-          <line x1="3" y1="9" x2="21" y2="9"></line>
-          <line x1="9" y1="21" x2="9" y2="9"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Publishing",
-      title: "Publish playable games to real platforms",
-      text: "Package and share your finished games so others can download and play them.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-          <line x1="12" y1="22.08" x2="12" y2="12"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Playtesting",
-      title: "Test and refine games based on player feedback",
-      text: "Identify bugs and balance issues, then iterate to improve the overall gameplay experience.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-        </svg>
-      ),
-    },
-  ];
+/* ── Data ───────────────────────────────────────────────────── */
 
-  const faqs = [
-    {
-      q: "Do I need prior coding experience?",
-      a: "No. The course starts from the fundamentals and builds up gradually, so it is suitable for complete beginners.",
-    },
-    {
-      q: "What tools will I use to build games?",
-      a: "Learners are introduced to beginner-friendly and industry-relevant game development tools, progressing from visual, block-based logic to more advanced game engines.",
-    },
-    {
-      q: "Will I publish a real, playable game?",
-      a: "Yes. The course includes practical projects where you design, build, and share a finished game that others can play.",
-    },
-    {
-      q: "Is this course suitable for beginners and younger learners?",
-      a: "Yes. The course is structured to be approachable for beginners while still building genuinely useful game development and programming skills.",
-    },
-  ];
+const OVERVIEW_CARDS = [
+  {
+    icon: "fa-solid fa-gamepad",
+    color: "magenta",
+    title: "What You Will Learn",
+    desc: "Game design fundamentals, 2D game development, physics, animation and level design — building playable games with Unity from day one.",
+  },
+  {
+    icon: "fa-solid fa-toolbox",
+    color: "cyan",
+    title: "Tools You Will Use",
+    desc: "Unity, C#, Aseprite for pixel art, GitHub for version control, and free sound and asset libraries used by real indie developers.",
+  },
+  {
+    icon: "fa-solid fa-users",
+    color: "magenta",
+    title: "Who It Is For",
+    desc: 'Gamers who want to build their own games, creative students, hobbyist programmers, and anyone who\'s ever thought "I could make a better level than this."',
+  },
+  {
+    icon: "fa-solid fa-trophy",
+    color: "cyan",
+    title: "Career Paths",
+    desc: "Game Developer, Gameplay Programmer, Level Designer, Technical Game Designer, or Indie Studio Founder shipping your own titles.",
+  },
+];
 
+const CURRICULUM = [
+  {
+    week: "Wk 1–2",
+    title: "Game Design Fundamentals",
+    desc: "Game loops, core mechanics and player experience. Paper-prototyping ideas before writing a single line of code.",
+  },
+  {
+    week: "Wk 3–4",
+    title: "Intro to Unity & C#",
+    desc: "The Unity editor, GameObjects and components, and scripting your first player interactions in C#.",
+  },
+  {
+    week: "Wk 5–6",
+    title: "2D Game Development",
+    desc: "Sprites, animation, tilemaps and physics — building a complete 2D platformer level from the ground up.",
+  },
+  {
+    week: "Wk 7–8",
+    title: "Game Systems",
+    desc: "Health, scoring, inventory and HUD design. Saving progress and building real win and lose conditions.",
+  },
+  {
+    week: "Wk 9–10",
+    title: "Sound, Polish & Playtesting",
+    desc: 'Adding music, sound effects and game "juice" — then iterating based on real feedback from real players.',
+  },
+  {
+    week: "Wk 11–12",
+    title: "Capstone Game & Demo Day",
+    desc: "Design, build and ship your own complete playable game. Present it live to a panel — and to real players.",
+  },
+];
+
+const OUTCOMES = [
+  {
+    icon: "fa-solid fa-gamepad",
+    text: "Build and ship a complete playable game",
+  },
+  {
+    icon: "fa-brands fa-unity",
+    text: "Program gameplay mechanics in C# with Unity",
+  },
+  {
+    icon: "fa-solid fa-layer-group",
+    text: "Design 2D levels with tilemaps and physics",
+  },
+  {
+    icon: "fa-solid fa-heart",
+    text: "Build a functioning HUD — score, health, inventory",
+  },
+  {
+    icon: "fa-solid fa-music",
+    text: "Add sound, music and satisfying game feel",
+  },
+  {
+    icon: "fa-solid fa-users",
+    text: "Playtest and iterate from real player feedback",
+  },
+  { icon: "fa-solid fa-briefcase", text: "Portfolio-ready — 2 finished games" },
+  {
+    icon: "fa-solid fa-certificate",
+    text: "B Bright Tech Hub Game Development certificate",
+  },
+];
+
+const FAQS = [
+  {
+    q: "Do I need to know how to draw?",
+    a: "No — we cover the basics of pixel art, and there are excellent free asset libraries you can use. Most of the course focuses on programming, design and systems, not fine art.",
+  },
+  {
+    q: "What game engine will we use?",
+    a: "Unity — one of the most widely used engines in both indie and professional game development, so the skills you build transfer directly to studio jobs or your own projects.",
+  },
+  {
+    q: "Do I need coding experience first?",
+    a: "Basic familiarity helps but isn't required — we teach C# from scratch. If you've taken Web Development or Vibe Coding first, picking up C# will feel very natural.",
+  },
+  {
+    q: "Will I get to make my own game idea?",
+    a: "Yes. Your capstone project in weeks 11–12 is a complete game built from your own concept, not a template — that's what goes in your portfolio.",
+  },
+  {
+    q: "Can I actually publish my game afterwards?",
+    a: "Yes. During the capstone we cover publishing to platforms like itch.io, so you leave with a game other people can actually play, not just a project file.",
+  },
+];
+
+/* ── Hero visual: CSS arcade screen with a live mini game scene ── */
+
+function GDHero() {
   return (
-    <>
-      <Navbar />
+    <section className="service-hero gd-hero">
+      <div className="service-hero__grid-overlay" aria-hidden="true"></div>
+      <div className="gd-hero__orb gd-hero__orb--1" aria-hidden="true"></div>
+      <div className="gd-hero__orb gd-hero__orb--2" aria-hidden="true"></div>
 
-      <div className="services-wrapper game-page">
-        {/* hero */}
-        <section className="services-hero">
-          <div className="services-hero-inner">
-            <div className="services-hero-text">
-              <span className="services-eyebrow">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="16 18 22 12 16 6"></polyline>
-                  <polyline points="8 6 2 12 8 18"></polyline>
-                </svg>
-                Emerging Technologies
-              </span>
-              <h1 className="services-title">Game Development</h1>
-              <p className="services-subtitle">
-                Game Development teaches learners to design, build, and publish
-                their own games — combining game logic, character and level
-                design, and hands-on coding to bring playable ideas to life.
-              </p>
-            </div>
+      <div
+        className="service-hero__text"
+        data-aos="fade-right"
+        data-aos-duration="700"
+      >
+        <span className="service-hero__eyebrow gd-eyebrow">
+          <i className="fa-solid fa-gamepad" aria-hidden="true"></i>
+          Tech Skills Training
+        </span>
 
-            <div className="services-hero-card">
-              <div className="game-hud">
-                <span className="game-hud__level-badge">Level 1</span>
+        <h1 className="service-hero__title gd-hero__title">
+          Game
+          <br />
+          <span className="gd-title-accent">Development</span>
+        </h1>
 
-                <div className="game-hud__bar">
-                  <div className="game-hud__health" aria-hidden="true">
-                    <span className="filled"></span>
-                    <span className="filled"></span>
-                    <span className="filled"></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <span className="game-hud__score">SCORE 01280</span>
-                </div>
+        <p
+          className="service-hero__desc"
+          style={{ color: "rgba(255,255,255,0.55)" }}
+        >
+          Stop playing other people's games — start building your own. Design,
+          code and ship complete playable games with Unity and C# over 12 weeks.
+        </p>
 
-                <div className="game-hud__screen">
-                  <img
-                    src="/web.png"
-                    alt="Preview of a game built during the course"
-                  />
-                </div>
+        <div className="service-hero__meta">
+          <span className="service-hero__meta-pill gd-pill">
+            <i className="fa-regular fa-clock" aria-hidden="true"></i> 12 Weeks
+          </span>
+          <span className="service-hero__meta-pill gd-pill">
+            <i className="fa-solid fa-signal" aria-hidden="true"></i> Beginner –
+            Intermediate
+          </span>
+          <span className="service-hero__meta-pill gd-pill gd-pill--fav">
+            <i className="fa-solid fa-star" aria-hidden="true"></i> Student
+            Favourite
+          </span>
+        </div>
 
-                <div className="game-hud__footer">
-                  <span>Player 1</span>
-                  <strong>Ready</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* tabs + panel */}
-        <div className="services-content">
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-overview"
-            className="services-tab-input"
-            defaultChecked
-          />
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-outcomes"
-            className="services-tab-input"
-          />
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-faqs"
-            className="services-tab-input"
-          />
-
-          <nav className="services-tabs">
-            <label htmlFor="tab-overview" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              <span>Overview</span>
-            </label>
-            <label htmlFor="tab-outcomes" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-              </svg>
-              <span>Learning Outcomes</span>
-            </label>
-            <label htmlFor="tab-faqs" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              <span>FAQs</span>
-            </label>
-          </nav>
-
-          <div className="services-panel">
-            {/* overview */}
-            <section className="services-section services-overview-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">Overview</h2>
-              </div>
-              <p className="services-section-text">
-                This Game Development programme introduces learners to the full
-                process of building a game, from first idea to finished,
-                playable product. Students explore game design fundamentals,
-                learn how to program interactive logic, and build the
-                characters, levels, and environments that bring a game world to
-                life.
-              </p>
-              <p className="services-section-text">
-                Through hands-on projects, learners progress from simple
-                mechanics to complete games, testing and refining their work
-                based on real player feedback, and finishing with a published
-                game they can share and be proud of.
-              </p>
-            </section>
-
-            {/* learning outcomes */}
-            <section className="services-section services-outcomes-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                    <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">Learning Outcomes</h2>
-              </div>
-
-              <div className="services-outcomes-grid">
-                {outcomes.map((o) => (
-                  <div className="services-outcome-card" key={o.tag}>
-                    <span className="services-outcome-icon">{o.icon}</span>
-                    <div>
-                      <span className="services-outcome-tag">{o.tag}</span>
-                      <p className="services-outcome-title">{o.title}</p>
-                      <p className="services-outcome-text">{o.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* faqs */}
-            <section className="services-section services-faqs-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">
-                  Frequently Asked Questions
-                </h2>
-              </div>
-
-              <div className="services-faq-list">
-                {faqs.map((item, i) => (
-                  <details className="services-faq-item" key={i}>
-                    <summary className="services-faq-question">
-                      <span className="services-faq-question-left">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                        </svg>
-                        {item.q}
-                      </span>
-                      <svg
-                        className="services-faq-chevron"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </summary>
-                    <p className="services-faq-answer">{item.a}</p>
-                  </details>
-                ))}
-              </div>
-            </section>
-          </div>
+        <div className="service-hero__btns">
+          <Link to="/apply" className="gd-btn-apply">
+            Apply Now{" "}
+            <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </Link>
+          <Link to="/programmes" className="gd-btn-outline">
+            All Programmes
+          </Link>
         </div>
       </div>
 
+      {/* CSS arcade screen with mini game scene */}
+      <div
+        className="service-hero__visual"
+        data-aos="fade-left"
+        data-aos-duration="700"
+        data-aos-delay="150"
+      >
+        <div className="gd-arcade">
+          <div className="gd-arcade__bar">
+            <span className="gd-arcade__dot gd-arcade__dot--red"></span>
+            <span className="gd-arcade__dot gd-arcade__dot--yellow"></span>
+            <span className="gd-arcade__dot gd-arcade__dot--green"></span>
+            <span className="gd-arcade__title">
+              <i className="fa-solid fa-gamepad" aria-hidden="true"></i>
+              MyGame.unity
+            </span>
+          </div>
+
+          <div className="gd-arcade__hud">
+            <span className="gd-arcade__score">SCORE 01200</span>
+            <span className="gd-arcade__hearts">
+              <i className="fa-solid fa-heart"></i>
+              <i className="fa-solid fa-heart"></i>
+              <i className="fa-regular fa-heart"></i>
+            </span>
+            <span className="gd-arcade__level">LEVEL 1</span>
+          </div>
+
+          <div className="gd-arcade__scene">
+            <div className="gd-cloud gd-cloud--1"></div>
+            <div className="gd-cloud gd-cloud--2"></div>
+
+            <div className="gd-platform"></div>
+            <div className="gd-coin gd-coin--1"></div>
+            <div className="gd-coin gd-coin--2"></div>
+
+            <div className="gd-player">
+              <span className="gd-player__eye"></span>
+            </div>
+
+            <div className="gd-flag">
+              <span className="gd-flag__pole"></span>
+              <span className="gd-flag__cloth"></span>
+            </div>
+
+            <div className="gd-ground"></div>
+          </div>
+        </div>
+
+        {/* Floating tool badges */}
+        <div className="gd-badge gd-badge--unity">
+          <i className="fa-brands fa-unity" aria-hidden="true"></i> Unity
+        </div>
+        <div className="gd-badge gd-badge--pixel">
+          <i className="fa-solid fa-border-all" aria-hidden="true"></i> Pixel
+          Art
+        </div>
+        <div className="gd-badge gd-badge--jam">
+          <i className="fa-solid fa-flag-checkered" aria-hidden="true"></i> Game
+          Jams
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FAQ item ── */
+function FAQItem({ faq }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`services-faq ${open ? "open" : ""}`}>
+      <button className="services-faq__q" onClick={() => setOpen((v) => !v)}>
+        {faq.q}
+        <span className="services-faq__icon">
+          <i className="fa-solid fa-plus"></i>
+        </span>
+      </button>
+      <div className="services-faq__a">{faq.a}</div>
+    </div>
+  );
+}
+
+/* ── Tabs ── */
+const TABS = [
+  { id: "overview", icon: "fa-solid fa-circle-info", label: "Overview" },
+  { id: "curriculum", icon: "fa-solid fa-list-check", label: "Curriculum" },
+  { id: "outcomes", icon: "fa-solid fa-trophy", label: "Outcomes" },
+  { id: "faqs", icon: "fa-solid fa-circle-question", label: "FAQs" },
+];
+
+function GDTabs() {
+  const [active, setActive] = useState("overview");
+
+  return (
+    <section className="services-tabs-section">
+      <div className="services-tabs gd-tabs" role="tablist">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            role="tab"
+            aria-selected={active === tab.id}
+            className={`services-tab ${active === tab.id ? "active" : ""}`}
+            onClick={() => setActive(tab.id)}
+          >
+            <i className={tab.icon} aria-hidden="true"></i>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Overview */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "overview" ? "active" : ""}`}
+      >
+        <div className="services-overview-grid">
+          {OVERVIEW_CARDS.map((card) => (
+            <div key={card.title} className="services-overview-card">
+              <div
+                className={`services-overview-card__icon gd-icon gd-icon--${card.color}`}
+              >
+                <i className={card.icon} aria-hidden="true"></i>
+              </div>
+              <h3>{card.title}</h3>
+              <p>{card.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="gd-info-banner">
+          <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
+          Every student ships at least 2 finished, playable games by the end of
+          this course — not just prototypes.
+        </div>
+      </div>
+
+      {/* Curriculum */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "curriculum" ? "active" : ""}`}
+      >
+        <div className="services-curriculum">
+          {CURRICULUM.map((week, i) => (
+            <div key={week.week} className="services-week">
+              <div className="services-week__num gd-week-num">{i + 1}</div>
+              <div className="services-week__body">
+                <h4>
+                  {week.week} — {week.title}
+                </h4>
+                <p>{week.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Outcomes */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "outcomes" ? "active" : ""}`}
+      >
+        <div className="services-outcomes-grid">
+          {OUTCOMES.map((o) => (
+            <div key={o.text} className="services-outcome-tag gd-outcome">
+              <i className={o.icon} aria-hidden="true"></i>
+              {o.text}
+            </div>
+          ))}
+        </div>
+        <div className="gd-outcomes-footer">
+          {[
+            ["2", "Finished Games"],
+            ["12", "Weeks"],
+            ["1", "Game Engine"],
+          ].map(([num, label]) => (
+            <div key={label} className="gd-outcomes-footer__stat">
+              <span className="gd-outcomes-footer__num">{num}</span>
+              <span className="gd-outcomes-footer__label">{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FAQs */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "faqs" ? "active" : ""}`}
+      >
+        <div className="services-faqs">
+          {FAQS.map((faq) => (
+            <FAQItem key={faq.q} faq={faq} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GameDevelopment() {
+  useEffect(() => {
+    AOS.init({ once: true, offset: 60 });
+  }, []);
+  return (
+    <div className="service-page gd-page">
+      <Navbar />
+      <GDHero />
+      <GDTabs />
+      <CTABanner />
       <Footer />
-    </>
+      <ScrollToTop />
+    </div>
   );
 }
 

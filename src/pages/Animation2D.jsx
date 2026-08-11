@@ -1,398 +1,391 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "./ServicePage.css";
-import "./Modelling3D.css";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Navbar from "../components/Navbar.jsx";
+import CTABanner from "../components/CTABanner.jsx";
+import Footer from "../components/Footer.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
+import "../styles/ServicePage.css";
+import "./Animation2D.css";
 
-function Modelling3D() {
-  const outcomes = [
-    {
-      tag: "Fundamentals",
-      title: "Understand core 3D modelling concepts and workflows",
-      text: "Learn how vertices, edges, and faces combine to build 3D geometry.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="16 18 22 12 16 6"></polyline>
-          <polyline points="8 6 2 12 8 18"></polyline>
-        </svg>
-      ),
-    },
-    {
-      tag: "Sculpting",
-      title: "Sculpt and shape detailed 3D forms and characters",
-      text: "Use sculpting tools to create organic shapes, characters, and props.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="13.5" cy="6.5" r="2.5"></circle>
-          <circle cx="19" cy="17" r="2.5"></circle>
-          <circle cx="6" cy="12" r="2.5"></circle>
-          <line x1="14.5" y1="8.5" x2="8" y2="11"></line>
-          <line x1="15.5" y1="9" x2="18" y2="14.5"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Texturing",
-      title: "Apply textures and materials to 3D models",
-      text: "Learn how surface detail, color, and material properties bring models to life.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="4 17 10 11 4 5"></polyline>
-          <line x1="12" y1="19" x2="20" y2="19"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Lighting",
-      title: "Set up lighting and camera angles for presentation",
-      text: "Light and frame 3D scenes to showcase models clearly and attractively.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-          <line x1="3" y1="9" x2="21" y2="9"></line>
-          <line x1="9" y1="21" x2="9" y2="9"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Rendering",
-      title: "Render finished models into polished final images",
-      text: "Produce high-quality rendered output ready for portfolios or production use.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-          <line x1="12" y1="22.08" x2="12" y2="12"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Optimization",
-      title: "Optimize models for use in games and real-time applications",
-      text: "Reduce polygon counts and prepare models for use in interactive projects.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-        </svg>
-      ),
-    },
-  ];
+/* ── Data ───────────────────────────────────────────────────── */
 
-  const faqs = [
-    {
-      q: "Do I need a powerful computer for 3D modelling?",
-      a: "A reasonably modern computer is recommended for the best experience, but course exercises are structured so learners with average hardware can still follow along and complete projects.",
-    },
-    {
-      q: "Do I need prior design experience?",
-      a: "No. The course starts from the fundamentals and builds up gradually, so it is suitable for beginners with an interest in 3D and visual design.",
-    },
-    {
-      q: "Will I create a full 3D model from scratch?",
-      a: "Yes. The course includes practical projects where you build, texture, light, and render your own 3D models from start to finish.",
-    },
-    {
-      q: "What career paths can this course support?",
-      a: "Skills gained can support roles in game development, animation, product design, architectural visualization, and visual effects.",
-    },
-  ];
+const OVERVIEW_CARDS = [
+  {
+    icon: "fa-solid fa-film",
+    color: "amber",
+    title: "What You Will Learn",
+    desc: "The core principles of animation — timing, spacing, squash & stretch, easing — and how to bring characters and scenes to life frame by frame.",
+  },
+  {
+    icon: "fa-solid fa-toolbox",
+    color: "sky",
+    title: "Tools You Will Use",
+    desc: "Toon Boom Harmony or Adobe Animate for frame animation, After Effects for motion graphics, and Procreate or Photoshop for drawing.",
+  },
+  {
+    icon: "fa-solid fa-users",
+    color: "amber",
+    title: "Who It Is For",
+    desc: "Illustrators who want to animate their work, storytellers, motion graphics beginners, and anyone who grew up wanting to make their own cartoons.",
+  },
+  {
+    icon: "fa-solid fa-briefcase",
+    color: "sky",
+    title: "Career Paths",
+    desc: "2D Animator, Motion Graphics Designer, Storyboard Artist, Character Animator — roles across studios, agencies and independent content creation.",
+  },
+];
 
+const CURRICULUM = [
+  {
+    week: "Wk 1–2",
+    title: "Principles of Animation",
+    desc: "Timing, spacing, squash & stretch and anticipation — the core principles that make motion feel believable, not robotic.",
+  },
+  {
+    week: "Wk 3–4",
+    title: "Frame-by-Frame Basics",
+    desc: "Drawing keyframes and in-betweens through the classic exercises every animator starts with — the bouncing ball and the walk cycle.",
+  },
+  {
+    week: "Wk 5–6",
+    title: "Character Rigging & Puppet Animation",
+    desc: "Building reusable character rigs in Toon Boom or Adobe Animate for faster, more consistent character animation.",
+  },
+  {
+    week: "Wk 7–8",
+    title: "Motion Graphics with After Effects",
+    desc: "Animating text, shapes and logos for explainer videos, social content and titles — a different but related animation skill.",
+  },
+  {
+    week: "Wk 9–10",
+    title: "Capstone Animated Short",
+    desc: "Write, storyboard and animate a short piece entirely your own. Present the finished film on demo day.",
+  },
+];
+
+const OUTCOMES = [
+  {
+    icon: "fa-solid fa-list-ol",
+    text: "Apply the principles of animation confidently",
+  },
+  {
+    icon: "fa-solid fa-person-walking",
+    text: "Animate a believable walk cycle from scratch",
+  },
+  {
+    icon: "fa-solid fa-bone",
+    text: "Build and animate a reusable character rig",
+  },
+  {
+    icon: "fa-solid fa-layer-group",
+    text: "Create motion graphics for video and social content",
+  },
+  {
+    icon: "fa-solid fa-pen-nib",
+    text: "Draw clean, consistent frame-by-frame animation",
+  },
+  {
+    icon: "fa-solid fa-clapperboard",
+    text: "Storyboard a short animated scene",
+  },
+  {
+    icon: "fa-solid fa-briefcase",
+    text: "Portfolio-ready — 1 finished animated short",
+  },
+  {
+    icon: "fa-solid fa-certificate",
+    text: "B Bright Tech Hub 2D Animation certificate",
+  },
+];
+
+const FAQS = [
+  {
+    q: "Do I need to be good at drawing?",
+    a: "Some drawing ability helps, but we teach simplified character design and focus far more on movement and timing than fine art skill. Great animation comes from motion, not perfect linework.",
+  },
+  {
+    q: "What software will I use?",
+    a: "Toon Boom Harmony or Adobe Animate for frame-by-frame character animation, and After Effects for motion graphics — the same tools used in professional studios.",
+  },
+  {
+    q: "Do I need a drawing tablet?",
+    a: "It helps for hand-drawn frames, but isn't required in the early weeks — rigging and puppet animation can be done comfortably with a mouse. Loaner tablets are available in the lab.",
+  },
+  {
+    q: "Is this the same as motion graphics?",
+    a: "They overlap. Motion graphics — animating text, shapes and logos — is covered in weeks 7–8, but the core focus of this course is character and frame-by-frame animation.",
+  },
+  {
+    q: "Will I actually finish a real animated piece?",
+    a: "Yes. Your capstone project is a short animated film you write, storyboard and animate yourself, presented live to a panel and audience on demo day.",
+  },
+];
+
+/* ── Hero visual: CSS animation studio — bouncing ball on a timeline ── */
+
+function AnimationHero() {
   return (
-    <>
-      <Navbar />
+    <section className="service-hero an-hero">
+      <div className="service-hero__grid-overlay" aria-hidden="true"></div>
+      <div className="an-hero__orb an-hero__orb--1" aria-hidden="true"></div>
+      <div className="an-hero__orb an-hero__orb--2" aria-hidden="true"></div>
 
-      <div className="services-wrapper model-page">
-        {/* hero */}
-        <section className="services-hero">
-          <div className="services-hero-inner">
-            <div className="services-hero-text">
-              <span className="services-eyebrow">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="16 18 22 12 16 6"></polyline>
-                  <polyline points="8 6 2 12 8 18"></polyline>
-                </svg>
-                Creative Media
-              </span>
-              <h1 className="services-title">3D Modelling</h1>
-              <p className="services-subtitle">
-                3D Modelling teaches learners to design, sculpt, and render
-                three-dimensional objects and characters, building the technical
-                and creative skills used in games, animation, product design,
-                and visual effects.
-              </p>
-            </div>
+      <div
+        className="service-hero__text"
+        data-aos="fade-right"
+        data-aos-duration="700"
+      >
+        <span className="service-hero__eyebrow an-eyebrow">
+          <i className="fa-solid fa-film" aria-hidden="true"></i>
+          Tech Skills Training
+        </span>
 
-            <div className="services-hero-card">
-              <div className="model-viewport">
-                <span className="model-viewport__badge">3D Preview</span>
-                <span
-                  className="model-viewport__ring"
-                  aria-hidden="true"
-                ></span>
+        <h1 className="service-hero__title an-hero__title">
+          2D
+          <br />
+          <span className="an-title-accent">Animation</span>
+        </h1>
 
-                <div className="model-viewport__stage">
-                  <img
-                    src="/web.png"
-                    alt="Preview of a 3D model built during the course"
-                  />
+        <p
+          className="service-hero__desc"
+          style={{ color: "rgba(255,255,255,0.55)" }}
+        >
+          Twelve principles, one bouncing ball, and a lot of practice. Learn to
+          bring characters and stories to life frame by frame — from keyframes
+          to a finished animated short.
+        </p>
 
-                  <div className="model-viewport__gizmo" aria-hidden="true">
-                    <span className="axis-x"></span>
-                    <span className="axis-y"></span>
-                    <span className="axis-z"></span>
-                  </div>
+        <div className="service-hero__meta">
+          <span className="service-hero__meta-pill an-pill">
+            <i className="fa-regular fa-clock" aria-hidden="true"></i> 10 Weeks
+          </span>
+          <span className="service-hero__meta-pill an-pill">
+            <i className="fa-solid fa-signal" aria-hidden="true"></i> Beginner
+            Friendly
+          </span>
+          <span className="service-hero__meta-pill an-pill an-pill--creative">
+            <i className="fa-solid fa-palette" aria-hidden="true"></i> Creative
+            Track
+          </span>
+        </div>
 
-                  <span className="model-viewport__stats">12,480 tris</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* tabs + panel */}
-        <div className="services-content">
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-overview"
-            className="services-tab-input"
-            defaultChecked
-          />
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-outcomes"
-            className="services-tab-input"
-          />
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-faqs"
-            className="services-tab-input"
-          />
-
-          <nav className="services-tabs">
-            <label htmlFor="tab-overview" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              <span>Overview</span>
-            </label>
-            <label htmlFor="tab-outcomes" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-              </svg>
-              <span>Learning Outcomes</span>
-            </label>
-            <label htmlFor="tab-faqs" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              <span>FAQs</span>
-            </label>
-          </nav>
-
-          <div className="services-panel">
-            {/* overview */}
-            <section className="services-section services-overview-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">Overview</h2>
-              </div>
-              <p className="services-section-text">
-                This 3D Modelling programme introduces learners to the full
-                pipeline behind creating three-dimensional objects and
-                characters, from basic shapes to finished, rendered scenes.
-                Students learn how to build geometry, sculpt detail, apply
-                textures and materials, and light their models for presentation.
-              </p>
-              <p className="services-section-text">
-                Through hands-on projects, learners progress from simple objects
-                to more complex models, finishing with polished, rendered work
-                suitable for a portfolio, and the foundational skills used
-                across games, animation, product design, and visual effects.
-              </p>
-            </section>
-
-            {/* learning outcomes */}
-            <section className="services-section services-outcomes-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                    <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">Learning Outcomes</h2>
-              </div>
-
-              <div className="services-outcomes-grid">
-                {outcomes.map((o) => (
-                  <div className="services-outcome-card" key={o.tag}>
-                    <span className="services-outcome-icon">{o.icon}</span>
-                    <div>
-                      <span className="services-outcome-tag">{o.tag}</span>
-                      <p className="services-outcome-title">{o.title}</p>
-                      <p className="services-outcome-text">{o.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* faqs */}
-            <section className="services-section services-faqs-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">
-                  Frequently Asked Questions
-                </h2>
-              </div>
-
-              <div className="services-faq-list">
-                {faqs.map((item, i) => (
-                  <details className="services-faq-item" key={i}>
-                    <summary className="services-faq-question">
-                      <span className="services-faq-question-left">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                        </svg>
-                        {item.q}
-                      </span>
-                      <svg
-                        className="services-faq-chevron"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </summary>
-                    <p className="services-faq-answer">{item.a}</p>
-                  </details>
-                ))}
-              </div>
-            </section>
-          </div>
+        <div className="service-hero__btns">
+          <Link to="/apply" className="an-btn-apply">
+            Apply Now{" "}
+            <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </Link>
+          <Link to="/programmes" className="an-btn-outline">
+            All Programmes
+          </Link>
         </div>
       </div>
 
-      <Footer />
-    </>
+      {/* CSS animation studio: bouncing ball + timeline */}
+      <div
+        className="service-hero__visual"
+        data-aos="fade-left"
+        data-aos-duration="700"
+        data-aos-delay="150"
+      >
+        <div className="an-studio">
+          <div className="an-studio__bar">
+            <span className="an-studio__dot an-studio__dot--red"></span>
+            <span className="an-studio__dot an-studio__dot--yellow"></span>
+            <span className="an-studio__dot an-studio__dot--green"></span>
+            <span className="an-studio__title">
+              <i className="fa-solid fa-film" aria-hidden="true"></i>
+              bounce.anim
+            </span>
+          </div>
+
+          <div className="an-studio__canvas">
+            <div className="an-ball-trail an-ball-trail--1"></div>
+            <div className="an-ball-trail an-ball-trail--2"></div>
+            <div className="an-ball-trail an-ball-trail--3"></div>
+            <div className="an-ball"></div>
+            <div className="an-studio__ground"></div>
+          </div>
+
+          <div className="an-studio__timeline">
+            <button className="an-timeline__play" aria-hidden="true">
+              <i className="fa-solid fa-play"></i>
+            </button>
+            <div className="an-timeline__track">
+              <span className="an-timeline__key" style={{ left: "6%" }}></span>
+              <span className="an-timeline__key" style={{ left: "30%" }}></span>
+              <span className="an-timeline__key" style={{ left: "54%" }}></span>
+              <span className="an-timeline__key" style={{ left: "78%" }}></span>
+              <div className="an-timeline__playhead"></div>
+            </div>
+            <span className="an-timeline__frame">Fr 12/24</span>
+          </div>
+        </div>
+
+        {/* Floating tool badges */}
+        <div className="an-badge an-badge--toonboom">
+          <i className="fa-solid fa-clapperboard" aria-hidden="true"></i> Toon
+          Boom
+        </div>
+        <div className="an-badge an-badge--ae">
+          <i className="fa-solid fa-layer-group" aria-hidden="true"></i> After
+          Effects
+        </div>
+        <div className="an-badge an-badge--keyframe">
+          <i className="fa-solid fa-diamond" aria-hidden="true"></i> Keyframes
+        </div>
+      </div>
+    </section>
   );
 }
 
-export default Modelling3D;
+/* ── FAQ item ── */
+function FAQItem({ faq }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`services-faq ${open ? "open" : ""}`}>
+      <button className="services-faq__q" onClick={() => setOpen((v) => !v)}>
+        {faq.q}
+        <span className="services-faq__icon">
+          <i className="fa-solid fa-plus"></i>
+        </span>
+      </button>
+      <div className="services-faq__a">{faq.a}</div>
+    </div>
+  );
+}
+
+/* ── Tabs ── */
+const TABS = [
+  { id: "overview", icon: "fa-solid fa-circle-info", label: "Overview" },
+  { id: "curriculum", icon: "fa-solid fa-list-check", label: "Curriculum" },
+  { id: "outcomes", icon: "fa-solid fa-trophy", label: "Outcomes" },
+  { id: "faqs", icon: "fa-solid fa-circle-question", label: "FAQs" },
+];
+
+function AnimationTabs() {
+  const [active, setActive] = useState("overview");
+
+  return (
+    <section className="services-tabs-section">
+      <div className="services-tabs an-tabs" role="tablist">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            role="tab"
+            aria-selected={active === tab.id}
+            className={`services-tab ${active === tab.id ? "active" : ""}`}
+            onClick={() => setActive(tab.id)}
+          >
+            <i className={tab.icon} aria-hidden="true"></i>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Overview */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "overview" ? "active" : ""}`}
+      >
+        <div className="services-overview-grid">
+          {OVERVIEW_CARDS.map((card) => (
+            <div key={card.title} className="services-overview-card">
+              <div
+                className={`services-overview-card__icon an-icon an-icon--${card.color}`}
+              >
+                <i className={card.icon} aria-hidden="true"></i>
+              </div>
+              <h3>{card.title}</h3>
+              <p>{card.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="an-info-banner">
+          <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
+          Every animator starts with the same bouncing ball — mastering that one
+          exercise teaches you almost everything else you'll need.
+        </div>
+      </div>
+
+      {/* Curriculum */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "curriculum" ? "active" : ""}`}
+      >
+        <div className="services-curriculum">
+          {CURRICULUM.map((week, i) => (
+            <div key={week.week} className="services-week">
+              <div className="services-week__num an-week-num">{i + 1}</div>
+              <div className="services-week__body">
+                <h4>
+                  {week.week} — {week.title}
+                </h4>
+                <p>{week.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Outcomes */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "outcomes" ? "active" : ""}`}
+      >
+        <div className="services-outcomes-grid">
+          {OUTCOMES.map((o) => (
+            <div key={o.text} className="services-outcome-tag an-outcome">
+              <i className={o.icon} aria-hidden="true"></i>
+              {o.text}
+            </div>
+          ))}
+        </div>
+        <div className="an-outcomes-footer">
+          {[
+            ["1", "Animated Short"],
+            ["10", "Weeks"],
+            ["12", "Principles Learned"],
+          ].map(([num, label]) => (
+            <div key={label} className="an-outcomes-footer__stat">
+              <span className="an-outcomes-footer__num">{num}</span>
+              <span className="an-outcomes-footer__label">{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FAQs */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "faqs" ? "active" : ""}`}
+      >
+        <div className="services-faqs">
+          {FAQS.map((faq) => (
+            <FAQItem key={faq.q} faq={faq} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Animation2D() {
+  useEffect(() => {
+    AOS.init({ once: true, offset: 60 });
+  }, []);
+  return (
+    <div className="service-page an-page">
+      <Navbar />
+      <AnimationHero />
+      <AnimationTabs />
+      <CTABanner />
+      <Footer />
+      <ScrollToTop />
+    </div>
+  );
+}
+
+export default Animation2D;

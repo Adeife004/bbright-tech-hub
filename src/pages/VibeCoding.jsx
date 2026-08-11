@@ -1,411 +1,476 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "./ServicePage.css";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Navbar from "../components/Navbar.jsx";
+import CTABanner from "../components/CTABanner.jsx";
+import Footer from "../components/Footer.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
+import "../styles/ServicePage.css";
 import "./VibeCoding.css";
 
-function VibeCoding() {
-  const outcomes = [
-    {
-      tag: "Fundamentals",
-      title:
-        "Understand the principles of Prompt Engineering and AI-assisted development",
-      text: "Learn how to create effective prompts and use AI tools to improve productivity, enhance problem-solving, and support software development workflows.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="16 18 22 12 16 6"></polyline>
-          <polyline points="8 6 2 12 8 18"></polyline>
-        </svg>
-      ),
-    },
-    {
-      tag: "Prompting",
-      title: "Create effective prompts to achieve desired outcomes",
-      text: "Develop the ability to write clear, structured prompts that guide AI tools to generate accurate, relevant, and useful results.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="13.5" cy="6.5" r="2.5"></circle>
-          <circle cx="19" cy="17" r="2.5"></circle>
-          <circle cx="6" cy="12" r="2.5"></circle>
-          <line x1="14.5" y1="8.5" x2="8" y2="11"></line>
-          <line x1="15.5" y1="9" x2="18" y2="14.5"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Development",
-      title:
-        "Design and develop digital projects using modern tools and technologies",
-      text: "Learn how to plan, create, and build digital solutions using current industry tools, technologies, and best practices.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="4 17 10 11 4 5"></polyline>
-          <line x1="12" y1="19" x2="20" y2="19"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Problem Solving",
-      title:
-        "Apply logical thinking and problem-solving techniques to project development",
-      text: "Develop analytical and critical-thinking skills to identify challenges, create solutions, and improve the effectiveness of digital projects.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-          <line x1="3" y1="9" x2="21" y2="9"></line>
-          <line x1="9" y1="21" x2="9" y2="9"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Creation",
-      title:
-        "Create websites, games, presentations, animations, and digital content",
-      text: "Gain hands-on experience in developing a variety of digital projects using creative and technical skills across different platforms and media.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-          <line x1="12" y1="22.08" x2="12" y2="12"></line>
-        </svg>
-      ),
-    },
-    {
-      tag: "Productivity",
-      title: "Improve productivity through efficient digital workflows",
-      text: "Apply your skills on guided, real world project work.",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-        </svg>
-      ),
-    },
-  ];
+/* ── Data ───────────────────────────────────────────────────── */
 
-  const faqs = [
-    {
-      q: "Do I need prior coding experience to start?",
-      a: "No. The course starts from the fundamentals and builds up gradually, so it is suitable for beginners and for those refreshing existing skills.",
-    },
-    {
-      q: "What will I be able to build after the course?",
-      a: "You will be able to plan, design and build complete, responsive websites and web applications, and ship them with confidence.",
-    },
-    {
-      q: "How is the course structured?",
-      a: "Lessons are organised into stages, moving from page structure and styling through to interactivity and full project builds.",
-    },
-    {
-      q: "Will I work on real projects?",
-      a: "Yes. Each stage includes practical project work so you finish with a portfolio that reflects your actual skill level.",
-    },
-  ];
+const OVERVIEW_CARDS = [
+  {
+    icon: "fa-solid fa-wand-magic-sparkles",
+    color: "coral",
+    title: "What You Will Learn",
+    desc: "How to build real, working products by pairing with AI — effective prompting, rapid prototyping, and shipping apps fast without writing every line by hand.",
+  },
+  {
+    icon: "fa-solid fa-toolbox",
+    color: "violet",
+    title: "Tools You Will Use",
+    desc: "Claude Code, Cursor, GitHub Copilot, v0 and Replit — the modern AI-assisted stack that lets you go from idea to live product in days.",
+  },
+  {
+    icon: "fa-solid fa-users",
+    color: "coral",
+    title: "Who It Is For",
+    desc: "Non-coders who want to build their own products, founders validating an idea, hobbyists, and developers who want to move a lot faster.",
+  },
+  {
+    icon: "fa-solid fa-rocket",
+    color: "violet",
+    title: "Where It Takes You",
+    desc: "Indie Hacker, AI-Assisted Developer, Startup Founder, Rapid Prototyper — build your own idea instead of waiting for permission to start.",
+  },
+];
 
+const CURRICULUM = [
+  {
+    week: "Wk 1",
+    title: "The Vibe Coding Mindset",
+    desc: "Thinking in outcomes, not syntax. Choosing the right AI tool for the job, and how prompting is really just clear communication.",
+  },
+  {
+    week: "Wk 2",
+    title: "Your First AI-Built App",
+    desc: "Scaffold a real app end-to-end with Claude Code or Cursor. Learn to read AI output and steer it, rather than accept it blindly.",
+  },
+  {
+    week: "Wk 3",
+    title: "Prompting Like a Pro",
+    desc: "Writing prompts that get it right the first time, giving useful context, and debugging when the AI gets it wrong.",
+  },
+  {
+    week: "Wk 4",
+    title: "Styling & UX with AI",
+    desc: "Turning a rough idea into a polished, professional interface fast — using AI-generated components and a real design system.",
+  },
+  {
+    week: "Wk 5",
+    title: "Connecting the Backend",
+    desc: "Databases, APIs and authentication — scaffolded with AI assistance while you learn exactly what's happening under the hood.",
+  },
+  {
+    week: "Wk 6",
+    title: "Ship It — Capstone & Demo Day",
+    desc: "Deploy your project to a live URL. Present your AI-built product to a real panel on demo day.",
+  },
+];
+
+const OUTCOMES = [
+  {
+    icon: "fa-solid fa-rocket",
+    text: "Build and ship a full working app with AI",
+  },
+  {
+    icon: "fa-solid fa-comments",
+    text: "Prompt AI coding tools like a professional",
+  },
+  {
+    icon: "fa-solid fa-bug",
+    text: "Debug and fix AI-generated code confidently",
+  },
+  { icon: "fa-solid fa-bolt", text: "Prototype ideas in hours, not weeks" },
+  {
+    icon: "fa-solid fa-terminal",
+    text: "Comfortable with Claude Code & Cursor workflows",
+  },
+  { icon: "fa-solid fa-globe", text: "Deploy a live product with a real URL" },
+  {
+    icon: "fa-solid fa-briefcase",
+    text: "Portfolio-ready — 2 AI-built projects",
+  },
+  {
+    icon: "fa-solid fa-certificate",
+    text: "B Bright Tech Hub Vibe Coding certificate",
+  },
+];
+
+const FAQS = [
+  {
+    q: "Do I need to already know how to code?",
+    a: "No — that's the point. You'll still learn to read and understand code along the way, but you won't need prior programming experience to start building.",
+  },
+  {
+    q: 'Is this actually "real" coding, or just typing prompts?',
+    a: "Both. You'll write real prompts, but you'll also learn to read the code that comes back, catch mistakes, and make deliberate changes yourself. It is coding — just with an AI pair programmer.",
+  },
+  {
+    q: "What AI tools will I be using?",
+    a: "Mainly Claude Code and Cursor, with exposure to GitHub Copilot and v0 as well. These are the same tools professional developers use today.",
+  },
+  {
+    q: "Can I build my own startup idea in this course?",
+    a: "Yes — many students use their capstone project to build the first version of a real idea they've been sitting on. It's one of the most common reasons people join.",
+  },
+  {
+    q: "How is this different from the Web Development course?",
+    a: "Web Development teaches you to write code by hand from first principles. Vibe Coding teaches you to build fast with AI as your partner. They complement each other — many students take Digital Literacy or Web Development first, though it isn't required.",
+  },
+];
+
+/* ── Hero visual: CSS AI prompt → generated code console ── */
+
+const PROMPT_TEXT = "Build me a login page with a gradient background";
+
+const CODE_LINES = [
+  {
+    tokens: [
+      { t: "tag", v: "<" },
+      { t: "tag", v: "form" },
+      { t: "attr", v: " onSubmit" },
+      { t: "eq", v: "=" },
+      { t: "fn", v: "{handleLogin}" },
+      { t: "tag", v: ">" },
+    ],
+  },
+  {
+    indent: 1,
+    tokens: [
+      { t: "tag", v: "<" },
+      { t: "tag", v: "input" },
+      { t: "attr", v: " type" },
+      { t: "eq", v: "=" },
+      { t: "str", v: '"email"' },
+      { t: "tag", v: " />" },
+    ],
+  },
+  {
+    indent: 1,
+    tokens: [
+      { t: "tag", v: "<" },
+      { t: "tag", v: "input" },
+      { t: "attr", v: " type" },
+      { t: "eq", v: "=" },
+      { t: "str", v: '"password"' },
+      { t: "tag", v: " />" },
+    ],
+  },
+  {
+    indent: 1,
+    tokens: [
+      { t: "tag", v: "<" },
+      { t: "tag", v: "button" },
+      { t: "tag", v: ">" },
+      { t: "txt", v: "Sign In" },
+      { t: "tag", v: "</" },
+      { t: "tag", v: "button" },
+      { t: "tag", v: ">" },
+    ],
+  },
+  {
+    tokens: [
+      { t: "tag", v: "</" },
+      { t: "tag", v: "form" },
+      { t: "tag", v: ">" },
+    ],
+  },
+];
+
+const TOKEN_COLOR = {
+  tag: "#ff8fa3",
+  attr: "#c792ea",
+  eq: "#fff",
+  str: "#f0c068",
+  txt: "#c3e88d",
+  fn: "#82aaff",
+};
+
+function VCHero() {
   return (
-    <>
-      <Navbar />
+    <section className="service-hero vc-hero">
+      <div className="service-hero__grid-overlay" aria-hidden="true"></div>
+      <div className="vc-hero__orb vc-hero__orb--1" aria-hidden="true"></div>
+      <div className="vc-hero__orb vc-hero__orb--2" aria-hidden="true"></div>
 
-      <div className="services-wrapper vibe-page">
-        {/* hero */}
-        <section className="services-hero">
-          <div className="services-hero-inner">
-            <div className="services-hero-text">
-              <span className="services-eyebrow">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="16 18 22 12 16 6"></polyline>
-                  <polyline points="8 6 2 12 8 18"></polyline>
-                </svg>
-                Tech Skills Training
-              </span>
-              <h1 className="services-title">Vibe Coding</h1>
-              <p className="services-subtitle">
-                AI-Enhanced Programming introduces learners to modern digital
-                creation techniques by combining problem-solving, logical
-                thinking, and prompt engineering skills.
-              </p>
-            </div>
+      <div
+        className="service-hero__text"
+        data-aos="fade-right"
+        data-aos-duration="700"
+      >
+        <span className="service-hero__eyebrow vc-eyebrow">
+          <i className="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+          Tech Skills Training
+        </span>
 
-            <div className="services-hero-card">
-              <div className="vibe-console">
-                <div className="vibe-console__inner">
-                  <span className="vibe-console__badge">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2l1.8 5.6L19.4 9l-5.6 1.8L12 16.4l-1.8-5.6L4.6 9l5.6-1.4L12 2z"></path>
-                    </svg>
-                    AI-Assisted
-                  </span>
-                  <div className="vibe-console__screen">
-                    <img
-                      src="/web.png"
-                      alt="Preview of an AI-assisted project built during the course"
-                    />
-                  </div>
-                  <div className="vibe-console__prompt">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polyline points="4 17 10 11 4 5"></polyline>
-                      <line x1="12" y1="19" x2="20" y2="19"></line>
-                    </svg>
-                    <span>Describe what you want to build...</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <h1 className="service-hero__title vc-hero__title">
+          Vibe
+          <br />
+          <span className="vc-title-accent">Coding</span>
+        </h1>
 
-        {/* tabs + panel */}
-        <div className="services-content">
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-overview"
-            className="services-tab-input"
-            defaultChecked
-          />
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-outcomes"
-            className="services-tab-input"
-          />
-          <input
-            type="radio"
-            name="services-tab-group"
-            id="tab-faqs"
-            className="services-tab-input"
-          />
+        <p
+          className="service-hero__desc"
+          style={{ color: "rgba(255,255,255,0.55)" }}
+        >
+          Build real products by talking to AI. Learn to prompt, steer and ship
+          with Claude Code and Cursor — no years of syntax memorisation
+          required.
+        </p>
 
-          <nav className="services-tabs">
-            <label htmlFor="tab-overview" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              <span>Overview</span>
-            </label>
-            <label htmlFor="tab-outcomes" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-              </svg>
-              <span>Learning Outcomes</span>
-            </label>
-            <label htmlFor="tab-faqs" className="services-tab">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              <span>FAQs</span>
-            </label>
-          </nav>
+        <div className="service-hero__meta">
+          <span className="service-hero__meta-pill vc-pill">
+            <i className="fa-regular fa-clock" aria-hidden="true"></i> 6 Weeks
+          </span>
+          <span className="service-hero__meta-pill vc-pill">
+            <i className="fa-solid fa-signal" aria-hidden="true"></i> Beginner
+            Friendly
+          </span>
+          <span className="service-hero__meta-pill vc-pill vc-pill--hot">
+            <i className="fa-solid fa-fire" aria-hidden="true"></i> Trending
+          </span>
+        </div>
 
-          <div className="services-panel">
-            {/* overview */}
-            <section className="services-section services-overview-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">Overview</h2>
-              </div>
-              <p className="services-section-text">
-                Students will learn how to communicate effectively with
-                AI-powered tools to support the development of websites, games,
-                digital content, animations, stories, presentations, and other
-                creative projects. The course focuses on understanding project
-                requirements, planning solutions, refining ideas, and using
-                AI-assisted workflows to improve productivity and creativity.
-                Learners will develop practical skills that help them work more
-                efficiently while maintaining control over the design,
-                development, and creative process.
-              </p>
-              <p className="services-section-text">
-                Through hands-on projects and guided activities, students will
-                gain experience using modern technologies to transform ideas
-                into real-world digital solutions.
-              </p>
-            </section>
-
-            {/* learning outcomes */}
-            <section className="services-section services-outcomes-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                    <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">Learning Outcomes</h2>
-              </div>
-
-              <div className="services-outcomes-grid">
-                {outcomes.map((o) => (
-                  <div className="services-outcome-card" key={o.tag}>
-                    <span className="services-outcome-icon">{o.icon}</span>
-                    <div>
-                      <span className="services-outcome-tag">{o.tag}</span>
-                      <p className="services-outcome-title">{o.title}</p>
-                      <p className="services-outcome-text">{o.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* faqs */}
-            <section className="services-section services-faqs-content">
-              <div className="services-section-head">
-                <span className="services-section-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                </span>
-                <h2 className="services-section-title">
-                  Frequently Asked Questions
-                </h2>
-              </div>
-
-              <div className="services-faq-list">
-                {faqs.map((item, i) => (
-                  <details className="services-faq-item" key={i}>
-                    <summary className="services-faq-question">
-                      <span className="services-faq-question-left">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                        </svg>
-                        {item.q}
-                      </span>
-                      <svg
-                        className="services-faq-chevron"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </summary>
-                    <p className="services-faq-answer">{item.a}</p>
-                  </details>
-                ))}
-              </div>
-            </section>
-          </div>
+        <div className="service-hero__btns">
+          <Link to="/apply" className="vc-btn-apply">
+            Apply Now{" "}
+            <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </Link>
+          <Link to="/programmes" className="vc-btn-outline">
+            All Programmes
+          </Link>
         </div>
       </div>
 
+      {/* CSS AI console: prompt → generated code */}
+      <div
+        className="service-hero__visual"
+        data-aos="fade-left"
+        data-aos-duration="700"
+        data-aos-delay="150"
+      >
+        <div className="vc-console">
+          <div className="vc-console__bar">
+            <span className="vc-console__dot vc-console__dot--red"></span>
+            <span className="vc-console__dot vc-console__dot--yellow"></span>
+            <span className="vc-console__dot vc-console__dot--green"></span>
+            <span className="vc-console__title">
+              <i
+                className="fa-solid fa-wand-magic-sparkles"
+                aria-hidden="true"
+              ></i>
+              vibe-session.ai
+            </span>
+          </div>
+
+          <div className="vc-console__body">
+            {/* Prompt / chat side */}
+            <div className="vc-chat">
+              <div className="vc-chat__bubble vc-chat__bubble--user">
+                {PROMPT_TEXT}
+              </div>
+              <div className="vc-chat__bubble vc-chat__bubble--ai">
+                <span className="vc-typing-dot"></span>
+                <span className="vc-typing-dot"></span>
+                <span className="vc-typing-dot"></span>
+              </div>
+              <div className="vc-vibe-meter">
+                <div className="vc-vibe-meter__label">
+                  <span>Vibe</span>
+                  <span>98%</span>
+                </div>
+                <div className="vc-vibe-meter__track">
+                  <div className="vc-vibe-meter__fill"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Generated code side */}
+            <div className="vc-code">
+              {CODE_LINES.map((line, i) => (
+                <div key={i} className="vc-code__line">
+                  <span
+                    className="vc-code__content"
+                    style={{ paddingLeft: (line.indent || 0) * 14 }}
+                  >
+                    {line.tokens.map((tok, j) => (
+                      <span key={j} style={{ color: TOKEN_COLOR[tok.t] }}>
+                        {tok.v}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              ))}
+              <div className="vc-code__cursor" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Floating badges */}
+        <div className="vc-badge vc-badge--flow">
+          <i className="fa-solid fa-headphones" aria-hidden="true"></i> Flow
+          State
+        </div>
+        <div className="vc-badge vc-badge--ai">
+          <i className="fa-solid fa-robot" aria-hidden="true"></i> AI-Assisted
+        </div>
+        <div className="vc-badge vc-badge--ship">
+          <i className="fa-solid fa-paper-plane" aria-hidden="true"></i> Ship
+          Fast
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FAQ item ── */
+function FAQItem({ faq }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`services-faq ${open ? "open" : ""}`}>
+      <button className="services-faq__q" onClick={() => setOpen((v) => !v)}>
+        {faq.q}
+        <span className="services-faq__icon">
+          <i className="fa-solid fa-plus"></i>
+        </span>
+      </button>
+      <div className="services-faq__a">{faq.a}</div>
+    </div>
+  );
+}
+
+/* ── Tabs ── */
+const TABS = [
+  { id: "overview", icon: "fa-solid fa-circle-info", label: "Overview" },
+  { id: "curriculum", icon: "fa-solid fa-list-check", label: "Curriculum" },
+  { id: "outcomes", icon: "fa-solid fa-trophy", label: "Outcomes" },
+  { id: "faqs", icon: "fa-solid fa-circle-question", label: "FAQs" },
+];
+
+function VCTabs() {
+  const [active, setActive] = useState("overview");
+
+  return (
+    <section className="services-tabs-section">
+      <div className="services-tabs vc-tabs" role="tablist">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            role="tab"
+            aria-selected={active === tab.id}
+            className={`services-tab ${active === tab.id ? "active" : ""}`}
+            onClick={() => setActive(tab.id)}
+          >
+            <i className={tab.icon} aria-hidden="true"></i>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Overview */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "overview" ? "active" : ""}`}
+      >
+        <div className="services-overview-grid">
+          {OVERVIEW_CARDS.map((card) => (
+            <div key={card.title} className="services-overview-card">
+              <div
+                className={`services-overview-card__icon vc-icon vc-icon--${card.color}`}
+              >
+                <i className={card.icon} aria-hidden="true"></i>
+              </div>
+              <h3>{card.title}</h3>
+              <p>{card.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="vc-info-banner">
+          <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
+          You don't need to be a programmer to start — you need to be able to
+          describe what you want clearly. We'll teach you the rest.
+        </div>
+      </div>
+
+      {/* Curriculum */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "curriculum" ? "active" : ""}`}
+      >
+        <div className="services-curriculum">
+          {CURRICULUM.map((week, i) => (
+            <div key={week.week} className="services-week">
+              <div className="services-week__num vc-week-num">{i + 1}</div>
+              <div className="services-week__body">
+                <h4>
+                  {week.week} — {week.title}
+                </h4>
+                <p>{week.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Outcomes */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "outcomes" ? "active" : ""}`}
+      >
+        <div className="services-outcomes-grid">
+          {OUTCOMES.map((o) => (
+            <div key={o.text} className="services-outcome-tag vc-outcome">
+              <i className={o.icon} aria-hidden="true"></i>
+              {o.text}
+            </div>
+          ))}
+        </div>
+        <div className="vc-outcomes-footer">
+          {[
+            ["2", "AI-Built Projects"],
+            ["6", "Weeks"],
+            ["1", "Live Product"],
+          ].map(([num, label]) => (
+            <div key={label} className="vc-outcomes-footer__stat">
+              <span className="vc-outcomes-footer__num">{num}</span>
+              <span className="vc-outcomes-footer__label">{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FAQs */}
+      <div
+        role="tabpanel"
+        className={`services-panel ${active === "faqs" ? "active" : ""}`}
+      >
+        <div className="services-faqs">
+          {FAQS.map((faq) => (
+            <FAQItem key={faq.q} faq={faq} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function VibeCoding() {
+  useEffect(() => {
+    AOS.init({ once: true, offset: 60 });
+  }, []);
+  return (
+    <div className="service-page vc-page">
+      <Navbar />
+      <VCHero />
+      <VCTabs />
+      <CTABanner />
       <Footer />
-    </>
+      <ScrollToTop />
+    </div>
   );
 }
 

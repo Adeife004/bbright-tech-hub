@@ -1,158 +1,460 @@
 /* ============================================================
-   DigitalLiteracy.css — page-specific styling layer
-   Loaded on top of ServicePage.css. Signature: a device/screen
-   hero frame with a status bar and dock, and tabs styled like
-   home-screen app icons — friendlier and more approachable,
-   fitting the most beginner-oriented course on the site.
+   DigitalLiteracy.css
+   Signature: warm gold/amber hero with a CSS all-in-one desktop
+   monitor — taskbar, app icons and an animated cursor. First
+   course in the ladder, so the palette reads warm & welcoming
+   rather than "techy dark."
    ============================================================ */
 
-/* ---- Hero: device frame instead of artboard/browser/dashboard ---- */
+/* ── Hero background ── */
 
-.literacy-device {
+.dl-hero {
+  background: linear-gradient(135deg,
+    #170f04 0%, #241804 45%, #140b02 100%);
+  min-height: 80vh;
+}
+
+/* Orbs */
+.dl-hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.dl-hero__orb--1 {
+  width: 500px; height: 500px;
+  top: -100px; left: -80px;
+  background: radial-gradient(circle, rgba(201,145,58,0.42) 0%, transparent 70%);
+  animation: dlOrb 9s ease-in-out infinite alternate;
+}
+
+.dl-hero__orb--2 {
+  width: 360px; height: 360px;
+  bottom: -60px; right: -60px;
+  background: radial-gradient(circle, rgba(55,143,132,0.26) 0%, transparent 70%);
+  animation: dlOrb 12s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes dlOrb {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(22px,16px) scale(1.09); }
+}
+
+/* ── Eyebrow ── */
+
+.dl-eyebrow {
+  background: rgba(201,145,58,0.16);
+  border: 1px solid rgba(201,145,58,0.38);
+  color: #f0c068;
+}
+
+/* ── Title ── */
+
+.dl-hero__title { color: #fff; }
+
+.dl-title-accent {
+  background: linear-gradient(135deg, #f0c068 0%, #c9913a 55%, #5ecec4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Meta pills ── */
+
+.dl-pill {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.7);
+}
+
+.dl-pill--start {
+  background: rgba(201,145,58,0.14);
+  border-color: rgba(201,145,58,0.4);
+  color: #f0c068;
+}
+
+/* ── Buttons ── */
+
+.dl-btn-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.82rem 1.9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #221404;
+  background: linear-gradient(135deg, #f0c068, #c9913a);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(201,145,58,0.45);
+  transition: transform var(--ease), box-shadow var(--ease), filter var(--ease);
+}
+
+.dl-btn-apply:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(201,145,58,0.6);
+  filter: brightness(1.05);
+}
+
+.dl-btn-apply i { font-size: 0.8rem; transition: transform var(--ease); }
+.dl-btn-apply:hover i { transform: translateX(4px); }
+
+.dl-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.82rem 1.7rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  transition: background var(--ease), border-color var(--ease), color var(--ease);
+}
+
+.dl-btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(240,192,104,0.5);
+  color: #fff;
+}
+
+/* ============================================================
+   CSS all-in-one desktop monitor mockup
+   ============================================================ */
+
+.dl-monitor-wrap {
   position: relative;
   width: 100%;
-  max-width: 300px;
-  padding: 14px;
-  background: var(--clr-dark);
-  border-radius: 22px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.literacy-device__badge {
+.dl-monitor-glow {
   position: absolute;
-  top: -12px;
-  left: 22px;
-  background: var(--clr-gold);
-  color: var(--clr-space);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  padding: 0.26rem 0.6rem;
-  border-radius: var(--r-pill);
-  box-shadow: 0 6px 14px rgba(201, 145, 58, 0.35);
-  white-space: nowrap;
+  width: 320px; height: 260px;
+  top: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,145,58,0.3) 0%, transparent 65%);
+  filter: blur(45px);
+  animation: dlGlowPulse 4s ease-in-out infinite;
+  z-index: 0;
 }
 
-.literacy-device__statusbar {
+@keyframes dlGlowPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.1); }
+}
+
+.dl-monitor {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  animation: dlFloat 5s ease-in-out infinite alternate;
+}
+
+@keyframes dlFloat {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-12px); }
+}
+
+/* Screen */
+.dl-monitor__screen {
+  position: relative;
+  background: #fdf8ef;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 10px #1b140a,
+    0 0 0 11px rgba(240,192,104,0.25),
+    0 24px 60px rgba(0,0,0,0.55);
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dl-monitor__topbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.6rem 0.8rem;
+  background: #221404;
+}
+
+.dl-monitor__dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.dl-monitor__dot--red    { background: #ff5f57; }
+.dl-monitor__dot--yellow { background: #febc2e; }
+.dl-monitor__dot--green  { background: #28c840; }
+
+.dl-monitor__topbar-title {
+  flex: 1;
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  margin-right: 20px;
+}
+
+/* Desktop icon grid */
+.dl-monitor__desktop {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem 0.5rem;
+  padding: 1.3rem 1.2rem 1rem;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(94,206,196,0.12) 0%, transparent 45%),
+    linear-gradient(160deg, #fdf8ef 0%, #f7ecd8 100%);
+}
+
+.dl-desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dl-desktop-icon__glyph {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #ffffff, #f0e2c8);
+  border: 1px solid rgba(201,145,58,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #ad7a2c;
+  box-shadow: 0 3px 8px rgba(201,145,58,0.18);
+}
+
+.dl-desktop-icon__label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #6b5636;
+}
+
+/* Cursor */
+.dl-monitor__cursor {
+  position: absolute;
+  bottom: 60px;
+  right: 70px;
+  color: #1b140a;
+  font-size: 1rem;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+  animation: dlCursorMove 3.5s ease-in-out infinite;
+  z-index: 3;
+}
+
+@keyframes dlCursorMove {
+  0%, 100% { transform: translate(0, 0); }
+  25%       { transform: translate(-46px, -18px); }
+  50%       { transform: translate(-70px, 14px); }
+  75%       { transform: translate(-20px, 24px); }
+}
+
+/* Taskbar */
+.dl-monitor__taskbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2px 4px 10px;
+  padding: 0.5rem 0.9rem;
+  background: rgba(34,20,4,0.92);
+  border-top: 1px solid rgba(240,192,104,0.15);
 }
 
-.literacy-device__statusbar span {
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-  font-variant-numeric: tabular-nums;
-}
-
-.literacy-device__statusbar svg {
-  width: 14px;
-  height: 14px;
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.literacy-device__screen {
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  background: var(--clr-teal-lt);
-}
-
-.literacy-device__screen img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.literacy-device__dock {
+.dl-monitor__start {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #f0c068, #c9913a);
+  color: #221404;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding-top: 12px;
+  font-size: 0.7rem;
 }
 
-.literacy-device__dock span {
-  width: 7px;
-  height: 7px;
+.dl-monitor__taskbar-time {
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  font-family: 'Courier New', monospace;
+}
+
+/* Stand + base */
+.dl-monitor__stand {
+  width: 18px;
+  height: 26px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #1b140a, #0d0a04);
+  clip-path: polygon(35% 0, 65% 0, 78% 100%, 22% 100%);
+}
+
+.dl-monitor__base {
+  width: 130px;
+  height: 10px;
+  margin: 0 auto;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  background: #1b140a;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
-.literacy-device__dock span:first-child {
-  background: var(--clr-teal-bright);
-}
-
-/* ---- Tabs: app-dock icons instead of pill/editor/chip tabs ---- */
-
-.literacy-page .services-tabs {
-  flex-direction: row;
-  gap: 1.1rem;
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin-bottom: 3rem;
-  justify-content: center;
-}
-
-.literacy-page .services-tab {
-  flex-direction: column;
+/* Floating badges */
+.dl-badge {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  z-index: 4;
+}
+
+.dl-badge--typing { top: 6px; left: -6px;    background: rgba(94,206,196,0.85); color: #eafffb; border: 1px solid rgba(94,206,196,0.4); animation: dlBadge 4s ease-in-out infinite alternate; }
+.dl-badge--safety { bottom: 44px; left: -34px; background: rgba(201,145,58,0.9); color: #2a1a04; border: 1px solid rgba(240,192,104,0.4); animation: dlBadge 5s ease-in-out infinite alternate-reverse; }
+.dl-badge--email  { bottom: -6px; right: 4px; background: rgba(255,255,255,0.9); color: #6b5636; border: 1px solid rgba(201,145,58,0.3); animation: dlBadge 4.5s ease-in-out infinite alternate; }
+
+@keyframes dlBadge {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-7px); }
+}
+
+/* ============================================================
+   Tab styles
+   ============================================================ */
+
+.dl-tabs .services-tab.active {
+  background: linear-gradient(135deg, #c9913a, #a5741f);
+  border-color: #c9913a;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(201,145,58,0.35);
+}
+
+.dl-tabs .services-tab:hover:not(.active) {
+  border-color: #c9913a;
+  color: #ad7a2c;
+}
+
+/* ── Overview card icons ── */
+.dl-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+
+.dl-icon--gold { background: var(--clr-gold-lt); color: var(--clr-gold); }
+.dl-icon--teal { background: var(--clr-teal-lt);  color: var(--clr-teal); }
+
+/* ── Info banner ── */
+.dl-info-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.9rem 1.2rem;
+  background: var(--clr-gold-lt);
+  border: 1px solid rgba(201,145,58,0.25);
+  border-radius: var(--r-md);
+  font-size: 0.85rem;
+  color: #8a5f22;
+  margin-top: 0.5rem;
+}
+
+.dl-info-banner i { flex-shrink: 0; }
+
+/* ── Curriculum week numbers ── */
+.dl-week-num {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--clr-gold-lt);
+  border: 1.5px solid rgba(201,145,58,0.3);
+  color: #ad7a2c;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ── Outcome tags ── */
+.dl-outcome {
   background: var(--clr-white);
-  border: 1px solid rgba(170, 194, 197, 0.4);
-  border-radius: 16px;
-  padding: 0.9rem 1.15rem;
+  border: 1px solid rgba(170,194,197,0.35);
+  border-radius: var(--r-md);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.dl-outcome:hover {
+  border-color: #c9913a;
   box-shadow: var(--shadow-sm);
-  color: var(--clr-slate);
-  transition: transform var(--ease), box-shadow var(--ease), background var(--ease), color var(--ease), border-color var(--ease);
 }
 
-.literacy-page .services-tab svg {
-  width: 19px;
-  height: 19px;
+.dl-outcome i { color: #ad7a2c; font-size: 0.9rem; flex-shrink: 0; }
+
+/* ── Outcomes footer stats ── */
+.dl-outcomes-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--clr-gold-lt);
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(201,145,58,0.25);
+  flex-wrap: wrap;
 }
 
-.literacy-page .services-tab span {
+.dl-outcomes-footer__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.dl-outcomes-footer__num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ad7a2c;
+  line-height: 1;
+}
+
+.dl-outcomes-footer__label {
   font-size: 0.72rem;
   font-weight: 600;
+  color: #ad7a2c;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-.literacy-page .services-tab:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .dl-hero { min-height: auto; }
+  .dl-monitor-wrap { max-width: 340px; }
+  .dl-monitor__desktop { grid-template-columns: repeat(3, 1fr); }
+  .dl-badge--safety { display: none; }
 }
 
-.literacy-page #tab-overview:checked ~ .services-tabs label[for="tab-overview"],
-.literacy-page #tab-outcomes:checked ~ .services-tabs label[for="tab-outcomes"],
-.literacy-page #tab-faqs:checked ~ .services-tabs label[for="tab-faqs"] {
-  background: var(--clr-teal-lt);
-  color: var(--clr-teal);
-  border-color: rgba(55, 143, 132, 0.4);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-/* ---- Outcome tags as soft beginner-friendly badges ---- */
-
-.literacy-page .services-outcome-tag {
-  background: rgba(170, 194, 197, 0.2);
-  color: var(--clr-slate);
-  border-radius: var(--r-pill);
-}
-
-/* ---- Responsive ---- */
-
-@media (max-width: 560px) {
-  .literacy-page .services-tabs {
-    gap: 0.6rem;
-  }
-  .literacy-page .services-tab {
-    padding: 0.7rem 0.8rem;
-  }
-  .literacy-page .services-tab span {
-    display: none;
-  }
+@media (max-width: 640px) {
+  .dl-monitor-wrap { max-width: 280px; }
+  .dl-badge { display: none; }
+  .dl-monitor__cursor { display: none; }
 }
