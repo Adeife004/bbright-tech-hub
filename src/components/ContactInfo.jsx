@@ -28,10 +28,10 @@ const INFO_ITEMS = [
 ];
 
 const SOCIALS = [
-  { icon: "fa-brands fa-facebook-f", href: "#", label: "Facebook" },
-  { icon: "fa-brands fa-instagram", href: "#", label: "Instagram" },
-  { icon: "fa-brands fa-linkedin-in", href: "#", label: "LinkedIn" },
-  { icon: "fa-brands fa-x-twitter", href: "#", label: "X / Twitter" },
+  { icon: "fa-brands fa-facebook-f", href: "https://www.facebook.com/bbrightkids", label: "Facebook" },
+  { icon: "fa-brands fa-instagram", href: "https://www.instagram.com/bbrighttechhub?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", label: "Instagram" },
+  { icon: "fa-brands fa-linkedin-in", href: "https://www.linkedin.com/company/b-bright-tech-hub/", label: "LinkedIn" },
+  { icon: "fa-brands fa-whatsapp", href: "https://wa.me/message/VKZ53M3IHN2AK1", label: "WhatsApp" },
 ];
 
 function ContactInfo() {
