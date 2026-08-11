@@ -14,14 +14,17 @@ function Footer() {
             The place where tech careers are built. Come learn, build, and grow with us.
           </p>
           <div className="footer__socials" aria-label="Social media links">
-            <a href="#" className="footer__social" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/bbrighttechhub?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="footer__social" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
               <i className="fa-brands fa-instagram" aria-hidden="true"></i>
             </a>
-            <a href="#" className="footer__social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/company/b-bright-tech-hub/" className="footer__social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
               <i className="fa-brands fa-linkedin-in" aria-hidden="true"></i>
             </a>
-            <a href="#" className="footer__social" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.tiktok.com/@bbrighttechhub" className="footer__social" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
               <i className="fa-brands fa-tiktok" aria-hidden="true"></i>
+            </a>
+            <a href="https://wa.me/message/VKZ53M3IHN2AK1" className="footer__social" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+              <i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
             </a>
           </div>
         </div>

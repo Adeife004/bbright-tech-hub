@@ -93,7 +93,7 @@ function Navbar() {
         <span className="navbar__blob" aria-hidden="true"></span>
         <div className="navbar__logo">
           <Link to="/" aria-label="B Bright Tech Hub Home">
-            <img src="/logo.png" alt="B Bright Tech Hub Logo" />
+            <img src="./logo.png" alt="B Bright Tech Hub Logo" />
           </Link>
         </div>
 
