@@ -116,7 +116,7 @@ function WeekendClasses() {
             </span>
             <div>
               <p className="programme-fact__label">Time</p>
-              <p className="programme-fact__value">10:00 AM – 1:00 PM</p>
+              <p className="programme-fact__value">10:00 AM – 2:00 PM</p>
             </div>
           </div>
 
@@ -136,7 +136,7 @@ function WeekendClasses() {
             </span>
             <div>
               <p className="programme-fact__label">Term Length</p>
-              <p className="programme-fact__value">12 weeks</p>
+              <p className="programme-fact__value">14 weeks</p>
             </div>
           </div>
         </div>

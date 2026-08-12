@@ -295,7 +295,6 @@ function AfterSchoolTimetable() {
         <div className="as-timetable__header-row">
           <span>Day</span>
           <span>3:00 PM – 4:30 PM</span>
-          <span>4:45 PM – 6:00 PM</span>
         </div>
         {TIMETABLE.map((row, i) => (
           <div

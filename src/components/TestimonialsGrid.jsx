@@ -3,19 +3,19 @@ import "./TestimonialsGrid.css";
 const testimonials = [
   {
     id: 1,
-    name: "Jasmine A.",
-    role: "Frontend Developer",
-    stars: 5,
+    name: "Gabriel A.",
+    role: "UI/UX Designer",
+    stars: 4,
     avatar: "/asset/contactbg.png",
-    text: "B Bright Tech Hub gave me the skills and confidence I needed to land my first job as a frontend developer. The projects were real, the mentorship was better.",
+    text: "Befor B-Bright Tech Hub, I thought UI/UX was just 'making apps pretty'.But here, I learnt more about it, from UI to wireframes to testing prototypes. I came to B Bright Tech curious and left i'm leaving as a designer.",
   },
   {
     id: 2,
-    name: "Rahma O.",
-    role: "Data Analyst",
-    stars: 4,
+    name: "Suleiman M.",
+    role: "Digital Literacy Specialist",
+    stars: 5,
     avatar: "/asset/contactbg.png",
-    text: "The AI & Data Science programme transformed the way I think about data. The hands-on approach, capstone projects, and community support made all the difference.",
+    text: "My experience at B Bright Tech Hub was splendid and was and was a creative adventure and the training was practical. I enjoyed my stay at B brigh tech hub.",
   },
   {
     id: 3,

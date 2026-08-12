@@ -120,7 +120,7 @@ function HolidayClasses() {
             </span>
             <div>
               <p className="programme-fact__label">Time</p>
-              <p className="programme-fact__value">10:00 AM – 2:00 PM</p>
+              <p className="programme-fact__value">09:00 AM – 4:00 PM</p>
             </div>
           </div>
 
@@ -140,7 +140,7 @@ function HolidayClasses() {
             </span>
             <div>
               <p className="programme-fact__label">Duration</p>
-              <p className="programme-fact__value">1–2 weeks</p>
+              <p className="programme-fact__value">2-4 weeks</p>
             </div>
           </div>
         </div>
