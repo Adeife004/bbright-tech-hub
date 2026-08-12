@@ -1,0 +1,794 @@
+/* ============================================================
+   InSchoolPrograms.css
+   Signature: institutional gold-led hero (brand gold as primary,
+   teal as secondary) with a CSS school timetable card showing
+   two subjects slotted into the day, plus a colour-coded
+   "Programs We Offer" grid (Coding = teal, Robotics = blue,
+   Digital Literacy = gold) tying back to the campus course
+   palettes. B2B — built to read as a proposal to school
+   leadership, not a course ad.
+   ============================================================ */
+
+/* ── Hero ── */
+
+.isc-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0d2926 0%, #14211a 45%, #0a1f10 100%);
+  padding: calc(var(--nav-height) + 3.5rem) clamp(1.5rem, 5vw, 5rem) 5rem;
+  min-height: 88vh;
+}
+
+.isc-hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.isc-hero__orb--1 {
+  width: 480px; height: 480px;
+  top: -100px; left: -80px;
+  background: radial-gradient(circle, rgba(201,145,58,0.32) 0%, transparent 70%);
+  animation: iscOrb 9s ease-in-out infinite alternate;
+}
+
+.isc-hero__orb--2 {
+  width: 380px; height: 380px;
+  bottom: -60px; right: -60px;
+  background: radial-gradient(circle, rgba(55,143,132,0.32) 0%, transparent 70%);
+  animation: iscOrb 11s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes iscOrb {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(20px,16px) scale(1.09); }
+}
+
+.isc-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(201,145,58,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,145,58,0.045) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 75% 75% at 30% 50%, black 25%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 75% at 30% 50%, black 25%, transparent 100%);
+}
+
+.isc-hero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Eyebrow */
+.isc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.isc-hero .isc-eyebrow {
+  color: #f0c068;
+  background: rgba(201,145,58,0.14);
+  border: 1px solid rgba(201,145,58,0.35);
+  border-radius: var(--r-pill);
+  padding: 0.35rem 1rem;
+  width: fit-content;
+}
+
+.isc-eyebrow--gold  { color: var(--clr-gold); }
+.isc-eyebrow--light { color: #f0c068; }
+
+/* Title */
+.isc-hero__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2.1rem, 4.6vw, 3.3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #fff;
+  margin-bottom: 1.2rem;
+}
+
+.isc-title-accent {
+  background: linear-gradient(135deg, #f0c068 0%, #5ecec4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.isc-hero__desc {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.75;
+  max-width: 500px;
+  margin-bottom: 1.8rem;
+}
+
+/* Chips */
+.isc-hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 2rem;
+}
+
+.isc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--r-pill);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.7);
+}
+
+.isc-chip--accent {
+  background: rgba(94,206,196,0.12);
+  border-color: rgba(94,206,196,0.32);
+  color: #5ecec4;
+}
+
+.isc-chip--accent i { font-size: 0.5rem; }
+
+/* Buttons */
+.isc-hero__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.isc-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.82rem 1.8rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #221404;
+  background: linear-gradient(135deg, #f0c068, #c9913a);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(201,145,58,0.42);
+  transition: transform var(--ease), box-shadow var(--ease), filter var(--ease);
+}
+
+.isc-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(201,145,58,0.56);
+  filter: brightness(1.05);
+}
+
+.isc-btn-primary i { font-size: 0.8rem; transition: transform var(--ease); }
+.isc-btn-primary:hover i { transform: translateX(4px); }
+
+.isc-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.82rem 1.7rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  transition: background var(--ease), border-color var(--ease), color var(--ease);
+}
+
+.isc-btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(240,192,104,0.5);
+  color: #fff;
+}
+
+.isc-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.82rem 1.6rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--clr-slate);
+  background: transparent;
+  border: 1.5px solid rgba(170,194,197,0.5);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  transition: border-color var(--ease), color var(--ease);
+}
+
+.isc-btn-ghost:hover { border-color: var(--clr-gold); color: #ad7a2c; }
+
+/* ============================================================
+   CSS school timetable illustration
+   ============================================================ */
+
+.isc-hero__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.isc-timetable-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.isc-timetable-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 24px;
+  background: radial-gradient(circle, rgba(201,145,58,0.24) 0%, transparent 65%);
+  filter: blur(40px);
+  animation: iscGlowPulse 4s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes iscGlowPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+.isc-timetable {
+  position: relative;
+  z-index: 2;
+  background: #17130a;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 24px 60px rgba(0,0,0,0.5);
+  overflow: hidden;
+  animation: iscFloat 5s ease-in-out infinite alternate;
+}
+
+@keyframes iscFloat {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-10px); }
+}
+
+.isc-timetable__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  background: #1f1810;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.isc-timetable__dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.isc-timetable__dot--red    { background: #ff5f57; }
+.isc-timetable__dot--yellow { background: #febc2e; }
+.isc-timetable__dot--green  { background: #28c840; }
+
+.isc-timetable__title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  padding: 0.28rem 0.7rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.66rem;
+  color: rgba(255,255,255,0.45);
+  margin-left: 0.5rem;
+}
+
+.isc-timetable__title i { font-size: 0.62rem; color: #f0c068; }
+
+.isc-timetable__list {
+  padding: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.isc-timetable__row {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 0.65rem 0.8rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: background var(--ease), border-color var(--ease);
+}
+
+.isc-timetable__row--active {
+  background: rgba(201,145,58,0.14);
+  border-color: rgba(240,192,104,0.4);
+  box-shadow: 0 0 0 1px rgba(240,192,104,0.15), 0 0 18px rgba(201,145,58,0.2);
+}
+
+.isc-timetable__period {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.35);
+}
+
+.isc-timetable__row--active .isc-timetable__period { color: #f0c068; }
+
+.isc-timetable__subject {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+}
+
+.isc-timetable__row--active .isc-timetable__subject {
+  color: #fff;
+  font-weight: 700;
+}
+
+.isc-timetable__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--r-pill);
+  background: linear-gradient(135deg, #f0c068, #c9913a);
+  color: #221404;
+  white-space: nowrap;
+}
+
+.isc-timetable__badge {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #5ecec4;
+  background: rgba(55,143,132,0.14);
+  border: 1px solid rgba(94,206,196,0.32);
+  border-radius: var(--r-pill);
+  padding: 0.3rem 0.85rem;
+  z-index: 5;
+}
+
+/* ── Shared section header ── */
+
+.isc-section-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.isc-section-header h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.7rem, 3.8vw, 2.4rem);
+  font-weight: 700;
+  color: var(--clr-dark);
+  letter-spacing: -0.02em;
+  margin: 0.4rem 0 0.8rem;
+}
+
+.isc-section-header p {
+  font-size: 0.95rem;
+  color: var(--clr-slate);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   Programs We Offer — colour-coded tracks
+   ============================================================ */
+
+.isc-programs { padding: 5rem 2rem; background: var(--clr-dark); }
+.isc-programs .isc-section-header h2 { color: #fff; }
+.isc-programs .isc-section-header p  { color: rgba(255,255,255,0.5); }
+
+.isc-programs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.isc-program-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r-lg);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease), background var(--ease);
+}
+
+.isc-program-card:hover { transform: translateY(-4px); }
+
+.isc-program-card__icon {
+  width: 46px; height: 46px;
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.15rem;
+  margin-bottom: 0.2rem;
+}
+
+.isc-program-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.isc-program-card__top h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.isc-program-card__grades {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.55);
+}
+
+.isc-program-card p {
+  font-size: 0.84rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+}
+
+/* Coding — teal */
+.isc-program-card--coding .isc-program-card__icon {
+  background: rgba(55,143,132,0.18);
+  color: #5ecec4;
+}
+.isc-program-card--coding:hover {
+  border-color: rgba(94,206,196,0.4);
+  box-shadow: 0 12px 28px rgba(55,143,132,0.18);
+}
+
+/* Robotics — blue */
+.isc-program-card--robotics .isc-program-card__icon {
+  background: rgba(56,189,248,0.16);
+  color: #7dd3fc;
+}
+.isc-program-card--robotics:hover {
+  border-color: rgba(125,211,252,0.4);
+  box-shadow: 0 12px 28px rgba(56,189,248,0.18);
+}
+
+/* Digital Literacy — gold */
+.isc-program-card--digital .isc-program-card__icon {
+  background: rgba(201,145,58,0.18);
+  color: #f0c068;
+}
+.isc-program-card--digital:hover {
+  border-color: rgba(240,192,104,0.4);
+  box-shadow: 0 12px 28px rgba(201,145,58,0.18);
+}
+
+/* ── Why partner ── */
+
+.isc-why { padding: 5rem 2rem; background: var(--clr-bg); }
+
+.isc-why__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.isc-why-card {
+  background: var(--clr-white);
+  border: 1px solid rgba(170,194,197,0.35);
+  border-radius: var(--r-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+}
+
+.isc-why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(201,145,58,0.35);
+}
+
+.isc-why-card__icon {
+  width: 44px; height: 44px;
+  border-radius: var(--r-md);
+  background: var(--clr-gold-lt);
+  color: var(--clr-gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+
+.isc-why-card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--clr-dark);
+}
+
+.isc-why-card p {
+  font-size: 0.84rem;
+  color: var(--clr-slate);
+  line-height: 1.6;
+}
+
+/* ── How it works ── */
+
+.isc-how { padding: 5rem 2rem; background: var(--clr-bg); }
+
+.isc-how__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.isc-how-step {
+  background: var(--clr-white);
+  border: 1px solid rgba(170,194,197,0.35);
+  border-radius: var(--r-lg);
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+}
+
+.isc-how-step:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(201,145,58,0.3);
+}
+
+.isc-how-step__num {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--clr-gold-lt);
+  border: 1.5px solid rgba(201,145,58,0.3);
+  color: #ad7a2c;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.isc-how-step__body h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--clr-dark);
+  margin-bottom: 0.35rem;
+}
+
+.isc-how-step__body p {
+  font-size: 0.8rem;
+  color: var(--clr-slate);
+  line-height: 1.55;
+}
+
+/* ── Grade bands ── */
+
+.isc-grades { padding: 5rem 2rem; background: var(--clr-dark); }
+.isc-grades .isc-section-header h2 { color: #fff; }
+.isc-grades .isc-section-header p  { color: rgba(255,255,255,0.5); }
+
+.isc-grades__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.isc-grade-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r-lg);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform var(--ease), border-color var(--ease), background var(--ease);
+}
+
+.isc-grade-card:hover {
+  transform: translateY(-4px);
+  background: rgba(94,206,196,0.06);
+  border-color: rgba(94,206,196,0.25);
+}
+
+.isc-grade-card__icon {
+  width: 46px; height: 46px;
+  border-radius: var(--r-md);
+  background: rgba(94,206,196,0.12);
+  color: #5ecec4;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.isc-grade-card__band {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5ecec4;
+}
+
+.isc-grade-card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.isc-grade-card p {
+  font-size: 0.84rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+/* ── FAQs ── */
+
+.isc-faqs { padding: 5rem 2rem; background: var(--clr-bg); }
+
+.isc-faqs__list {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.isc-faq {
+  background: var(--clr-white);
+  border: 1px solid rgba(170,194,197,0.35);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  transition: border-color var(--ease);
+}
+
+.isc-faq.open { border-color: var(--clr-gold); }
+
+.isc-faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--clr-dark);
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: color var(--ease);
+}
+
+.isc-faq__q:hover { color: #ad7a2c; }
+
+.isc-faq__icon {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--clr-gold-lt);
+  color: var(--clr-gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  transition: transform var(--ease), background var(--ease), color var(--ease);
+}
+
+.isc-faq.open .isc-faq__icon { transform: rotate(45deg); background: var(--clr-gold); color: #fff; }
+
+.isc-faq__a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding var(--ease);
+  font-size: 0.875rem;
+  color: var(--clr-slate);
+  line-height: 1.7;
+  padding: 0 1.3rem;
+}
+
+.isc-faq.open .isc-faq__a { max-height: 220px; padding: 0 1.3rem 1.1rem; }
+
+/* ── CTA ── */
+
+.isc-cta { padding: 4rem 2rem 5rem; background: var(--clr-bg); }
+
+.isc-cta__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--clr-white);
+  border: 1px solid rgba(170,194,197,0.3);
+  border-radius: 24px;
+  padding: 2.5rem 3rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.isc-cta__text h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--clr-dark);
+  margin-bottom: 0.4rem;
+}
+
+.isc-cta__text p {
+  font-size: 0.875rem;
+  color: var(--clr-slate);
+}
+
+.isc-cta__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 900px) {
+  .isc-hero__inner    { grid-template-columns: 1fr; text-align: center; }
+  .isc-hero__btns, .isc-hero__chips { justify-content: center; }
+  .isc-hero__desc     { margin-left: auto; margin-right: auto; }
+  .isc-programs__grid { grid-template-columns: 1fr; }
+  .isc-why__grid      { grid-template-columns: 1fr 1fr; }
+  .isc-how__grid      { grid-template-columns: 1fr 1fr; }
+  .isc-grades__grid   { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .isc-why__grid { grid-template-columns: 1fr; }
+  .isc-how__grid { grid-template-columns: 1fr; }
+  .isc-cta__inner { flex-direction: column; text-align: center; padding: 2rem; }
+  .isc-cta__btns  { justify-content: center; }
+}
+
+@media (max-width: 560px) {
+  .isc-hero { padding: calc(var(--nav-height) + 2.5rem) 1.25rem 4rem; }
+}

@@ -261,14 +261,9 @@ function Navbar() {
                   </h3>
                   <ul>
                     <li>
-                      <a href="/in-school-coding" role="menuitem">
-                        In-School Coding Programs
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/in-school-robotics" role="menuitem">
-                        In-School Robotics Programs
-                      </a>
+                      <Link to="/in-school-programs" role="menuitem">
+                        In-School Programs
+                      </Link>
                     </li>
                     <li>
                       <a href="/teacher-training" role="menuitem">
