@@ -1,47 +1,39 @@
 import "./AboutTeam.css";
 
-const team = [
-  {
-    name: "Olarenwaju Sofeeyah",
-    role: "Digital Literacy Instructor",
-    image: "/asset/sofeeyah.jpeg",
-  },
-  {
-    name: "Adebowale Jasmine",
-    role: "Web Development Instructor",
-    image: "/asset/m jasmine.jpeg",
-  },
-  {
-    name: "Oyinloye Oyinbusolami",
-    role: "Robotics Instructor",
-    image: "/asset/m oyin.png",
-  },
-  {
-    name: "Udoh Emmanuel",
-    role: "Coding Instructor",
-    image: "/asset/emmanuel.jpeg",
-  },
+/* PLACEHOLDER: swap names, roles and bios for your real team. */
+const TEAM = [
+  { role: "Founder & CEO", bio: "Add a short bio here." },
+  { role: "Head of Curriculum", bio: "Add a short bio here." },
+  { role: "Lead Instructor", bio: "Add a short bio here." },
+  { role: "Operations Lead", bio: "Add a short bio here." },
 ];
 
 function AboutTeam() {
   return (
-    <section className="about-team">
-      <div className="about-team__header">
-        <h1>The Team Powering Innovation</h1>
+    <section className="ab-team">
+      <div className="ab-section-header" data-aos="fade-up">
+        <span className="ab-eyebrow ab-eyebrow--light">Meet the Team</span>
+        <h2>The People Behind B Bright</h2>
         <p>
-          Passionate educators and technology professionals committed to shaping
-          future innovators.
+          A small team that genuinely cares about whether students actually
+          learn, not just whether they show up.
         </p>
       </div>
 
-      <div className="about-team__grid">
-        {team.map((member) => (
-          <div className="about-team__card" key={member.name}>
-            <img src={member.image} alt={member.name} />
-            <div className="about-team__info">
-              <h3>{member.name}</h3>
-              <p>{member.role}</p>
+      <div className="ab-team__grid">
+        {TEAM.map((member, i) => (
+          <div
+            key={member.role}
+            className="ab-team-card"
+            data-aos="fade-up"
+            data-aos-delay={i * 70}
+          >
+            <div className="ab-team-card__avatar">
+              <i className="fa-solid fa-user" aria-hidden="true"></i>
             </div>
+            <span className="ab-team-card__placeholder">Your Name Here</span>
+            <span className="ab-team-card__role">{member.role}</span>
+            <p>{member.bio}</p>
           </div>
         ))}
       </div>

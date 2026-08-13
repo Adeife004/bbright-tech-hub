@@ -1,38 +1,61 @@
 import "./AboutWhyUs.css";
 
-const reasons = [
+const REASONS = [
   {
-    title: "Industry-Relevant Skills",
-    desc: "Learn technologies and digital skills that are in demand today.",
+    icon: "fa-solid fa-hammer",
+    title: "Hands-On Projects",
+    desc: "Every course ends with something real you built, not just certificates and notes.",
   },
   {
-    title: "Experienced Instructors",
-    desc: "Receive guidance and mentorship from passionate professionals.",
+    icon: "fa-solid fa-users",
+    title: "Small Class Sizes",
+    desc: "Instructors who actually know your name and where you are stuck.",
   },
   {
-    title: "Hands-On Learning",
-    desc: "Build real projects and gain practical experience.",
+    icon: "fa-solid fa-user-check",
+    title: "Certified Instructors",
+    desc: "Every class led by someone trained and experienced in what they teach.",
   },
   {
-    title: "Future-Ready Education",
-    desc: "Develop skills needed to thrive in the digital economy.",
+    icon: "fa-solid fa-briefcase",
+    title: "Portfolio Ready Outcomes",
+    desc: "You leave with proof of what you can do, not just a claim that you can do it.",
+  },
+  {
+    icon: "fa-solid fa-calendar-days",
+    title: "Flexible Learning Paths",
+    desc: "Weekday, weekend, holiday and in-school options built around real schedules.",
+  },
+  {
+    icon: "fa-solid fa-headset",
+    title: "Support After Graduation",
+    desc: "Access to community, resources and guidance long after your course ends.",
   },
 ];
 
 function AboutWhyUs() {
   return (
-    <section className="about-why">
-      <div className="about-why__header">
-        <h2>Why Choose B Bright Tech?</h2>
+    <section className="ab-whyus">
+      <div className="ab-section-header" data-aos="fade-up">
+        <span className="ab-eyebrow ab-eyebrow--teal">Why Choose Us</span>
+        <h2>What Makes B Bright Different</h2>
         <p>
-          Empowering learners with practical technology skills, innovative
-          teaching methods, and industry-relevant knowledge.
+          Plenty of places teach tech skills. Here's what we do differently
+          along the way.
         </p>
       </div>
 
-      <div className="about-why__grid">
-        {reasons.map((reason) => (
-          <div className="about-why__card" key={reason.title}>
+      <div className="ab-whyus__grid">
+        {REASONS.map((reason, i) => (
+          <div
+            key={reason.title}
+            className="ab-reason-card"
+            data-aos="fade-up"
+            data-aos-delay={i * 60}
+          >
+            <div className="ab-reason-card__icon">
+              <i className={reason.icon} aria-hidden="true"></i>
+            </div>
             <h3>{reason.title}</h3>
             <p>{reason.desc}</p>
           </div>

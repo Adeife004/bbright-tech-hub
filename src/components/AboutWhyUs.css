@@ -1,66 +1,98 @@
-.about-why {
-  padding: 80px 8%;
-  background: #fff;
+/* ============================================================
+   AboutWhyUs.css
+   Practical differentiators grid. Uses gold-accented icons
+   (rather than teal, used by Foundation) so the two grids read
+   as visually distinct sections even though they share a layout.
+   ============================================================ */
+
+.ab-whyus { padding: 5.5rem 2rem; background: var(--clr-bg); }
+
+.ab-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
 }
 
-.about-why__header {
+.ab-eyebrow--teal { color: var(--clr-teal-md); }
+
+.ab-section-header {
   text-align: center;
-  padding-bottom: 2rem;
+  max-width: 600px;
+  margin: 0 auto 3rem;
 }
 
-.about-why__header h2 {
-  font-family: 'Exo 2', sans-serif;
-  font-size: clamp(1.6rem, 3vw, 2rem);
-  color: var(--clr-teal);
-  margin-bottom: 0.5rem;
-}
-
-.about-why__header p {
-  color: #666;
+.ab-section-header h2 {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.95rem;
-}
-
-.about-why__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-}
-
-.about-why__card {
-  background: #f9fbf9;
-  padding: 24px 20px;
-  border-radius: 20px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-bottom: 4px solid var(--clr-teal-md);
-  font-family: 'Poppins', sans-serif;
-}
-
-.about-why__card h3 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
   color: var(--clr-dark);
+  letter-spacing: -0.02em;
+  margin: 0.4rem 0 0.8rem;
+}
+
+.ab-section-header p {
+  font-size: 0.95rem;
+  color: var(--clr-slate);
+  line-height: 1.7;
+}
+
+.ab-whyus__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.ab-reason-card {
+  background: var(--clr-white);
+  border: 1px solid rgba(170,194,197,0.35);
+  border-radius: var(--r-lg);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+}
+
+.ab-reason-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(201,145,58,0.35);
+}
+
+.ab-reason-card__icon {
+  width: 46px; height: 46px;
+  border-radius: var(--r-md);
+  background: var(--clr-gold-lt);
+  color: var(--clr-gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+
+.ab-reason-card h3 {
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--clr-dark);
 }
 
-.about-why__card p {
-  font-size: 14px;
-  color: #5f737d;
-  line-height: 1.6;
+.ab-reason-card p {
+  font-size: 0.85rem;
+  color: var(--clr-slate);
+  line-height: 1.65;
 }
 
-.about-why__card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .ab-whyus__grid { grid-template-columns: 1fr 1fr; }
 }
 
-@media (max-width: 992px) {
-  .about-why { padding: 60px 5%; }
-}
-
-@media (max-width: 768px) {
-  .about-why { padding: 50px 5%; }
-  .about-why__grid { grid-template-columns: 1fr; gap: 20px; }
-  .about-why__card { padding: 20px 16px; }
+@media (max-width: 640px) {
+  .ab-whyus__grid { grid-template-columns: 1fr; }
 }
