@@ -12,7 +12,7 @@ function Navbar() {
   // straight to <body> on mobile only. On desktop it stays exactly
   // where it was, as a normal in-flow grid item inside <nav>.
   const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" ? window.innerWidth <= 900 : false
+    typeof window !== "undefined" ? window.innerWidth <= 900 : false,
   );
 
   const lastScrollY = useRef(0);
@@ -128,6 +128,26 @@ function Navbar() {
     }
   }, [pagesOpen]);
 
+  // ── Fix: some mobile browsers auto-scroll to keep a just-tapped
+  // button visible as the content around it grows (the mega-menu
+  // expanding), and this can happen *after* the resets above already
+  // ran, silently overriding them. Fight back by resetting again on
+  // the next couple of frames and once more after the CSS transition
+  // (350ms) has fully finished. ────────────────────────────────────
+  function forceMenuScrollTop() {
+    if (!linksRef.current) return;
+    linksRef.current.scrollTop = 0;
+    requestAnimationFrame(() => {
+      if (linksRef.current) linksRef.current.scrollTop = 0;
+      requestAnimationFrame(() => {
+        if (linksRef.current) linksRef.current.scrollTop = 0;
+      });
+    });
+    setTimeout(() => {
+      if (linksRef.current) linksRef.current.scrollTop = 0;
+    }, 400);
+  }
+
   const effectiveScrollState = menuOpen ? "visible" : scrollState;
 
   const headerClass = [
@@ -180,9 +200,7 @@ function Navbar() {
             setPagesOpen(false);
             const opening = !servicesOpen;
             setServicesOpen(opening);
-            if (opening && linksRef.current) {
-              linksRef.current.scrollTop = 0;
-            }
+            if (opening) forceMenuScrollTop();
           }}
         >
           Services
@@ -264,8 +282,8 @@ function Navbar() {
 
             <div className="mega-menu__col">
               <h3 className="mega-menu__col-title">
-                <i className="fa-solid fa-cube" aria-hidden="true"></i>{" "}
-                Creative Media
+                <i className="fa-solid fa-cube" aria-hidden="true"></i> Creative
+                Media
               </h3>
               <ul>
                 <li>
@@ -304,8 +322,8 @@ function Navbar() {
 
             <div className="mega-menu__col">
               <h3 className="mega-menu__col-title">
-                <i className="fa-solid fa-school" aria-hidden="true"></i>{" "}
-                School Solutions
+                <i className="fa-solid fa-school" aria-hidden="true"></i> School
+                Solutions
               </h3>
               <ul>
                 <li>
@@ -349,9 +367,7 @@ function Navbar() {
             setServicesOpen(false);
             const opening = !pagesOpen;
             setPagesOpen(opening);
-            if (opening && linksRef.current) {
-              linksRef.current.scrollTop = 0;
-            }
+            if (opening) forceMenuScrollTop();
           }}
         >
           Pages
@@ -399,7 +415,8 @@ function Navbar() {
           <i className="fa-regular fa-user" aria-hidden="true"></i> Login
         </Link>
         <Link to="/apply" className="btn-apply">
-          Apply Now <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          Apply Now{" "}
+          <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </Link>
       </li>
     </ul>
