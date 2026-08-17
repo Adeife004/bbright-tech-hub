@@ -14,7 +14,7 @@ export const programmes = [
         title: 'Digital Literacy',
         desc: 'Computer basics, internet safety and essential digital tools — the foundation for everything else.',
         duration: '6 weeks',
-        href: '/services#digital-literacy',
+        href: '/digital-literacy',
         featured: false,
     },
     {
@@ -27,7 +27,7 @@ export const programmes = [
         title: 'Web Development',
         desc: 'HTML, CSS, JavaScript, React and backend fundamentals — build full-stack apps from scratch.',
         duration: '16 weeks',
-        href: '/services#web-development',
+        href: '/web-development',
         featured: false,
     },
     {
@@ -40,7 +40,7 @@ export const programmes = [
         title: 'UI/UX Design',
         desc: 'Figma, user research and prototyping — design products people love to use.',
         duration: '12 weeks',
-        href: '/services#ui-ux-design',
+        href: '/ui-ux-design',
         featured: false,
     },
     {
@@ -53,7 +53,7 @@ export const programmes = [
         title: 'Data Analysis',
         desc: 'Excel, SQL and Power BI — turn raw spreadsheets into business decisions.',
         duration: '10 weeks',
-        href: '/services#data-analysis',
+        href: '/data-analysis',
         featured: false,
     },
     {
@@ -66,7 +66,7 @@ export const programmes = [
         title: 'Vibe Coding',
         desc: 'Build real apps using AI coding assistants — learn to prompt, iterate and ship without writing every line by hand.',
         duration: '6 weeks',
-        href: '/services#vibe-coding',
+        href: '/vibe-coding',
         featured: true,
     },
 
@@ -81,7 +81,7 @@ export const programmes = [
         title: 'Robotics',
         desc: 'Arduino, sensors and automation — design, build and program your own robots.',
         duration: '12 weeks',
-        href: '/services#robotics',
+        href: '/robotics',
         featured: false,
     },
     {
@@ -94,7 +94,7 @@ export const programmes = [
         title: 'VR & AR',
         desc: 'Build immersive virtual and augmented reality experiences for the next generation of devices.',
         duration: '10 weeks',
-        href: '/services#vr-ar',
+        href: '/vr-ar',
         featured: false,
     },
     {
@@ -107,7 +107,7 @@ export const programmes = [
         title: 'Game Development',
         desc: 'Build 2D and 3D games in Unity, from mechanics to publishing on Steam.',
         duration: '12 weeks',
-        href: '/services#game-development',
+        href: '/game-development',
         featured: false,
     },
 
@@ -122,7 +122,7 @@ export const programmes = [
         title: '3D Modelling',
         desc: 'Blender fundamentals — model, texture and render 3D objects and environments.',
         duration: '10 weeks',
-        href: '/services#3d-modelling',
+        href: '/3d-modelling',
         featured: false,
     },
     {
@@ -135,35 +135,22 @@ export const programmes = [
         title: '2D Animation',
         desc: 'Frame-by-frame and motion graphics animation for ads, explainers and social content.',
         duration: '8 weeks',
-        href: '/services#2d-animation',
+        href: '/2d-animation',
         featured: false,
     },
 
     // ── School Solutions ──────────────────────────────────────────
     {
-        id: 'in-school-coding',
+        id: 'in-school-programs',
         category: 'school-solutions',
         level: 'beginner',
-        keywords: 'in-school coding programs curriculum',
-        icon: 'fa-solid fa-school',
+        keywords: 'in-school programs coding robotics digital literacy curriculum',
+        icon: 'fa-solid fa-layer-group',
         badge: null,
-        title: 'In-School Coding Programs',
-        desc: 'A turnkey coding curriculum delivered directly in your school, for any grade level.',
+        title: 'In-School Programs',
+        desc: 'Coding, robotics and digital literacy curricula delivered directly in your school, for any grade level.',
         duration: 'Termly',
-        href: '/services#in-school-coding',
-        featured: false,
-    },
-    {
-        id: 'in-school-robotics',
-        category: 'school-solutions',
-        level: 'beginner',
-        keywords: 'in-school robotics programs curriculum',
-        icon: 'fa-solid fa-microchip',
-        badge: null,
-        title: 'In-School Robotics Programs',
-        desc: 'Hands-on robotics kits and lesson plans, brought directly into the classroom.',
-        duration: 'Termly',
-        href: '/services#in-school-robotics',
+        href: '/in-school-programs',
         featured: false,
     },
     {
@@ -176,7 +163,7 @@ export const programmes = [
         title: 'Teacher Training',
         desc: 'Equip educators to confidently teach tech skills — workshops and certification included.',
         duration: '4 weeks',
-        href: '/services#teacher-training',
+        href: '/teacher-training',
         featured: false,
     },
     {
@@ -189,7 +176,7 @@ export const programmes = [
         title: 'Educational Consultation',
         desc: 'Strategic guidance for schools building or scaling their tech-education offering.',
         duration: 'Custom',
-        href: '/services#educational-consultation',
+        href: '/educational-consultation',
         featured: false,
     },
 
@@ -217,7 +204,7 @@ export const programmes = [
         title: 'Weekend Classes',
         desc: 'Saturday sessions for learners who want focused, intensive weekend study time.',
         duration: 'Ongoing',
-        href: '/services#weekend-classes',
+        href: '/weekend-classes',
         featured: false,
     },
     {
@@ -230,7 +217,7 @@ export const programmes = [
         title: 'Holiday Classes',
         desc: 'Intensive holiday-period programmes — including our flagship July of Tech and Summer Classes.',
         duration: 'Seasonal',
-        href: '/july-of-tech',
+        href: '/holiday-classes',
         featured: true,
     },
 ]

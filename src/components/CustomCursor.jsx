@@ -2,19 +2,29 @@ import { useEffect, useRef } from "react";
 import "./CustomCursor.css";
 
 /**
- * CustomCursor
- * - Dot:  follows mouse instantly via transform
- * - Ring: trails behind using requestAnimationFrame lerp (0.1 factor)
- * - Hover state fires on every <a>, <button>, <input>, <select>,
- *   <textarea> and anything with data-cursor="pointer"
- * - Hidden automatically on touch devices
+ * CustomCursor — magnetic snap variant
+ * - Dot:   follows the real mouse position exactly, always
+ * - Ring:  in idle state, a small circle with a rotating dashed
+ *          decoration (a "scanner" look). On hovering any
+ *          interactive element, it morphs (lerped width/height/
+ *          position) to match that element's own bounding box and
+ *          border-radius — snapping onto it like a magnet — and
+ *          reveals a small directional arrow at its centre.
+ * - Stays glued to the hovered element if the page scrolls while
+ *   hovering (common with sticky headers, long cards, etc).
+ * - Hidden automatically on touch devices and reduced-motion.
  */
+
+const IDLE_SIZE = 34;
+const HOVER_PADDING = 14;
+const LERP_POS = 0.22;
+const LERP_SIZE = 0.24;
+
 function CustomCursor() {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
 
   useEffect(() => {
-    // Don't activate on touch-only devices
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
     const dot = dotRef.current;
@@ -23,18 +33,50 @@ function CustomCursor() {
 
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
-    let ringX = mouseX;
-    let ringY = mouseY;
+
+    // Ring's current (animated) box
+    let cx = mouseX,
+      cy = mouseY,
+      cw = IDLE_SIZE,
+      ch = IDLE_SIZE;
+    // Ring's target box — what it's lerping toward
+    let tx = mouseX,
+      ty = mouseY,
+      tw = IDLE_SIZE,
+      th = IDLE_SIZE;
+
     let rafId;
     let visible = false;
+    let hoveredEl = null;
 
-    /* ── Position helpers ── */
-    function moveDot(x, y) {
-      dot.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+    function isInteractive(el) {
+      return el.closest(
+        'a, button, input, textarea, select, label, [role="button"], [data-cursor="pointer"]',
+      );
     }
 
-    function moveRing(x, y) {
-      ring.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+    function setIdleTarget() {
+      tx = mouseX;
+      ty = mouseY;
+      tw = IDLE_SIZE;
+      th = IDLE_SIZE;
+      ring.style.borderRadius = "50%";
+      ring.classList.remove("cursor-ring--snapped");
+    }
+
+    function setHoverTarget(el) {
+      const rect = el.getBoundingClientRect();
+      tx = rect.left + rect.width / 2;
+      ty = rect.top + rect.height / 2;
+      tw = rect.width + HOVER_PADDING;
+      th = rect.height + HOVER_PADDING;
+
+      const computed = getComputedStyle(el).borderRadius;
+      // If the element itself has sharp corners, use a soft
+      // rounded-rect instead of a literal 0px snap.
+      ring.style.borderRadius =
+        computed && computed !== "0px" ? computed : "14px";
+      ring.classList.add("cursor-ring--snapped");
     }
 
     /* ── Mouse move ── */
@@ -43,25 +85,35 @@ function CustomCursor() {
       mouseY = e.clientY;
 
       if (!visible) {
-        // Snap ring to mouse on first move so it doesn't slide in from 0,0
-        ringX = mouseX;
-        ringY = mouseY;
+        cx = mouseX;
+        cy = mouseY;
         dot.classList.add("cursor-visible");
         ring.classList.add("cursor-visible");
         visible = true;
       }
 
-      moveDot(mouseX, mouseY);
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+
+      if (!hoveredEl) {
+        tx = mouseX;
+        ty = mouseY;
+      }
     }
 
-    /* ── Smooth ring animation loop ── */
-    function animateRing() {
-      ringX += (mouseX - ringX) * 0.1;
-      ringY += (mouseY - ringY) * 0.1;
-      moveRing(ringX, ringY);
-      rafId = requestAnimationFrame(animateRing);
+    /* ── Smooth lerp loop for the ring's position + size ── */
+    function animate() {
+      cx += (tx - cx) * LERP_POS;
+      cy += (ty - cy) * LERP_POS;
+      cw += (tw - cw) * LERP_SIZE;
+      ch += (th - ch) * LERP_SIZE;
+
+      ring.style.width = `${cw}px`;
+      ring.style.height = `${ch}px`;
+      ring.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+
+      rafId = requestAnimationFrame(animate);
     }
-    animateRing();
+    animate();
 
     /* ── Click effects ── */
     function onDown() {
@@ -73,24 +125,29 @@ function CustomCursor() {
       ring.classList.remove("cursor--click");
     }
 
-    /* ── Hover detection (event delegation — works with dynamic content) ── */
-    function isInteractive(el) {
-      return el.closest(
-        'a, button, input, textarea, select, label, [role="button"], [data-cursor="pointer"]',
-      );
-    }
-
-    function onEnter(e) {
-      if (isInteractive(e.target)) {
+    /* ── Hover detection + magnetic snap ── */
+    function onOver(e) {
+      const el = isInteractive(e.target);
+      if (el) {
+        hoveredEl = el;
         dot.classList.add("cursor--hover");
         ring.classList.add("cursor--hover");
+        setHoverTarget(el);
       }
     }
-    function onLeave(e) {
-      if (isInteractive(e.target)) {
+    function onOut(e) {
+      const el = isInteractive(e.target);
+      if (el && el === hoveredEl) {
+        hoveredEl = null;
         dot.classList.remove("cursor--hover");
         ring.classList.remove("cursor--hover");
+        setIdleTarget();
       }
+    }
+
+    /* ── Keep the snap glued to its element on scroll/resize ── */
+    function onScrollOrResize() {
+      if (hoveredEl) setHoverTarget(hoveredEl);
     }
 
     /* ── Hide when leaving window ── */
@@ -108,27 +165,39 @@ function CustomCursor() {
     document.addEventListener("mousemove", onMove, { passive: true });
     document.addEventListener("mousedown", onDown);
     document.addEventListener("mouseup", onUp);
-    document.addEventListener("mouseover", onEnter);
-    document.addEventListener("mouseout", onLeave);
+    document.addEventListener("mouseover", onOver);
+    document.addEventListener("mouseout", onOut);
     document.addEventListener("mouseleave", onLeaveWindow);
     document.addEventListener("mouseenter", onEnterWindow);
+    window.addEventListener("scroll", onScrollOrResize, {
+      passive: true,
+      capture: true,
+    });
+    window.addEventListener("resize", onScrollOrResize);
 
     return () => {
       cancelAnimationFrame(rafId);
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("mouseup", onUp);
-      document.removeEventListener("mouseover", onEnter);
-      document.removeEventListener("mouseout", onLeave);
+      document.removeEventListener("mouseover", onOver);
+      document.removeEventListener("mouseout", onOut);
       document.removeEventListener("mouseleave", onLeaveWindow);
       document.removeEventListener("mouseenter", onEnterWindow);
+      window.removeEventListener("scroll", onScrollOrResize, true);
+      window.removeEventListener("resize", onScrollOrResize);
     };
   }, []);
 
   return (
     <>
       <div ref={dotRef} className="cursor-dot" aria-hidden="true"></div>
-      <div ref={ringRef} className="cursor-ring" aria-hidden="true"></div>
+      <div ref={ringRef} className="cursor-ring" aria-hidden="true">
+        <span className="cursor-ring__idle-deco" aria-hidden="true"></span>
+        <span className="cursor-ring__arrow" aria-hidden="true">
+          <i className="fa-solid fa-arrow-right"></i>
+        </span>
+      </div>
     </>
   );
 }

@@ -1,7 +1,4 @@
 .filter-bar {
-  position: sticky;
-  top: var(--nav-height);
-  z-index: 50;
   background: rgba(244,249,248,0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -81,10 +78,6 @@
   font-size: 0.8rem;
   color: var(--clr-mist);
   font-weight: 500;
-}
-
-@media (max-width: 860px) {
-  .filter-bar { position: static; }
 }
 
 @media (max-width: 640px) {

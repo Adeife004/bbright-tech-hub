@@ -68,9 +68,8 @@
 }
 
 .navbar__logo img {
-  /* Fix: was 80px, taller than --nav-height (72px), overflowing the
-     header box on every screen size. */
-  height: 44px;
+  /* Increased per request — still comfortably under --nav-height (72px). */
+  height: 60px;
   width: auto;
   transition: transform var(--ease), filter var(--ease);
 }
@@ -588,6 +587,17 @@
     width: 100%;
     max-height: calc(100vh - var(--nav-height));
     overflow-y: auto;
+    /* Fix: more reliable touch-scrolling on iOS, and prevents this
+       panel's scroll from "chaining" into the page behind it. */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    /* Fix: browsers auto-adjust scroll position ("scroll anchoring")
+       when content grows/shrinks inside a scrollable box — which
+       fights our JS scrollTop reset while the Services mega-menu
+       expands, leaving the list scrolled to an arbitrary position
+       instead of the top. We manage scroll position ourselves, so
+       turn the browser's automatic behaviour off here. */
+    overflow-anchor: none;
     background: var(--clr-white);
     border-top: 2px solid var(--clr-teal-lt);
     box-shadow: var(--shadow-md);

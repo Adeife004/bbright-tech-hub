@@ -31,6 +31,8 @@ import HolidayClasses from "./pages/HolidayClasses.jsx";
 import JulyOfTech from "./pages/JulyOfTech.jsx";
 import SummerClasses from "./pages/SummerClasses.jsx";
 import InSchoolPrograms from "./pages/InSchoolPrograms.jsx";
+import TeacherTraining from "./pages/TeacherTraining.jsx";
+import EducationalConsultation from "./pages/EducationalConsultation.jsx";
 
 function App() {
   const { isAuth } = useAuth();
@@ -83,6 +85,11 @@ function App() {
         <Route path="/july-of-tech" element={<JulyOfTech />} />
         <Route path="/summer-classes" element={<SummerClasses />} />
         <Route path="/in-school-programs" element={<InSchoolPrograms />} />
+        <Route path="/teacher-training" element={<TeacherTraining />} />
+        <Route
+          path="/educational-consultation"
+          element={<EducationalConsultation />}
+        />
       </Routes>
     </>
   );

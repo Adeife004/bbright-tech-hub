@@ -3,30 +3,41 @@ import "./AboutCTA.css";
 
 function AboutCTA() {
   return (
-    <div className="about-cta">
-      <div className="about-cta__content">
-        <h2>Ready to Start Your Tech Journey?</h2>
+    <section className="ab-cta">
+      <div className="ab-cta__orb ab-cta__orb--1" aria-hidden="true"></div>
+      <div className="ab-cta__orb ab-cta__orb--2" aria-hidden="true"></div>
+      <div className="ab-cta__grid" aria-hidden="true"></div>
+
+      <div className="ab-cta__inner" data-aos="fade-up" data-aos-duration="700">
+        <span className="ab-cta__eyebrow">
+          <i className="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+          Ready When You Are
+        </span>
+
+        <h2>
+          See What B Bright Can Do{" "}
+          <span className="ab-cta__accent">For You.</span>
+        </h2>
+
         <p>
-          Empower yourself or your child with practical digital skills, hands-on
-          learning, and expert guidance at B Bright Tech. Let's build the future
-          together.
+          Whether you're starting from zero or bringing a school on board,
+          there's a path built for exactly where you're standing right now.
         </p>
-        <div className="about-cta__buttons">
-          <Link
-            to="/programmes"
-            className="about-cta__btn about-cta__btn--primary"
-          >
-            Explore Courses
+
+        <div className="ab-cta__btns">
+          <Link to="/apply" className="ab-btn-primary">
+            Apply Now{" "}
+            <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </Link>
-          <Link
-            to="/contact"
-            className="about-cta__btn about-cta__btn--secondary"
-          >
+          <Link to="/programmes" className="ab-cta__btn-outline">
+            Explore Programmes
+          </Link>
+          <Link to="/contact" className="ab-cta__btn-ghost">
             Contact Us
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
