@@ -5,7 +5,10 @@
    site's tone and decisions are built on.
    ============================================================ */
 
-.ab-foundation { padding: 5.5rem 2rem; background: var(--clr-white); }
+.ab-foundation {
+  padding: 5.5rem 2rem;
+  background: var(--clr-white);
+}
 
 .ab-eyebrow {
   display: inline-flex;
@@ -18,7 +21,9 @@
   margin-bottom: 1.2rem;
 }
 
-.ab-eyebrow--teal { color: var(--clr-teal-md); }
+.ab-eyebrow--teal {
+  color: var(--clr-teal-md);
+}
 
 /* ── Mission / Vision ── */
 
@@ -32,17 +37,21 @@
 
 .ab-mv-card {
   background: var(--clr-bg);
-  border: 1px solid rgba(170,194,197,0.35);
+  border: 1px solid rgba(170, 194, 197, 0.35);
   border-radius: var(--r-lg);
   padding: 2rem;
   text-align: center;
   transition: transform var(--ease), box-shadow var(--ease);
 }
 
-.ab-mv-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.ab-mv-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
 
 .ab-mv-card__icon {
-  width: 56px; height: 56px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: var(--clr-teal-lt);
   color: var(--clr-teal);
@@ -53,7 +62,10 @@
   margin: 0 auto 1.2rem;
 }
 
-.ab-mv-card__icon--gold { background: var(--clr-gold-lt); color: var(--clr-gold); }
+.ab-mv-card__icon--gold {
+  background: var(--clr-gold-lt);
+  color: var(--clr-gold);
+}
 
 .ab-mv-card h3 {
   font-family: 'Poppins', sans-serif;
@@ -104,7 +116,7 @@
 
 .ab-value-card {
   background: var(--clr-bg);
-  border: 1px solid rgba(170,194,197,0.35);
+  border: 1px solid rgba(170, 194, 197, 0.35);
   border-radius: var(--r-lg);
   padding: 1.6rem;
   display: flex;
@@ -116,16 +128,38 @@
 .ab-value-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
-  border-color: rgba(55,143,132,0.3);
+  border-color: rgba(55, 143, 132, 0.3);
 }
 
 .ab-value-card__icon {
-  width: 46px; height: 46px;
+  position: relative;
+  width: 46px;
+  height: 46px;
   border-radius: var(--r-md);
   background: var(--clr-teal-lt);
   color: var(--clr-teal);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.1rem;
+  z-index: 1;
+}
+
+.ab-value-card__icon::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(94, 206, 196, 0.35) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: -1;
+}
+
+.ab-value-card:hover .ab-value-card__icon::before {
+  opacity: 1;
+  transform: scale(1.2);
 }
 
 .ab-value-card h3 {
@@ -143,10 +177,17 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .ab-mv__grid     { grid-template-columns: 1fr; }
-  .ab-values__grid { grid-template-columns: 1fr 1fr; }
+  .ab-mv__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ab-values__grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 640px) {
-  .ab-values__grid { grid-template-columns: 1fr; }
+  .ab-values__grid {
+    grid-template-columns: 1fr;
+  }
 }

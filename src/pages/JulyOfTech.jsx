@@ -7,6 +7,18 @@ import Footer from "../components/Footer.jsx";
 import ScrollToTop from "../components/ScrollToTop.jsx";
 import "./JulyOfTech.css";
 
+/* ── Year helper ────────────────────────────────────────────── */
+// Returns the year of the upcoming or currently-running July of Tech.
+// While this year's July hasn't started or is in progress, that's
+// this year. Once July has finished, it rolls forward to next year
+// automatically — no manual updating needed each year.
+function getJulyOfTechYear() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const end = new Date(year, 6, 31, 23, 59, 59);
+  return now > end ? year + 1 : year;
+}
+
 /* ── Countdown hook ─────────────────────────────────────────── */
 function useJulyCountdown() {
   const [timeLeft, setTimeLeft] = useState({
@@ -171,6 +183,7 @@ const FAQS = [
 
 function JulyHero() {
   const { timeLeft, isLive } = useJulyCountdown();
+  const julyYear = getJulyOfTechYear();
 
   return (
     <section className="july-hero">
@@ -209,7 +222,7 @@ function JulyHero() {
         <h1 className="july-hero__title">
           <span className="july-hero__title-top">July of</span>
           <span className="july-hero__title-main">Tech</span>
-          <span className="july-hero__title-year">2026</span>
+          <span className="july-hero__title-year">{julyYear}</span>
         </h1>
 
         <p className="july-hero__desc">
@@ -383,11 +396,13 @@ function JulyFAQs() {
 }
 
 function JulyCTA() {
+  const julyYear = getJulyOfTechYear();
+
   return (
     <section className="july-cta" data-aos="fade-up">
       <div className="july-cta__inner">
         <div className="july-cta__orb" aria-hidden="true"></div>
-        <h2>Don't Miss July of Tech 2026</h2>
+        <h2>Don't Miss July of Tech {julyYear}</h2>
         <p>
           Registration is open now. Spots are limited — secure yours before
           they're gone.

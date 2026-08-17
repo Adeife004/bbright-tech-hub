@@ -1,77 +1,161 @@
-.about-cta {
-  padding: 100px 8%;
-  background-color: var(--clr-teal);
-  border-radius: 30px;
-  margin: 80px 8%;
+/* ============================================================
+   AboutCTA.css
+   Custom closing section for the About page — same teal/gold
+   pairing as the hero, with its own orb glow rather than reusing
+   the generic shared CTABanner styling.
+   ============================================================ */
+
+.ab-cta {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #040d12 0%, #0d2926 45%, #040d12 100%);
+  padding: 5.5rem 2rem;
   text-align: center;
 }
 
-.about-cta__content {
-  max-width: 750px;
-  margin: auto;
+.ab-cta__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.about-cta__content h2 {
+.ab-cta__orb--1 {
+  width: 420px;
+  height: 420px;
+  top: -120px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(55, 143, 132, 0.4) 0%, transparent 70%);
+  animation: abCtaOrb 10s ease-in-out infinite alternate;
+}
+
+.ab-cta__orb--2 {
+  width: 340px;
+  height: 340px;
+  bottom: -100px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(201, 145, 58, 0.3) 0%, transparent 70%);
+  animation: abCtaOrb 12s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes abCtaOrb {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(20px, 16px) scale(1.1);
+  }
+}
+
+.ab-cta__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(94, 206, 196, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 206, 196, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 25%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 25%, transparent 100%);
+}
+
+.ab-cta__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.ab-cta__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f0c068;
+  background: rgba(201, 145, 58, 0.14);
+  border: 1px solid rgba(201, 145, 58, 0.35);
+  border-radius: var(--r-pill);
+  padding: 0.35rem 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.ab-cta__inner h2 {
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
   color: #fff;
-  margin-bottom: 20px;
   line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
 }
 
-.about-cta__content p {
-  color: #f9fbf9;
+.ab-cta__accent {
+  background: linear-gradient(135deg, #5ecec4 0%, #f0c068 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ab-cta__inner p {
   font-size: 1rem;
-  line-height: 1.7;
-  margin-bottom: 35px;
-  font-family: 'Poppins', sans-serif;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 auto 2.2rem;
 }
 
-.about-cta__buttons {
+.ab-cta__btns {
   display: flex;
-  justify-content: center;
-  gap: 20px;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
 }
 
-.about-cta__btn {
-  display: inline-block;
-  padding: 14px 30px;
-  border-radius: 50px;
-  text-decoration: none;
+.ab-cta__btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.82rem 1.7rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
   font-weight: 600;
-  font-family: 'Poppins', sans-serif;
-  transition: transform 0.3s ease, background 0.3s ease;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  transition: background var(--ease), border-color var(--ease), color var(--ease);
 }
 
-.about-cta__btn--primary {
-  background: #c9913a;
+.ab-cta__btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(94, 206, 196, 0.5);
   color: #fff;
 }
 
-.about-cta__btn--primary:hover {
-  background: #b07d2f;
-  transform: translateY(-3px);
+.ab-cta__btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.82rem 1.4rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color var(--ease);
 }
 
-.about-cta__btn--secondary {
-  background: transparent;
+.ab-cta__btn-ghost:hover {
   color: #fff;
-  border: 2px solid #fff;
 }
 
-.about-cta__btn--secondary:hover {
-  background: #fff;
-  color: var(--clr-teal-md);
-  transform: translateY(-3px);
-}
-
-@media (max-width: 992px) {
-  .about-cta { margin: 60px 5%; padding: 70px 5%; }
-}
-
-@media (max-width: 768px) {
-  .about-cta { margin: 40px 16px; padding: 50px 20px; border-radius: 20px; }
-  .about-cta__buttons { flex-direction: column; align-items: center; gap: 14px; }
-  .about-cta__btn { width: 100%; max-width: 260px; text-align: center; }
+@media (max-width: 640px) {
+  .ab-cta {
+    padding: 4rem 1.25rem;
+  }
 }

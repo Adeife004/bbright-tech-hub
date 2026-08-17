@@ -16,6 +16,39 @@ function AboutHero() {
       <div className="ab-hero__orb ab-hero__orb--2" aria-hidden="true"></div>
       <div className="ab-hero__grid" aria-hidden="true"></div>
 
+      {/* Signature illustration: orbiting skill icons around a
+          glowing core, representing the range of disciplines under
+          one hub. Purely decorative, sits behind the text content. */}
+      <div className="ab-hero__constellation" aria-hidden="true">
+        <span className="ab-constellation__core"></span>
+
+        <span className="ab-orbit ab-orbit--1">
+          <span className="ab-node ab-node--1">
+            <i className="fa-solid fa-code"></i>
+          </span>
+        </span>
+        <span className="ab-orbit ab-orbit--2">
+          <span className="ab-node ab-node--2">
+            <i className="fa-solid fa-robot"></i>
+          </span>
+        </span>
+        <span className="ab-orbit ab-orbit--3">
+          <span className="ab-node ab-node--3">
+            <i className="fa-solid fa-pen-ruler"></i>
+          </span>
+        </span>
+        <span className="ab-orbit ab-orbit--4">
+          <span className="ab-node ab-node--4">
+            <i className="fa-solid fa-cube"></i>
+          </span>
+        </span>
+        <span className="ab-orbit ab-orbit--5">
+          <span className="ab-node ab-node--5">
+            <i className="fa-solid fa-film"></i>
+          </span>
+        </span>
+      </div>
+
       <div className="ab-hero__inner">
         <div
           className="ab-hero__text"

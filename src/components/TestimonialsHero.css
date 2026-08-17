@@ -7,7 +7,10 @@
   text-align: center;
   padding: calc(var(--nav-height) + 4rem) 2rem 4rem;
   overflow: hidden;
-  background: #040d12;
+  /* Warm gold/amber tone — deliberately distinct from the teal-led
+     Home hero and most other pages, fitting for a "proven results"
+     testimonials page. */
+  background: linear-gradient(135deg, #1c0f06 0%, #2b1a08 45%, #140b04 100%);
 }
 
 .testi-hero__canvas {
@@ -19,9 +22,21 @@
   pointer-events: none;
 }
 
-/* reuse orb styles from Hero.css — orb classes are global */
+/* Reuse orb styles from Hero.css (shared/global classes), but
+   override just the colour here so Home's orbs stay untouched. */
+.testi-hero .orb--1 {
+  background: radial-gradient(circle, rgba(240,192,104,0.42) 0%, transparent 70%);
+}
 
-/* grid overlay */
+.testi-hero .orb--2 {
+  background: radial-gradient(circle, rgba(212,116,90,0.32) 0%, transparent 70%);
+}
+
+.testi-hero .orb--3 {
+  background: radial-gradient(circle, rgba(240,192,104,0.2) 0%, transparent 70%);
+}
+
+/* grid overlay — gold-tinted to match, was teal-tinted */
 .testi-hero::after {
   content: '';
   position: absolute;
@@ -29,8 +44,8 @@
   z-index: 2;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(55,143,132,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(55,143,132,0.04) 1px, transparent 1px);
+    linear-gradient(rgba(201,145,58,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,145,58,0.05) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
@@ -43,10 +58,10 @@
   width: 100%;
 }
 
-/* override section-eyebrow for dark bg */
-.testi-hero .section-eyebrow  { color: #5ecec4; }
-.testi-hero .eyebrow-line     { background: linear-gradient(90deg, #5ecec4, transparent); }
-.testi-hero .eyebrow-line:last-child { background: linear-gradient(270deg, #5ecec4, transparent); }
+/* eyebrow — gold instead of teal */
+.testi-hero .section-eyebrow  { color: #f0c068; }
+.testi-hero .eyebrow-line     { background: linear-gradient(90deg, #f0c068, transparent); }
+.testi-hero .eyebrow-line:last-child { background: linear-gradient(270deg, #f0c068, transparent); }
 
 .testi-hero__heading {
   font-family: 'Poppins', sans-serif;
@@ -63,7 +78,7 @@
 }
 
 .testi-hero__brand {
-  background: linear-gradient(135deg, #5ecec4 0%, #378f84 40%, #c9913a 100%);
+  background: linear-gradient(135deg, #f0c068 0%, #e8b86d 45%, #d4746a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

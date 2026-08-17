@@ -20,22 +20,31 @@
 }
 
 .ab-hero__orb--1 {
-  width: 480px; height: 480px;
-  top: -100px; left: -80px;
-  background: radial-gradient(circle, rgba(55,143,132,0.4) 0%, transparent 70%);
+  width: 480px;
+  height: 480px;
+  top: -100px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(55, 143, 132, 0.4) 0%, transparent 70%);
   animation: abOrb 9s ease-in-out infinite alternate;
 }
 
 .ab-hero__orb--2 {
-  width: 380px; height: 380px;
-  bottom: -60px; right: -60px;
-  background: radial-gradient(circle, rgba(201,145,58,0.28) 0%, transparent 70%);
+  width: 380px;
+  height: 380px;
+  bottom: -60px;
+  right: -60px;
+  background: radial-gradient(circle, rgba(201, 145, 58, 0.28) 0%, transparent 70%);
   animation: abOrb 11s ease-in-out infinite alternate-reverse;
 }
 
 @keyframes abOrb {
-  from { transform: translate(0,0) scale(1); }
-  to   { transform: translate(20px,16px) scale(1.09); }
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(20px, 16px) scale(1.09);
+  }
 }
 
 .ab-hero__grid {
@@ -44,8 +53,8 @@
   z-index: 1;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(94,206,196,0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(94,206,196,0.045) 1px, transparent 1px);
+    linear-gradient(rgba(94, 206, 196, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 206, 196, 0.045) 1px, transparent 1px);
   background-size: 52px 52px;
   mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black 20%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black 20%, transparent 100%);
@@ -57,6 +66,175 @@
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
+}
+
+/* ============================================================
+   Skills constellation — signature hero illustration
+   ============================================================ */
+
+.ab-hero__constellation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 520px;
+  height: 520px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ab-constellation__core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #5ecec4, rgba(94, 206, 196, 0.25));
+  box-shadow: 0 0 26px rgba(94, 206, 196, 0.65);
+  animation: abCorePulse 3s ease-in-out infinite;
+}
+
+@keyframes abCorePulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+
+.ab-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px dashed rgba(94, 206, 196, 0.16);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.ab-orbit--1 {
+  width: 180px;
+  height: 180px;
+  animation-name: abOrbitSpin;
+  animation-duration: 14s;
+}
+
+.ab-orbit--2 {
+  width: 260px;
+  height: 260px;
+  animation-name: abOrbitSpin;
+  animation-duration: 20s;
+  animation-direction: reverse;
+}
+
+.ab-orbit--3 {
+  width: 340px;
+  height: 340px;
+  animation-name: abOrbitSpin;
+  animation-duration: 26s;
+}
+
+.ab-orbit--4 {
+  width: 420px;
+  height: 420px;
+  animation-name: abOrbitSpin;
+  animation-duration: 32s;
+  animation-direction: reverse;
+}
+
+.ab-orbit--5 {
+  width: 500px;
+  height: 500px;
+  animation-name: abOrbitSpin;
+  animation-duration: 38s;
+}
+
+@keyframes abOrbitSpin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Separate, position-neutral keyframe for nodes — rotation only,
+   since nodes are positioned via top/left/margin, not translate. */
+@keyframes abNodeCounterSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ab-node {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin-left: -16px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(94, 206, 196, 0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5ecec4;
+  font-size: 0.85rem;
+  backdrop-filter: blur(4px);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Each node counter-rotates at the same duration as its orbit, in
+   the opposite direction, so the icon itself stays upright while
+   the orbit carries it around the core. */
+.ab-node--1 {
+  animation-name: abNodeCounterSpin;
+  animation-duration: 14s;
+  animation-direction: reverse;
+}
+
+.ab-node--2 {
+  animation-name: abNodeCounterSpin;
+  animation-duration: 20s;
+}
+
+.ab-node--3 {
+  animation-name: abNodeCounterSpin;
+  animation-duration: 26s;
+  animation-direction: reverse;
+}
+
+.ab-node--4 {
+  animation-name: abNodeCounterSpin;
+  animation-duration: 32s;
+}
+
+.ab-node--5 {
+  animation-name: abNodeCounterSpin;
+  animation-duration: 38s;
+  animation-direction: reverse;
+}
+
+@media (max-width: 900px) {
+  .ab-hero__constellation {
+    display: none;
+  }
 }
 
 /* Eyebrow */
@@ -73,8 +251,8 @@
 
 .ab-hero .ab-eyebrow {
   color: #5ecec4;
-  background: rgba(55,143,132,0.16);
-  border: 1px solid rgba(94,206,196,0.35);
+  background: rgba(55, 143, 132, 0.16);
+  border: 1px solid rgba(94, 206, 196, 0.35);
   border-radius: var(--r-pill);
   padding: 0.35rem 1rem;
 }
@@ -99,7 +277,7 @@
 
 .ab-hero__desc {
   font-size: 1.02rem;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
   line-height: 1.8;
   max-width: 620px;
   margin: 0 auto 2.2rem;
@@ -126,18 +304,24 @@
   background: linear-gradient(135deg, var(--clr-teal-md), var(--clr-teal));
   border-radius: var(--r-pill);
   text-decoration: none;
-  box-shadow: 0 4px 20px rgba(55,143,132,0.42);
+  box-shadow: 0 4px 20px rgba(55, 143, 132, 0.42);
   transition: transform var(--ease), box-shadow var(--ease), filter var(--ease);
 }
 
 .ab-btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(55,143,132,0.56);
+  box-shadow: 0 8px 28px rgba(55, 143, 132, 0.56);
   filter: brightness(1.06);
 }
 
-.ab-btn-primary i { font-size: 0.8rem; transition: transform var(--ease); }
-.ab-btn-primary:hover i { transform: translateX(4px); }
+.ab-btn-primary i {
+  font-size: 0.8rem;
+  transition: transform var(--ease);
+}
+
+.ab-btn-primary:hover i {
+  transform: translateX(4px);
+}
 
 .ab-btn-outline {
   display: inline-flex;
@@ -146,17 +330,17 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.92rem;
   font-weight: 600;
-  color: rgba(255,255,255,0.75);
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(255,255,255,0.2);
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--r-pill);
   text-decoration: none;
   transition: background var(--ease), border-color var(--ease), color var(--ease);
 }
 
 .ab-btn-outline:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(94,206,196,0.5);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(94, 206, 196, 0.5);
   color: #fff;
 }
 
@@ -168,8 +352,8 @@
   gap: 2.5rem;
   flex-wrap: wrap;
   padding: 1.6rem 2rem;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: var(--r-lg);
 }
 
@@ -191,17 +375,25 @@
 .ab-stat__label {
   font-size: 0.72rem;
   font-weight: 600;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .ab-hero__stats { gap: 1.5rem 2rem; }
+  .ab-hero__stats {
+    gap: 1.5rem 2rem;
+  }
 }
 
 @media (max-width: 640px) {
-  .ab-hero { padding: calc(var(--nav-height) + 2.5rem) 1.25rem 3rem; }
-  .ab-hero__stats { flex-direction: column; gap: 1.2rem; }
+  .ab-hero {
+    padding: calc(var(--nav-height) + 2.5rem) 1.25rem 3rem;
+  }
+
+  .ab-hero__stats {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
 }

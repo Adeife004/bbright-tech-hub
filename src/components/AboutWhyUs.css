@@ -5,7 +5,10 @@
    as visually distinct sections even though they share a layout.
    ============================================================ */
 
-.ab-whyus { padding: 5.5rem 2rem; background: var(--clr-bg); }
+.ab-whyus {
+  padding: 5.5rem 2rem;
+  background: var(--clr-bg);
+}
 
 .ab-eyebrow {
   display: inline-flex;
@@ -18,7 +21,9 @@
   margin-bottom: 1.2rem;
 }
 
-.ab-eyebrow--teal { color: var(--clr-teal-md); }
+.ab-eyebrow--teal {
+  color: var(--clr-teal-md);
+}
 
 .ab-section-header {
   text-align: center;
@@ -51,7 +56,7 @@
 
 .ab-reason-card {
   background: var(--clr-white);
-  border: 1px solid rgba(170,194,197,0.35);
+  border: 1px solid rgba(170, 194, 197, 0.35);
   border-radius: var(--r-lg);
   padding: 1.6rem;
   display: flex;
@@ -63,16 +68,38 @@
 .ab-reason-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
-  border-color: rgba(201,145,58,0.35);
+  border-color: rgba(201, 145, 58, 0.35);
 }
 
 .ab-reason-card__icon {
-  width: 46px; height: 46px;
+  position: relative;
+  width: 46px;
+  height: 46px;
   border-radius: var(--r-md);
   background: var(--clr-gold-lt);
   color: var(--clr-gold);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.1rem;
+  z-index: 1;
+}
+
+.ab-reason-card__icon::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 145, 58, 0.35) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: -1;
+}
+
+.ab-reason-card:hover .ab-reason-card__icon::before {
+  opacity: 1;
+  transform: scale(1.2);
 }
 
 .ab-reason-card h3 {
@@ -90,9 +117,13 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .ab-whyus__grid { grid-template-columns: 1fr 1fr; }
+  .ab-whyus__grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 640px) {
-  .ab-whyus__grid { grid-template-columns: 1fr; }
+  .ab-whyus__grid {
+    grid-template-columns: 1fr;
+  }
 }

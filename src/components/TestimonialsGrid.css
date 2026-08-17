@@ -40,6 +40,19 @@
   box-shadow: 0 15px 40px rgba(0,0,0,0.08);
 }
 
+/* Placeholder cards (no real quote yet) — subtly dashed border so
+   it's visually clear at a glance which ones still need real text. */
+.testi-card--placeholder {
+  border-style: dashed;
+  border-color: rgba(170,194,197,0.6);
+  background: #fbfdfc;
+}
+
+.testi-card--placeholder .testi-card__text {
+  color: #94a3b8;
+  font-style: italic;
+}
+
 /* ---- Quote icon ---- */
 
 .testi-card__quote-icon {
@@ -47,6 +60,10 @@
   color: #3eb8ab;
   margin-bottom: 18px;
   line-height: 1;
+}
+
+.testi-card--placeholder .testi-card__quote-icon {
+  color: rgba(62,184,171,0.35);
 }
 
 /* ---- Quote text ---- */
@@ -69,13 +86,20 @@
   border-top: 1px solid rgba(170,194,197,0.3);
 }
 
-.testi-card__avatar {
+/* ---- Initials avatar (replaces the old <img> avatar) ---- */
+
+.testi-card__avatar--initials {
   width: 68px;
   height: 68px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #3eb8ab;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border: 3px solid #3eb8ab;
 }
 
 .testi-card__info {
@@ -109,6 +133,14 @@
 
 .star--filled { color: #3eb8ab; }
 .star--empty  { color: rgba(170,194,197,0.45); }
+
+.testi-card__rating-pending {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: #94a3b8;
+}
 
 /* ---- Responsive ---- */
 

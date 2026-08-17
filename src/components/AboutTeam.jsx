@@ -29,7 +29,7 @@ function AboutTeam() {
             data-aos-delay={i * 70}
           >
             <div className="ab-team-card__avatar">
-              <i className="fa-solid fa-user" aria-hidden="true"></i>
+              <i className="fa-solid fa-plus" aria-hidden="true"></i>
             </div>
             <span className="ab-team-card__placeholder">Your Name Here</span>
             <span className="ab-team-card__role">{member.role}</span>

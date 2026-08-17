@@ -36,6 +36,30 @@ function AboutIntro() {
           </p>
         </div>
       </div>
+
+      {/* Small illustrated journey path — a lightweight visual
+          timeline rather than another block of text. */}
+      <div className="ab-journey" data-aos="fade-up" data-aos-delay="200">
+        <span className="ab-journey__line" aria-hidden="true"></span>
+
+        {[
+          { icon: "fa-solid fa-lightbulb", label: "The Idea" },
+          { icon: "fa-solid fa-users", label: "First Cohort" },
+          { icon: "fa-solid fa-flag-checkered", label: "Today" },
+        ].map((stop, i) => (
+          <div
+            key={stop.label}
+            className="ab-journey__stop"
+            data-aos="zoom-in"
+            data-aos-delay={250 + i * 120}
+          >
+            <span className="ab-journey__dot">
+              <i className={stop.icon} aria-hidden="true"></i>
+            </span>
+            <span className="ab-journey__label">{stop.label}</span>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

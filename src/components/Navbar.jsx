@@ -263,19 +263,19 @@ function Navbar() {
               </h3>
               <ul>
                 <li>
-                  <a href="/robotics" role="menuitem">
+                  <Link to="/robotics" role="menuitem">
                     Robotics
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/vr-ar" role="menuitem">
+                  <Link to="/vr-ar" role="menuitem">
                     VR &amp; AR
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/game-development" role="menuitem">
+                  <Link to="/game-development" role="menuitem">
                     Game Development
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -287,14 +287,14 @@ function Navbar() {
               </h3>
               <ul>
                 <li>
-                  <a href="/3d-modelling" role="menuitem">
+                  <Link to="/3d-modelling" role="menuitem">
                     3D Modelling
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/2d-animation" role="menuitem">
+                  <Link to="/2d-animation" role="menuitem">
                     2D Animation
-                  </a>
+                  </Link>
                 </li>
               </ul>
               <h3 className="mega-menu__col-title mega-menu__col-title--spaced">
@@ -302,6 +302,12 @@ function Navbar() {
                 Learning Programs
               </h3>
               <ul>
+                <li>
+                  <Link to="/july-of-tech" role="menuitem">
+                    July of Tech{" "}
+                    <span className="mega-menu__tag">Flagship</span>
+                  </Link>
+                </li>
                 <li>
                   <Link to="/after-school" role="menuitem">
                     After-School Classes
