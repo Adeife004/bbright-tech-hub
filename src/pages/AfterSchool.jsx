@@ -26,7 +26,7 @@ const SUBJECTS = [
     icon: "fa-solid fa-robot",
     title: "Robotics",
     age: "10 – 16",
-    desc: "Build and program robots using Arduino kits. Hands-on every session.",
+    desc: "Build and program robots using Robotic kits. Hands-on every session.",
   },
   {
     icon: "fa-solid fa-gamepad",
@@ -49,9 +49,9 @@ const SUBJECTS = [
 ];
 
 const TIMETABLE = [
-  { day: "Monday", subjects: ["Intro to Coding", "Robotics"] },
+  { day: "Monday", subjects: ["Coding", "Robotics"] },
   { day: "Tuesday", subjects: ["Web Design", "Digital Design"] },
-  { day: "Wednesday", subjects: ["Game Development", "Intro to Coding"] },
+  { day: "Wednesday", subjects: ["Game Development", "Coding"] },
   { day: "Thursday", subjects: ["Excel & Data", "Robotics"] },
   { day: "Friday", subjects: ["Web Design", "Game Development"] },
 ];

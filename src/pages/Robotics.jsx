@@ -22,7 +22,7 @@ const OVERVIEW_CARDS = [
     icon: "fa-solid fa-toolbox",
     color: "orange",
     title: "Tools You Will Use",
-    desc: "Arduino boards, breadboards, ultrasonic and infrared sensors, servo and DC motors, and the Arduino IDE for programming your builds.",
+    desc: "Arduino Uno, Lego Mindstorms, ultrasonic and infrared sensors, servo and DC motors, Lego Wedo, Micro:Bit and the Arduino IDE for programming your builds.",
   },
   {
     icon: "fa-solid fa-users",
@@ -215,6 +215,9 @@ function RoboticsHero() {
         {/* Floating tool badges */}
         <div className="rb-badge rb-badge--arduino">
           <i className="fa-solid fa-microchip" aria-hidden="true"></i> Arduino
+        </div>
+        <div className="rb-badge rb-badge--microbit">
+          <i className="fa-solid fa-microchip" aria-hidden="true"></i> Micro:Bit
         </div>
         <div className="rb-badge rb-badge--sensor">
           <i className="fa-solid fa-satellite-dish" aria-hidden="true"></i>{" "}
