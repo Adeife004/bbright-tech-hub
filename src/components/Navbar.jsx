@@ -148,6 +148,20 @@ function Navbar() {
     }, 400);
   }
 
+  // ── Fix: close the mobile menu whenever any nav link inside it is
+  // tapped. Previously nothing did this — most obvious when tapping
+  // a link to the page you're already on, since no navigation
+  // happens to incidentally cause a re-render/close. Delegated on
+  // the list itself so it covers top-level links, mega-menu links,
+  // dropdown links and the mobile CTA row in one place. ───────────
+  function handleMenuLinkClick(e) {
+    if (e.target.closest("a")) {
+      setMenuOpen(false);
+      setServicesOpen(false);
+      setPagesOpen(false);
+    }
+  }
+
   const effectiveScrollState = menuOpen ? "visible" : scrollState;
 
   const headerClass = [
@@ -172,6 +186,7 @@ function Navbar() {
       ref={linksRef}
       className={`navbar__links ${menuOpen ? "open" : ""}`}
       id="nav-menu"
+      onClick={handleMenuLinkClick}
     >
       <li>
         <Link to="/" className="navbar__link">
@@ -411,6 +426,16 @@ function Navbar() {
             >
               <i className="fa-solid fa-graduation-cap" aria-hidden="true"></i>{" "}
               Programmes
+            </Link>
+          </li>
+          <li role="none">
+            <Link
+              to="/stem-shop"
+              className="navbar__dropdown-item"
+              role="menuitem"
+            >
+              <i className="fa-solid fa-cart-shopping" aria-hidden="true"></i>{" "}
+              STEM Shop
             </Link>
           </li>
         </ul>

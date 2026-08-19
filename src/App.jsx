@@ -23,6 +23,7 @@ import VrAr from "./pages/VRPage.jsx";
 import GameDevelopment from "./pages/GameDevelopment.jsx";
 import Modelling3D from "./pages/Modelling3D.jsx";
 import Animation2D from "./pages/Animation2D.jsx";
+import StemShop from "./pages/StemShop.jsx";
 
 // Programme pages
 import AfterSchool from "./pages/AfterSchool.jsx";
@@ -77,6 +78,7 @@ function App() {
         <Route path="/game-development" element={<GameDevelopment />} />
         <Route path="/3d-modelling" element={<Modelling3D />} />
         <Route path="/2d-animation" element={<Animation2D />} />
+        <Route path="/stem-shop" element={<StemShop />} />
 
         {/* ── Special programme pages ── */}
         <Route path="/after-school" element={<AfterSchool />} />
