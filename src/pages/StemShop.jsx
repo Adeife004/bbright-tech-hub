@@ -29,7 +29,7 @@ const LEVEL_CLASS = {
 const PRODUCTS = [
   {
     icon: "fa-solid fa-robot",
-    image: null,
+    image: "/src/assets/arduino-kit.jpg",
     title: "Beginner Robotics Starter Kit",
     level: "Beginner",
     desc: "Everything needed to build a first simple robot, including motors, sensors and a beginner-friendly guide.",
