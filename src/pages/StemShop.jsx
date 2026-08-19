@@ -10,7 +10,7 @@ import "./StemShop.css";
 /* PLACEHOLDER: replace with your real WhatsApp number/catalogue link.
    Format: https://wa.me/<countrycode><number> with no + or spaces,
    e.g. https://wa.me/2348012345678 */
-const WHATSAPP_CATALOGUE_LINK = "https://wa.me/234XXXXXXXXXX";
+const WHATSAPP_CATALOGUE_LINK = "https://wa.me/c/2348054264981";
 
 /* PLACEHOLDER CATALOG: names, descriptions and prices below are
    illustrative only. Replace with your real kit list and confirmed
