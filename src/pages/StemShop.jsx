@@ -6,6 +6,13 @@ import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import ScrollToTop from "../components/ScrollToTop.jsx";
 import "./StemShop.css";
+import Image1 from "../assets/apitor.jpg";
+import Image2 from "../assets/arduino-kit.jpg";
+import Image3 from "../assets/diy-truck.jpg";
+import Image4 from "../assets/solar-robot.jpg";
+import Image5 from "../assets/superkit.jpg";
+import Image6 from "../assets/mindstorm.png";
+import Image7 from "../assets/quarky.jpg";
 
 /* PLACEHOLDER: replace with your real WhatsApp number/catalogue link.
    Format: https://wa.me/<countrycode><number> with no + or spaces,
@@ -29,48 +36,56 @@ const LEVEL_CLASS = {
 const PRODUCTS = [
   {
     icon: "fa-solid fa-robot",
-    image: "/src/assets/arduino-kit.jpg",
-    title: "Beginner Robotics Starter Kit",
+    image: Image1,
+    title: "Apitor Starter Kit",
+    level: "Beginner",
+    desc: "Everything needed to build a first simple robot, including motors, sensors and a beginner-friendly guide.",
+    price: "₦XX,XXX",
+  },
+    {
+    icon: "fa-solid fa-robot",
+    image: Image7,
+    title: "Quarky Kit",
     level: "Beginner",
     desc: "Everything needed to build a first simple robot, including motors, sensors and a beginner-friendly guide.",
     price: "₦XX,XXX",
   },
   {
     icon: "fa-solid fa-microchip",
-    image: null,
+    image: Image2,
     title: "Arduino Building Kit",
-    level: "Beginner",
+    level: "Intermediate",
     desc: "Arduino board, breadboard, wires and core components for classroom or home projects.",
     price: "₦XX,XXX",
   },
   {
-    icon: "fa-solid fa-route",
-    image: null,
-    title: "Line-Follower Robot Kit",
-    level: "Intermediate",
+    icon: "fa-solid fa-screwdriver-wrench",
+    image: Image3,
+    title: "DIY 6x6 Truck",
+    level: "Beginner",
     desc: "Build a robot that follows a line using infrared sensors — a favourite first competition project.",
     price: "₦XX,XXX",
   },
   {
-    icon: "fa-solid fa-satellite-dish",
-    image: null,
-    title: "Sensor Expansion Pack",
+    icon: "fa-solid fa-gears",
+    image: Image4,
+    title: "29 in 1 Solar Robot",
     level: "Intermediate",
     desc: "Ultrasonic, infrared and light sensors to expand any existing robotics kit.",
     price: "₦XX,XXX",
   },
   {
-    icon: "fa-solid fa-hand",
-    image: null,
-    title: "Robotic Arm Kit",
+    icon: "fa-solid fa-robot",
+    image: Image5,
+    title: "Building:Bit",
     level: "Advanced",
     desc: "Build and program a multi-joint robotic arm capable of picking and placing objects.",
     price: "₦XX,XXX",
   },
   {
-    icon: "fa-solid fa-trophy",
-    image: null,
-    title: "Competition-Ready Kit",
+    icon: "fa-solid fa-robot",
+    image: Image6,
+    title: "Lego Mindstorm",
     level: "Advanced",
     desc: "A complete kit with everything needed to build and compete in robotics challenges.",
     price: "₦XX,XXX",
