@@ -39,7 +39,7 @@ const PRODUCTS = [
     image: Image1,
     title: "Apitor Starter Kit",
     level: "Beginner",
-    desc: "Everything needed to build a first simple robot, including motors, sensors and a beginner-friendly guide.",
+    desc: "Build, code, and control your own robots while learning fundamentals of robotics and programming",
     price: "₦XX,XXX",
   },
     {
@@ -47,7 +47,7 @@ const PRODUCTS = [
     image: Image7,
     title: "Quarky Kit",
     level: "Beginner",
-    desc: "Everything needed to build a first simple robot, including motors, sensors and a beginner-friendly guide.",
+    desc: "Explore AI, robotics, and coding by building intelligent robots and exciting real-world projects.",
     price: "₦XX,XXX",
   },
   {
@@ -55,7 +55,7 @@ const PRODUCTS = [
     image: Image2,
     title: "Arduino Building Kit",
     level: "Intermediate",
-    desc: "Arduino board, breadboard, wires and core components for classroom or home projects.",
+    desc: "Learn Arduino programming and electronics by creating practical circuits, sensors, and beginner automation projects.",
     price: "₦XX,XXX",
   },
   {
@@ -63,7 +63,7 @@ const PRODUCTS = [
     image: Image3,
     title: "DIY 6x6 Truck",
     level: "Beginner",
-    desc: "Build a robot that follows a line using infrared sensors — a favourite first competition project.",
+    desc: "Assemble your own six-wheel robot truck to follow paths - perfect for beginners.",
     price: "₦XX,XXX",
   },
   {
@@ -71,7 +71,7 @@ const PRODUCTS = [
     image: Image4,
     title: "29 in 1 Solar Robot",
     level: "Intermediate",
-    desc: "Ultrasonic, infrared and light sensors to expand any existing robotics kit.",
+    desc: "Explore renewable energy and robotics by building 29 different solar-powered machine and creative robot designs.",
     price: "₦XX,XXX",
   },
   {
@@ -79,7 +79,7 @@ const PRODUCTS = [
     image: Image5,
     title: "Building:Bit",
     level: "Advanced",
-    desc: "Build and program a multi-joint robotic arm capable of picking and placing objects.",
+    desc: "Build and program multiple robots using micro:bit, from autonomous vehicles to mechanical arms and interactive machines.",
     price: "₦XX,XXX",
   },
   {
@@ -87,7 +87,7 @@ const PRODUCTS = [
     image: Image6,
     title: "Lego Mindstorm",
     level: "Advanced",
-    desc: "A complete kit with everything needed to build and compete in robotics challenges.",
+    desc: "Take robotics to the next level by designing, building and programming intelligent robots with motors, sensors and advanced control systems.",
     price: "₦XX,XXX",
   },
 ];
